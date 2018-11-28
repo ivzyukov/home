@@ -1,0 +1,12 @@
+---
+- name: Install tools
+  hosts: all
+  tasks:
+    - apt: name={{ item }} state=present
+      with_items:
+        - vim
+        - htop
+        - tree
+        - sysstat
+        - tcpdump
+        - rsync
