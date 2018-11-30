@@ -1,1 +1,11 @@
-raspberry ansible_host=192.168.34.105 ansible_connection=ssh ansible_user=pi ansible_ssh_pass=raspberry ansible_become=yes
+---
+all:
+  hosts:
+    raspberry:
+      ansible_host: 127.0.0.1
+      ansible_port: 2222
+      ansible_connection: ssh
+      ansible_user: pi 
+      ansible_ssh_pass: raspberry
+      ansible_become: yes
+      data_dir: "/data"

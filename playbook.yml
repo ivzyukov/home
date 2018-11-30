@@ -10,3 +10,39 @@
         - sysstat
         - tcpdump
         - rsync
+
+- name: debug various
+  hosts: all
+  tasks: 
+    - debug:
+        msg: "for various debug purposes, like variables printing {{ data_dir }}"
+
+
+### This is for the ARM Raspbian Version 
+#  https://docs.docker.com/install/linux/docker-ce/debian/#install-using-the-convenience-script
+#- name: Download Docker installation script
+#  hosts: all
+#  tasks:
+#    - get_url:
+#        url: https://get.docker.com
+#        dest: /tmp/get_docker.sh
+#        mode: 0744
+#    - command: "sh /tmp/get_docker.sh"
+#
+- name: Install Docker-ce for x86 arch
+  hosts: all
+  tasks:
+  - name: Install prerequisites
+    apt: name={{item}} update_cache=yes
+    with_items:
+     - apt-transport-https
+     - ca-certificates
+     - curl
+     - software-properties-common
+  - name: Add Docker GPG key
+    apt_key: url=https://download.docker.com/linux/debian/gpg
+  - name: Add Docker APT repository
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/debian {{ansible_distribution_release}} stable
+  - name: Install Docker
+    package: name=docker-ce state=present
