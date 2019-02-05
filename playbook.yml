@@ -17,7 +17,6 @@
     - debug:
         msg: "for various debug purposes, like variables printing {{ data_dir }}"
 
-
 ### This is for the ARM Raspbian Version 
 #  https://docs.docker.com/install/linux/docker-ce/debian/#install-using-the-convenience-script
 - name: Download Docker installation script
