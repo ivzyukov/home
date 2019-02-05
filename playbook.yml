@@ -56,12 +56,6 @@
     - pip: 
         name: docker-py
 
-- name: Create a network for monitoring
-  hosts: all
-  tasks:
-    - docker_network:
-        name: monitor-net
-
 - name: Create and connect Prometheus container to network
   hosts: all
   tasks:
@@ -87,8 +81,7 @@
                 ]
         #restart: yes
         #restart_policy: unless-stopped
-        networks:
-          - name: monitor-net
+        network_mode: host
 
 - name: Upload prometheus.yml to host
   hosts: all
@@ -99,6 +92,7 @@
         owner: root
         group: root
         mode: 0755
+  tags: nodexp
 
 - name: Create and connect Node Exporter container to network
   hosts: all
@@ -107,8 +101,8 @@
         name: NodeExporter
         # x86 version
         #image: prom/node-exporter:latest
-        image: rycus86/prometheus-node-exporter
         privileged: yes
+        image: rycus86/prometheus-node-exporter
         volumes:
           - "/proc:/host/proc:ro"
           - "/sys:/host/sys:ro"
@@ -122,8 +116,7 @@
                 ]
         restart: yes
         restart_policy: unless-stopped
-        networks:
-          - name: monitor-net
+        network_mode: host
   tags: nodexp
 
 - name: Create and connect Grafana container to network
@@ -144,5 +137,4 @@
         env: {"GF_SECURITY_ADMIN_USER": "admin", "GF_SECURITY_ADMIN_PASSWORD": "admin", "GF_USERS_ALLOW_SIGN_UP": false}
         restart: yes
         restart_policy: unless-stopped
-        networks:
-          - name: monitor-net
+        network_mode: host
