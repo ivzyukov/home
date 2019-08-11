@@ -1,8 +1,13 @@
 ---
-- name: Install tools
-  hosts: all
+- hosts: all
+  handlers:
+    - name: restart prometheus
+      shell: "docker restart Prometheus"
+
+      #- hosts: all 
   tasks:
-    - apt: name={{ item }} state=present
+    - name: Install tools
+      apt: name={{ item }} state=present
       with_items:
         - vim
         - htop
@@ -11,24 +16,18 @@
         - tcpdump
         - rsync
 
-- name: debug various
-  hosts: all
-  tasks: 
-    - debug:
-        msg: "for various debug purposes, like variables printing {{ data_dir }}"
-
 ### This is for the ARM Raspbian Version 
 #  https://docs.docker.com/install/linux/docker-ce/debian/#install-using-the-convenience-script
-- name: Download Docker installation script
-  hosts: all
-  tasks:
-    - get_url:
-        url: https://get.docker.com
-        dest: /tmp/get_docker.sh
-        mode: 0744
-    - command: "sh /tmp/get_docker.sh"
-
-# This is for the x86 version
+#- name: Download Docker installation script
+#  hosts: all
+#  tasks:
+#    - get_url:
+#        url: https://get.docker.com
+#        dest: /tmp/get_docker.sh
+#        mode: 0744
+#    - command: "sh /tmp/get_docker.sh"
+#
+### This is for the x86 version
 #- name: Install Docker-ce for x86 arch
 #  hosts: all
 #  tasks:
@@ -49,79 +48,62 @@
 #      name: docker-ce
 #      state: present
 
-- name: Install docker-py module for python3
-  hosts: all
-  tasks:
-    - pip: 
+    - name: Install docker-py module for python3
+      pip: 
         name: docker-py
 
-- name: Create and connect Prometheus container to network
-  hosts: all
-  tasks:
-    - docker_container:
+    - name: create directories for prometheus
+      file: 
+       path: "{{ item }}" 
+       state: directory 
+       mode: 0755
+      with_items:
+        - /srv/prometheus/conf
+        - /srv/prometheus/data
+
+    - name: Copy Prometheus config
+      copy: 
+        src: prometheus.yml
+        dest: /srv/prometheus/conf/prometheus.yml
+      notify: restart prometheus
+
+    - name: Run Prometheus
+      docker_container:
         name: Prometheus
-        # x86 version
-        #image: prom/prometheus:latest
         image: rycus86/prometheus
         volumes:
-          - ./prometheus/:/etc/prometheus/
-          - prometheus_data:/prometheus
-        #exposed_ports: 
-        #  - 9090
-        #published_ports: 
-        #  - "9090:9090"
-        command: [
-            "--config.file=/etc/prometheus/prometheus.yml", 
-            "--storage.tsdb.path=/prometheus",
-            "--web.console.libraries=/etc/prometheus/console_libraries",
-            "--web.console.templates=/etc/prometheus/consoles",
-            "--storage.tsdb.retention=1h",
-            "--web.enable-lifecycle",
-                ]
-        #restart: yes
-        #restart_policy: unless-stopped
+          - /srv/prometheus/conf/:/etc/prometheus/:ro
+          - /srv/prometheus/data/:/prometheus:rw
+        command:
+            "--config.file=/etc/prometheus/prometheus.yml \
+              --storage.tsdb.path=/prometheus \
+              --storage.tsdb.retention=30d \
+              --web.console.libraries=/usr/share/prometheus/console_libraries \
+              --web.console.templates=/usr/share/prometheus/consoles \
+              --web.external-url=http://0.0.0.0/prometheus/ \
+              --web.route-prefix=/prometheus/"
+              #              --storage.local.target-heap-size=268697600"
+        restart_policy: unless-stopped
         network_mode: host
 
-- name: Upload prometheus.yml to host
-  hosts: all
-  tasks:
-    - copy: 
-        src: prometheus.yml
-        dest: /home/pi/prometheus
-        owner: root
-        group: root
-        mode: 0755
-  tags: nodexp
-
-- name: Create and connect Node Exporter container to network
-  hosts: all
-  tasks:
-    - docker_container:
+    - name: Run Node Exporter
+      docker_container:
         name: NodeExporter
-        # x86 version
-        #image: prom/node-exporter:latest
         privileged: yes
         image: rycus86/prometheus-node-exporter
         volumes:
           - "/proc:/host/proc:ro"
           - "/sys:/host/sys:ro"
           - "/:/rootfs:ro"
-        #exposed_ports:  
-        #  - 9100
-        command: [
-            "--path.procfs=/host/proc", 
-            "--path.sysfs=/host/sys",
-            "--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($|/)",
-                ]
-        restart: yes
+        command: 
+            "--path.procfs=/host/proc \ 
+            --path.sysfs=/host/sys \
+            --collector.filesystem.ignored-mount-points=^/(sys|proc|devtmpfs|host|etc|tmpfs)($|/)"            
         restart_policy: unless-stopped
         network_mode: host
-  tags: nodexp
 
-- name: Create and connect Grafana container to network
-  hosts: all
-  tasks:
-    - docker_container:
+    - name: Run Grafana
+      docker_container:
         name: Grafana
         image: fg2it/grafana-armhf:v5.1.4   
         volumes:
@@ -129,11 +111,7 @@
           - "./grafana/datasources:/etc/grafana/datasources"
           - "./grafana/dashboards:/etc/grafana/dashboards"
           - "./grafana/setup.sh:/setup.sh"
-        #exposed_ports: 
-        #  - 3000
-        #published_ports: 
-        #  - "3000:3000"
         env: {"GF_SECURITY_ADMIN_USER": "admin", "GF_SECURITY_ADMIN_PASSWORD": "admin", "GF_USERS_ALLOW_SIGN_UP": false}
-        restart: yes
         restart_policy: unless-stopped
         network_mode: host
+
