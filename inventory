@@ -2,10 +2,6 @@
 all:
   hosts:
     raspberry:
-      ansible_host: raspberrypi.local
-      ansible_port: 22
-      ansible_connection: ssh
-#      ansible_user: pi
-#      ansible_ssh_pass: raspberry
+      ansible_user: pi
       ansible_become: yes
       data_dir: "/data"
