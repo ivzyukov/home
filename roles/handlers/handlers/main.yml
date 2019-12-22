@@ -1,0 +1,20 @@
+---
+- name: restart prometheus
+  listen: restart prometheus
+  shell: "docker restart prometheus"
+
+- name: restart openvpn-monitor
+  listen: restart openvpn-monitor
+  shell: "docker restart openvpn-monitor"
+
+- name: restart nginx
+  listen: restart nginx
+  shell: "docker restart nginx"
+
+- name: restart grafana
+  listen: restart grafana
+  shell: "docker restart grafana"
+
+- name: restart dht22
+  listen: restart dht22
+  shell: "systemctl restart dht22-exporter.service"

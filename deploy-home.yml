@@ -1,0 +1,45 @@
+---
+
+- hosts: all
+  roles:
+    - name: common
+      tags: common
+      
+    - name: docker
+      tags: docker
+
+- hosts: rpi01
+  roles:
+    - name: prometheus
+      tags: prometheus
+
+- hosts: rpi01
+  roles:
+    - name: grafana
+      tags: grafana
+
+- hosts: rpi01
+  roles:
+    - name: openvpn_monitor
+      tags: oprnvpn_monitor
+
+- hosts: rpi01
+  roles:
+    - name: nginx_rpi
+      tags: nginx_rpi
+
+- hosts: proxmox
+  roles:
+    - name: nginx_proxmox
+      tags: nginx_proxmox
+
+- hosts: node_exporter
+  roles: 
+    - name: node_exporter
+      tags: node_exporter
+
+- hosts: rpi01
+  roles:
+    - name: dht22_exporter
+      tags: dht22_exporter
+

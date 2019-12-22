@@ -1,0 +1,14 @@
+dht22_pin: 4
+dht22_delay_sec: 30
+dht22_port: 8001
+common_packages:
+  - vim
+  - htop
+  - tree
+  - sysstat
+  - tcpdump
+  - rsync
+  - telnet
+  - python-pip
+  - docker
+

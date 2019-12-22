@@ -1,0 +1,27 @@
+---
+- name: Create directories for nginx
+  file: 
+   path: "{{ item }}" 
+   state: directory 
+   mode: 0755
+  with_items:
+    - /srv/nginx/conf
+
+- name: Copy nginx configs
+  template: 
+    src: proxmox-nginx.conf
+    dest: /srv/nginx/conf/nginx.conf
+  notify: restart nginx
+  tags: nginx
+
+- name: Run nginx
+  docker_container:
+    name: nginx
+    image: nginx:latest
+    volumes:
+      - "/srv/nginx/conf/nginx.conf:/etc/nginx/conf.d/proxmox.conf:ro"
+      - "/etc/pve/local/pve-ssl.pem:/etc/pve/local/pve-ssl.pem"
+      - "/etc/pve/local/pve-ssl.key:/etc/pve/local/pve-ssl.key"
+    restart_policy: unless-stopped
+    network_mode: host
+

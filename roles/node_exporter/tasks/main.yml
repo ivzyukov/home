@@ -1,0 +1,18 @@
+---
+
+- name: Run Node Exporter
+  docker_container:
+    name: node_exporter
+    privileged: yes
+    image: rycus86/prometheus-node-exporter
+    volumes:
+      - "/proc:/host/proc:ro"
+      - "/sys:/host/sys:ro"
+      - "/:/rootfs:ro"
+    command: 
+        "--path.procfs=/host/proc \ 
+        --path.sysfs=/host/sys \
+        --collector.filesystem.ignored-mount-points=^/(sys|proc|devtmpfs|host|etc|tmpfs)($|/)"            
+    restart_policy: unless-stopped
+    network_mode: host
+    

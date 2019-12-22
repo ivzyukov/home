@@ -1,0 +1,34 @@
+---
+- name: Create directories for Grafana
+  file:
+   path: "{{ item }}"
+   state: directory
+   mode: 0755
+  with_items:
+    - /srv/grafana/data
+    - /srv/grafana/conf
+    - /srv/grafana/log
+
+- name: Copy grafana config
+  copy:
+    src: templates/grafana.ini
+    dest: /srv/grafana/conf/grafana.ini
+  notify: restart grafana
+
+- name: Run Grafana
+  docker_container:
+    name: grafana
+    user: root
+    #    image: fg2it/grafana-armhf:v5.1.4   
+    image: grafana/grafana:latest
+    volumes:
+      - "/srv/grafana/conf/grafana.ini:/etc/grafana/grafana.ini:ro"
+      - "/srv/grafana/data:/var/lib/grafana:rw"
+      - "/srv/grafana/log:/var/log/grafana:rw"
+    env: 
+      GF_SECURITY_ADMIN_USER: "admin"
+      GF_SECURITY_ADMIN_PASSWORD: "admin"
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_PANELS_DISABLE_SANITIZE_HTML: "true"
+    restart_policy: unless-stopped
+    network_mode: host
