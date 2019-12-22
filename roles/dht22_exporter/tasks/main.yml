@@ -1,0 +1,26 @@
+---
+- name: Create DHT22 exporter directories
+  file: 
+    path: /srv/dht22-exporter
+    state: directory
+    mode: 0755
+
+- name: Create configurations
+  template: 
+    src: dht22_exporter.py
+    dest: /srv/dht22-exporter
+    mode: 755
+
+- name: Create DHT22 systemd service
+  template:
+    src: dht22-exporter.service.j2
+    dest:  /etc/systemd/system/dht22-exporter.service
+    mode: 0655
+  notify: restart dht22
+
+- name: Run DHT22 service
+  service:
+    name: dht22-exporter.service
+    state: started
+    enabled: yes
+
