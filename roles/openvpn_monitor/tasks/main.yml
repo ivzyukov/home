@@ -10,7 +10,7 @@
 - name: Copy openvpn-monitor config
   template:
     src: openvpn-monitor.conf
-    dest: /srv/openvpn-monitor/openvpn-monitor.conf
+    dest: /srv/openvpn-monitor
   notify: restart openvpn-monitor
 
 - name: Run openvpn-monitor

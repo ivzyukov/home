@@ -1,5 +1,10 @@
 ---
 
+- name: Check if docker installed
+  shell: dpkg -l docker-ce
+  register: output
+  ignore_errors: True
+
 - name: Install docker on debian x86_64 systems
   block: 
   - name: Install prerequisites
@@ -21,6 +26,7 @@
   when: 
     - ansible_distribution == 'Debian'
     - ansible_architecture == 'x86_64'
+    - output.rc != 0
 
 - name: Install docker on Raspberry
   block:
@@ -32,3 +38,4 @@
   when: 
     - ansible_distribution == 'Debian'
     - ansible_architecture == 'armv7l'
+    - output.rc != 0

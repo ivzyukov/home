@@ -10,7 +10,7 @@
 - name: Copy nginx configs
   template: 
     src: proxmox-nginx.conf
-    dest: /srv/nginx/conf/nginx.conf
+    dest: /srv/nginx/conf
   notify: restart nginx
   tags: nginx
 

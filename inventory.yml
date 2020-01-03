@@ -3,10 +3,11 @@
 all:
   hosts:
     rpi01:
-      ansible_user: pi
+      #      ansible_user: pi
       ansible_become: yes
       data_dir: "/data"
       ansible_host: 192.168.2.5
+      #      ansible_password: raspberry
     proxmox:
       ansible_become: yes
       ansible_host: 192.168.2.25

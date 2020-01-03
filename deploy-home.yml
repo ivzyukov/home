@@ -8,6 +8,9 @@
     - name: docker
       tags: docker
 
+    - name: users
+      tags: users
+
 - hosts: rpi01
   roles:
     - name: prometheus

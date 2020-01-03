@@ -5,8 +5,15 @@
    state: directory
    mode: 0755
   with_items:
-    - /srv/prometheus/conf
-    - /srv/prometheus/data
+    - "/srv/prometheus/conf"
+    - "{{ data_dir }}/data/prometheus"
+
+- name: Create symbolic link for data directory
+  file: 
+    src: "{{ data_dir }}/data/prometheus" 
+    dest: "/srv/prometheus/data"
+    state: link 
+    force: yes
 
 - name: Copy Prometheus config
   template: 

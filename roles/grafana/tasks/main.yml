@@ -5,14 +5,21 @@
    state: directory
    mode: 0755
   with_items:
-    - /srv/grafana/data
+    - "{{ data_dir }}/data/grafana"
     - /srv/grafana/conf
     - /srv/grafana/log
+
+- name: Create symbolic link for data directory
+  file: 
+    src: "{{ data_dir }}/data/grafana" 
+    dest: "/srv/grafana/data"
+    state: link 
+    force: yes
 
 - name: Copy grafana config
   copy:
     src: templates/grafana.ini
-    dest: /srv/grafana/conf/grafana.ini
+    dest: /srv/grafana/conf
   notify: restart grafana
 
 - name: Run Grafana
