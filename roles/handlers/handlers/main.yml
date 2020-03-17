@@ -18,3 +18,7 @@
 - name: restart dht22
   listen: restart dht22
   shell: "systemctl restart dht22-exporter.service"
+
+- name: restart home-assistant
+  listen: restart home-assistant
+  shell: "docker restart home-assistant"

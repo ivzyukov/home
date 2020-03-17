@@ -46,3 +46,12 @@
     - name: dht22_exporter
       tags: dht22_exporter
 
+- hosts: rpi01
+  roles:
+    - name: openvpn_exporter
+      tags: openvpn_exporter
+
+- hosts: rpi01
+  roles:
+    - name: home_assistant
+      tags: home_assistant

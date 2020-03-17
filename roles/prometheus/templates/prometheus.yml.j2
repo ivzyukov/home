@@ -10,3 +10,6 @@ scrape_configs:
   - job_name: 'DTH22'
     static_configs: 
       - targets: [ '{{ hostvars["rpi01"].ansible_host }}:{{ dht22_port }}' ]
+  - job_name: 'openvpn'
+    static_configs: 
+      - targets: [ '{{ hostvars["rpi01"].ansible_host }}:{{ openvpn_exporter_port }}' ]
