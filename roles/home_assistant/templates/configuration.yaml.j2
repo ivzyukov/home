@@ -1,0 +1,34 @@
+homeassistant:
+  latitude: 52.356407
+  longitude: 4.901339
+  elevation: 6
+  unit_system: metric
+  time_zone: Europe/Amsterdam
+  name: De Pijp WIP
+
+default_config:
+
+lovelace:
+  mode: yaml
+
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+discovery:
+  ignore:
+    - yeelight
+
+yeelight:
+  devices:
+    {{ yeelight_bulb_ip_2 }}:
+      name: Living Room
+    {{ yeelight_bulb_ip_1 }}:
+      name: Pallet Room
+cast:
+  media_player:
+    - host: 192.168.2.1

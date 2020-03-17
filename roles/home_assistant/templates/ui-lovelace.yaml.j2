@@ -1,0 +1,42 @@
+title: De Pijp WIP
+views:
+  - path: default_view
+    title: Home
+   # panel: true
+    type: horizontal-stack
+    cards:
+      - type: picture-elements
+        title: Floor plan
+        image: /local/floorplan.png
+        #style:
+        #  width: 100%
+        #  height: 100%
+        elements:
+          - type: state-icon
+            entity: light.living_room
+            tap_action:
+              action: toggle
+            style:
+              top: 70%
+              left: 26%
+          - type: state-icon
+            entity: light.pallet_root
+            tap_action:
+              action: toggle
+            style:
+              top: 70%
+              left: 55%
+      - type: entities
+        title: Lights
+        entities:
+          - light.living_room
+          - light.pallet_room
+      - type: vertical-stack 
+        cards:
+          - type: weather-forecast
+            entity: weather.home_de_pijp
+
+#    badges:
+#      - entity: binary_sensor.updater
+#      - entity: person.igor
+#      - entity: sun.sun

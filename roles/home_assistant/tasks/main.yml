@@ -1,0 +1,50 @@
+---
+- name: Create directories for Home Assistant
+  file:
+   path: "{{ item }}"
+   state: directory
+   mode: 0755
+  with_items:
+    - "{{ data_dir }}/data/hassio/conf"
+    - "/srv/hassio"
+    - "/srv/hassio/conf/www"
+
+- name: Create symbolic links for Home Assistant
+  file: 
+    src: "{{ data_dir }}/data/hassio/conf" 
+    dest: "/srv/hassio/conf"
+    state: link 
+    force: yes
+
+- name: Copy Home Assistant config
+  template: 
+    src: "{{ item }}.j2"
+    dest: "/srv/hassio/conf/{{ item }}"
+  with_items:
+    - ui-lovelace.yaml
+  tags: home-configs
+
+- name: Copy Home Assistant UI config
+  template: 
+    src: "{{ item }}.j2"
+    dest: "/srv/hassio/conf/{{ item }}"
+  with_items:
+    - configuration.yaml
+  notify: restart home-assistant
+  tags: home-configs
+
+- name: Copy floorplan
+  copy: 
+    src: floorplan.png
+    dest: /srv/hassio/conf/www/floorplan.png
+
+- name: Run Home Assistant container
+  docker_container:
+    name: home-assistant
+    image: homeassistant/armhf-homeassistant
+    volumes:
+      - /srv/hassio/conf:/config
+    env:
+      TZ: "Europe/Amsterdam"
+    restart_policy: unless-stopped
+    network_mode: host
