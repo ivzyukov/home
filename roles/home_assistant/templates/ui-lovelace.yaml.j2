@@ -20,7 +20,7 @@ views:
               top: 70%
               left: 26%
           - type: state-icon
-            entity: light.pallet_root
+            entity: light.pallet_room
             tap_action:
               action: toggle
             style:
@@ -31,12 +31,21 @@ views:
         entities:
           - light.living_room
           - light.pallet_room
-      - type: vertical-stack 
+      - type: vertical-stack
         cards:
           - type: weather-forecast
             entity: weather.home_de_pijp
-
-#    badges:
-#      - entity: binary_sensor.updater
-#      - entity: person.igor
-#      - entity: sun.sun
+      - type: entity-button
+        tap_action:
+          action: call-service
+          service: remote.send_command
+          service_data:
+            command: switch_av_tv
+            entity_id: remote.xiaomi_miio
+        hold_action:
+          action: more-info
+        show_icon: true
+        show_name: true
+        entity: remote.xiaomi_miio
+        icon: 'mdi:mdi-remote'
+        name: AV/TV

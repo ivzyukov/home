@@ -3,13 +3,17 @@ global:
 scrape_configs:
   - job_name: 'node'
     static_configs:
-      - targets: [{% for host in groups['all'] %} '{{ hostvars[host].ansible_host }}:9100' {% if not loop.last %},{% endif %}{% endfor %}] 
+      - targets: [{% for host in groups['all'] %} '{{ hostvars[host].ansible_host }}:9100' {% if not loop.last %},{% endif %}{% endfor %}]
   - job_name: 'Prometheus'
+    metrics_path: "/prometheus/metrics"
     static_configs:
-      - targets: [ 'localhost:9090' ]
+      - targets: [ '{{ hostvars["rpi01"].ansible_host }}:{{ prometheus_port }}' ]
   - job_name: 'DTH22'
-    static_configs: 
+    static_configs:
       - targets: [ '{{ hostvars["rpi01"].ansible_host }}:{{ dht22_port }}' ]
   - job_name: 'openvpn'
-    static_configs: 
+    static_configs:
       - targets: [ '{{ hostvars["rpi01"].ansible_host }}:{{ openvpn_exporter_port }}' ]
+#  - job_name: 'mosquitto'
+#    static_configs:
+#      - targets: [ '{{ hostvars["rpi01"].ansible_host }}:{{ mosquitto_exporter_port }}' ]

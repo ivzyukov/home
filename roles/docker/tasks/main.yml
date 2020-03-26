@@ -4,9 +4,10 @@
   shell: dpkg -l docker-ce
   register: output
   ignore_errors: True
+  check_mode: no
 
 - name: Install docker on debian x86_64 systems
-  block: 
+  block:
   - name: Install prerequisites
     apt: name={{item}} update_cache=yes
     with_items:
@@ -23,7 +24,7 @@
     package:
       name: docker-ce
       state: present
-  when: 
+  when:
     - ansible_distribution == 'Debian'
     - ansible_architecture == 'x86_64'
     - output.rc != 0
@@ -35,7 +36,7 @@
         dest: /tmp/get_docker.sh
         mode: 0744
     - command: "sh /tmp/get_docker.sh"
-  when: 
+  when:
     - ansible_distribution == 'Debian'
     - ansible_architecture == 'armv7l'
     - output.rc != 0

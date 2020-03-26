@@ -19,7 +19,7 @@
   "links": [],
   "panels": [
     {
-      "content": "<style type=\"text/css\">\np.markdown-html.panel-text-content {\noverflow: hidden;\n}\np.markdown-html.panel-text-content iframe {\nheight:225px;\n}\n</style>\n<script type=\"text/javascript\">\nvar weatherProperties = 'lat=52.366700&lon=4.894500&color=#FFFFFF&text-color=#FFFFFF&name=Amsterdam&units=uk';\n\n// initial load\ndocument.getElementById('embedweather').src = 'http://forecast.io/embed/?ts=' + (Date.now()) + '#' + weatherProperties;\n\n// refresh\nvar weatherRefresh = setInterval(function() { document.getElementById('embedweather').src = 'http://forecast.io/embed/?ts=' + (Date.now()) + '#' + weatherProperties; }, 1800000);\n\n</script>\n<iframe id=\"embedweather\" height=\"100%\" src=\"#\" style=\"margin: 0; padding: 0; border: none; width:100%; position:relative; top:-50px; overflow:hidden; margin-bottom: -70px;\"></iframe>\n",
+      "content": "<style type=\"text/css\">\np.markdown-html.panel-text-content {\noverflow: hidden;\n}\np.markdown-html.panel-text-content iframe {\nheight:225px;\n}\n</style>\n<script type=\"text/javascript\">\nvar weatherProperties = 'lat=52.366700&lon=4.894500&color=#FFFFFF&text-color=#FFFFFF&name=Amsterdam&units=uk';\n\n// initial load\ndocument.getElementById('embedweather').src = 'https://forecast.io/embed/?ts=' + (Date.now()) + '#' + weatherProperties;\n\n// refresh\nvar weatherRefresh = setInterval(function() { document.getElementById('embedweather').src = 'http://forecast.io/embed/?ts=' + (Date.now()) + '#' + weatherProperties; }, 1800000);\n\n</script>\n<iframe id=\"embedweather\" height=\"100%\" src=\"#\" style=\"margin: 0; padding: 0; border: none; width:100%; position:relative; top:-50px; overflow:hidden; margin-bottom: -70px;\"></iframe>\n",
       "datasource": null,
       "gridPos": {
         "h": 6,
@@ -413,5 +413,5 @@
   "timezone": "",
   "title": "Home",
   "uid": "3MiQZxRgk",
-  "version": 2
+  "version": 7
 }

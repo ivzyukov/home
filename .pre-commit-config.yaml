@@ -1,3 +1,4 @@
+---
 fail_fast: false
 
 repos:
@@ -19,7 +20,7 @@ repos:
       - id: yamllint
         name: YAML lint
         entry: yamllint -s
-        
+
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v1.4.0
     hooks:
@@ -30,4 +31,3 @@ repos:
         args: [--autofix]
       - id: trailing-whitespace
       - id: end-of-file-fixer
-

@@ -10,14 +10,14 @@
     - "/srv/hassio/conf/www"
 
 - name: Create symbolic links for Home Assistant
-  file: 
-    src: "{{ data_dir }}/data/hassio/conf" 
+  file:
+    src: "{{ data_dir }}/data/hassio/conf"
     dest: "/srv/hassio/conf"
-    state: link 
+    state: link
     force: yes
 
 - name: Copy Home Assistant config
-  template: 
+  template:
     src: "{{ item }}.j2"
     dest: "/srv/hassio/conf/{{ item }}"
   with_items:
@@ -25,7 +25,7 @@
   tags: home-configs
 
 - name: Copy Home Assistant UI config
-  template: 
+  template:
     src: "{{ item }}.j2"
     dest: "/srv/hassio/conf/{{ item }}"
   with_items:
@@ -34,7 +34,7 @@
   tags: home-configs
 
 - name: Copy floorplan
-  copy: 
+  copy:
     src: floorplan.png
     dest: /srv/hassio/conf/www/floorplan.png
 

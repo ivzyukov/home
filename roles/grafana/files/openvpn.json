@@ -17,6 +17,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
+  "iteration": 1585086178670,
   "links": [
     {
       "icon": "external link",
@@ -188,10 +189,10 @@
         "lineColor": "rgb(31, 120, 193)",
         "show": false
       },
-      "tableColumn": "__name__",
+      "tableColumn": "",
       "targets": [
         {
-          "expr": "openvpn_up{job=\"openvpn-metrics\"}",
+          "expr": "openvpn_up{job=\"openvpn\"}",
           "format": "time_series",
           "instant": true,
           "intervalFactor": 1,
@@ -223,150 +224,6 @@
         }
       ],
       "valueName": "current"
-    },
-    {
-      "columns": [],
-      "datasource": "Prometheus",
-      "fontSize": "100%",
-      "gridPos": {
-        "h": 21,
-        "w": 11,
-        "x": 13,
-        "y": 0
-      },
-      "id": 4,
-      "links": [],
-      "options": {},
-      "pageSize": 100,
-      "scroll": true,
-      "showHeader": true,
-      "sort": {
-        "col": 2,
-        "desc": true
-      },
-      "styles": [
-        {
-          "alias": "Time",
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "pattern": "Time",
-          "type": "hidden"
-        },
-        {
-          "alias": "Username",
-          "colorMode": null,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "decimals": 2,
-          "pattern": "common_name",
-          "thresholds": [],
-          "type": "string",
-          "unit": "short"
-        },
-        {
-          "alias": "Login Time",
-          "colorMode": null,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": null,
-          "mappingType": 1,
-          "pattern": "connection_time",
-          "thresholds": [],
-          "type": "date",
-          "unit": "dateTimeFromNow"
-        },
-        {
-          "alias": "Address",
-          "colorMode": null,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 2,
-          "mappingType": 1,
-          "pattern": "virtual_address",
-          "thresholds": [],
-          "type": "string",
-          "unit": "short"
-        },
-        {
-          "alias": "",
-          "colorMode": null,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 2,
-          "mappingType": 1,
-          "pattern": "Value",
-          "thresholds": [],
-          "type": "hidden",
-          "unit": "short"
-        },
-        {
-          "alias": "Rx",
-          "colorMode": null,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 0,
-          "mappingType": 1,
-          "pattern": "Value #A",
-          "thresholds": [],
-          "type": "number",
-          "unit": "bytes"
-        },
-        {
-          "alias": "Tx",
-          "colorMode": null,
-          "colors": [
-            "rgba(245, 54, 54, 0.9)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
-          ],
-          "dateFormat": "YYYY-MM-DD HH:mm:ss",
-          "decimals": 0,
-          "mappingType": 1,
-          "pattern": "Value #B",
-          "thresholds": [],
-          "type": "number",
-          "unit": "bytes"
-        }
-      ],
-      "targets": [
-        {
-          "expr": "sort_desc(sum(label_replace(openvpn_server_client_received_bytes_total{common_name!=\"UNDEF\"}, \"connection_time\", \"${1}000\", \"connection_time\", \"(.*)\"))by(common_name, connection_time, virtual_address))",
-          "format": "table",
-          "instant": true,
-          "intervalFactor": 1,
-          "refId": "A"
-        },
-        {
-          "expr": "sum(label_replace(openvpn_server_client_sent_bytes_total{common_name!=\"UNDEF\"}, \"connection_time\", \"${1}000\", \"connection_time\", \"(.*)\"))by(common_name, connection_time, virtual_address)",
-          "format": "table",
-          "instant": true,
-          "intervalFactor": 1,
-          "refId": "B"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Current OpenVPN Clients",
-      "transform": "table",
-      "type": "table"
     },
     {
       "cacheTimeout": null,
@@ -525,7 +382,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "time()-openvpn_status_update_time_seconds{job=\"openvpn-metrics\"}",
+          "expr": "time()-openvpn_status_update_time_seconds",
           "format": "time_series",
           "instant": true,
           "intervalFactor": 1,
@@ -1005,7 +862,7 @@
       "fill": 0,
       "fillGradient": 0,
       "gridPos": {
-        "h": 7,
+        "h": 6,
         "w": 7,
         "x": 6,
         "y": 8
@@ -1066,47 +923,32 @@
         }
       ],
       "spaceLength": 10,
-      "stack": true,
+      "stack": false,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "topk(6, sum(rate(openvpn_server_client_received_bytes_total{common_name!=\"UNDEF\"}[2m]))by(common_name))",
+          "expr": "rate(openvpn_server_client_received_bytes_total{job=\"openvpn\"}[1m])",
           "format": "time_series",
-          "interval": "2m",
+          "instant": false,
+          "interval": "1m",
           "intervalFactor": 1,
-          "legendFormat": "{{ common_name }} - Rx",
+          "legendFormat": "{{ common_name }} {{ $real_ip }}- Rx",
           "refId": "A"
         },
         {
-          "expr": "topk(6, sum(rate(openvpn_server_client_sent_bytes_total{common_name!=\"UNDEF\"}[2m]))by(common_name))",
+          "expr": "rate(openvpn_server_client_sent_bytes_total{job=\"openvpn\"}[1m])",
           "format": "time_series",
-          "interval": "2m",
+          "interval": "1m",
           "intervalFactor": 1,
-          "legendFormat": "{{ common_name }} - Tx",
+          "legendFormat": "{{ common_name }} {{ $real_ip }}- Tx",
           "refId": "B"
-        },
-        {
-          "expr": "sum(bottomk(scalar(openvpn_openvpn_server_connected_clients)-6, sum(rate(openvpn_server_client_received_bytes_total{common_name!=\"UNDEF\"}[2m]))by(common_name)))",
-          "format": "time_series",
-          "interval": "2m",
-          "intervalFactor": 1,
-          "legendFormat": "Rx - Others",
-          "refId": "E"
-        },
-        {
-          "expr": "sum(bottomk(scalar(openvpn_openvpn_server_connected_clients)-6, sum(rate(openvpn_server_client_sent_bytes_total{common_name!=\"UNDEF\"}[1m]))by(common_name)))",
-          "format": "time_series",
-          "interval": "2m",
-          "intervalFactor": 1,
-          "legendFormat": "Tx - Others",
-          "refId": "F"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Top 6 Client Network Activity",
+      "title": "Network Activity",
       "tooltip": {
         "shared": true,
         "sort": 2,
@@ -1122,7 +964,7 @@
       },
       "yaxes": [
         {
-          "format": "decbytes",
+          "format": "bytes",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -1146,55 +988,6 @@
     },
     {
       "aliasColors": {},
-      "breakPoint": "100%",
-      "cacheTimeout": null,
-      "combine": {
-        "label": "Others",
-        "threshold": "0.025"
-      },
-      "datasource": "Prometheus",
-      "fontSize": "60%",
-      "format": "decbytes",
-      "gridPos": {
-        "h": 7,
-        "w": 6,
-        "x": 0,
-        "y": 14
-      },
-      "id": 8,
-      "interval": null,
-      "legend": {
-        "percentage": true,
-        "show": true,
-        "sort": "current",
-        "sortDesc": true,
-        "values": false
-      },
-      "legendType": "On graph",
-      "links": [],
-      "maxDataPoints": 3,
-      "nullPointMode": "connected",
-      "options": {},
-      "pieType": "pie",
-      "strokeWidth": 1,
-      "targets": [
-        {
-          "expr": "sort(sum(increase(openvpn_server_client_received_bytes_total{common_name!=\"UNDEF\"}[1d])+increase(openvpn_server_client_sent_bytes_total{common_name!=\"UNDEF\"}[1d]))by(common_name))",
-          "format": "time_series",
-          "instant": false,
-          "intervalFactor": 1,
-          "legendFormat": "{{ common_name }}",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": "24h",
-      "timeShift": null,
-      "title": "Traffic Distribution",
-      "type": "grafana-piechart-panel",
-      "valueName": "current"
-    },
-    {
-      "aliasColors": {},
       "bars": false,
       "cacheTimeout": null,
       "dashLength": 10,
@@ -1205,9 +998,9 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 6,
-        "w": 7,
-        "x": 6,
-        "y": 15
+        "w": 6,
+        "x": 0,
+        "y": 14
       },
       "hiddenSeries": false,
       "id": 14,
@@ -1287,19 +1080,220 @@
         "align": false,
         "alignLevel": null
       }
+    },
+    {
+      "columns": [],
+      "datasource": "Prometheus",
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 6,
+        "w": 7,
+        "x": 6,
+        "y": 14
+      },
+      "id": 4,
+      "interval": "",
+      "links": [],
+      "options": {},
+      "pageSize": 100,
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": 2,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "Time",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "Time",
+          "type": "hidden"
+        },
+        {
+          "alias": "Username",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 2,
+          "pattern": "common_name",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        },
+        {
+          "alias": "Login Time",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": null,
+          "mappingType": 1,
+          "pattern": "connection_time",
+          "thresholds": [],
+          "type": "date",
+          "unit": "dateTimeFromNow"
+        },
+        {
+          "alias": "Address",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "virtual_address",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "Value",
+          "thresholds": [],
+          "type": "hidden",
+          "unit": "short"
+        },
+        {
+          "alias": "Rx",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "mappingType": 1,
+          "pattern": "Value #A",
+          "thresholds": [],
+          "type": "number",
+          "unit": "bytes"
+        },
+        {
+          "alias": "Tx",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "mappingType": 1,
+          "pattern": "Value #B",
+          "thresholds": [],
+          "type": "number",
+          "unit": "bytes"
+        }
+      ],
+      "targets": [
+        {
+          "expr": "sort_desc(sum(label_replace(openvpn_server_client_received_bytes_total{common_name!=\"UNDEF\"}, \"connection_time\", \"${1}000\", \"connection_time\", \"(.*)\"))by(common_name, connection_time, virtual_address))",
+          "format": "table",
+          "instant": true,
+          "intervalFactor": 1,
+          "refId": "A"
+        },
+        {
+          "expr": "sum(label_replace(openvpn_server_client_sent_bytes_total{common_name!=\"UNDEF\"}, \"connection_time\", \"${1}000\", \"connection_time\", \"(.*)\"))by(common_name, connection_time, virtual_address)",
+          "format": "table",
+          "instant": true,
+          "intervalFactor": 1,
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Current OpenVPN Clients",
+      "transform": "table",
+      "type": "table"
     }
   ],
-  "refresh": "",
+  "refresh": false,
   "schemaVersion": 21,
   "style": "dark",
   "tags": [
     "openvpn"
   ],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "tags": [],
+          "text": "base",
+          "value": [
+            "base"
+          ]
+        },
+        "datasource": "Prometheus",
+        "definition": "label_values(openvpn_server_client_received_bytes_total, common_name)",
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "client",
+        "options": [],
+        "query": "label_values(openvpn_server_client_received_bytes_total, common_name)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "text": "All",
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": "Prometheus",
+        "definition": "label_values(openvpn_server_client_received_bytes_total, real_address)",
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "real_ip",
+        "options": [],
+        "query": "label_values(openvpn_server_client_received_bytes_total, real_address)",
+        "refresh": 1,
+        "regex": "/(.*):.*/",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {
@@ -1330,5 +1324,5 @@
   "timezone": "",
   "title": "OpenVPN Server",
   "uid": "_1DM17HWk",
-  "version": 2
+  "version": 11
 }

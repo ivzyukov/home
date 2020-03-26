@@ -8,6 +8,7 @@ verify_ssl = true
 [packages]
 ansible = "==2.9.2"
 pre-commit = "==1.10.5"
+six = "*"
 
 [requires]
 python_version = "3.7"

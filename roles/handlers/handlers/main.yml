@@ -22,3 +22,7 @@
 - name: restart home-assistant
   listen: restart home-assistant
   shell: "docker restart home-assistant"
+
+- name: restart mosquitto
+  listen: restart mosquitto
+  shell: "docker restart mosquitto"

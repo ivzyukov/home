@@ -1,0 +1,1 @@
+common_packages: [vim, htop, tree, sysstat, tcpdump, rsync, telnet]

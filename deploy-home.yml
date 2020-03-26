@@ -4,12 +4,15 @@
   roles:
     - name: common
       tags: common
-      
+
     - name: docker
       tags: docker
 
     - name: users
       tags: users
+
+    - name: tools
+      tags: tools
 
 - hosts: rpi01
   roles:
@@ -36,8 +39,13 @@
     - name: nginx_proxmox
       tags: nginx_proxmox
 
+- hosts: proxmox
+  roles:
+    - name: mtproxy
+      tags: mtproxy
+
 - hosts: node_exporter
-  roles: 
+  roles:
     - name: node_exporter
       tags: node_exporter
 
@@ -50,6 +58,11 @@
   roles:
     - name: openvpn_exporter
       tags: openvpn_exporter
+
+- hosts: rpi01
+  roles:
+    - name: mosquitto
+      tags: mosquitto
 
 - hosts: rpi01
   roles:

@@ -1,14 +1,14 @@
 ---
 - name: create directories for containers
-  file: 
-   path: "{{ item }}" 
-   state: directory 
+  file:
+   path: "{{ item }}"
+   state: directory
    mode: 0755
   with_items:
     - /srv/nginx/conf/html
 
 - name: Copy nginx configs
-  template: 
+  template:
     src: nginx.conf
     dest: /srv/nginx/conf
   notify: restart nginx
@@ -17,7 +17,21 @@
   copy:
     src: page/
     dest: /srv/nginx/conf/html
-  notify: restart nginx    
+  notify: restart nginx
+
+- name: Copy cert
+  copy:
+    dest: "/etc/ssl/raspberrypi.home.crt"
+    content: "{{ raspberrypi_home_crt }}"
+    mode: 0744
+  notify: restart nginx
+
+- name: Copy key
+  copy:
+    dest: "/etc/ssl/raspberrypi.home.key"
+    content: "{{ raspberrypi_home_key }}"
+    mode: 0744
+  notify: restart nginx
 
 - name: Run nginx
   docker_container:
@@ -26,6 +40,6 @@
     volumes:
       - "/srv/nginx/conf/html:/usr/share/nginx/html:ro"
       - "/srv/nginx/conf/nginx.conf:/etc/nginx/conf.d/default.conf:ro"
+      - "/etc/ssl/:/etc/ssl:ro"
     restart_policy: unless-stopped
     network_mode: host
-

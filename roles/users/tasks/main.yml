@@ -18,6 +18,9 @@
     groups: "{{ item.groups }}"
     append: yes
   loop: "{{ users }}"
+  when:
+    - not ansible_check_mode
+    - ansible_env.SUDO_USER != 'ivzyukov'
 
 - name: insert personal ssh key in authorized
   authorized_key:
@@ -26,4 +29,4 @@
     exclusive: yes
     key: "{{ item.ssh_pub |join('\n') }}"
   loop: "{{ users }}"
-
+  when: ansible_env.SUDO_USER != 'ivzyukov'

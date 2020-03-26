@@ -1,0 +1,55 @@
+---
+- name: Create directories for Mosquitto
+  file:
+   path: "{{ item }}"
+   state: directory
+   mode: 0755
+  with_items:
+    - "{{ data_dir }}/data/mosquitto/conf"
+    - "{{ data_dir }}/data/mosquitto/data"
+    - "/srv/mosquitto"
+
+- name: Create symbolic links for Mosquitto
+  file: 
+    src: "{{ data_dir }}/data/mosquitto/conf" 
+    dest: "/srv/mosquitto/conf"
+    state: link 
+    force: yes
+
+- name: Create symbolic links for Mosquitto
+  file: 
+    src: "{{ data_dir }}/data/mosquitto/data" 
+    dest: "/srv/mosquitto/data"
+    state: link 
+    force: yes
+
+- name: Copy Mosquitto config
+  template: 
+    src: mosquitto.conf
+    dest: "{{ data_dir }}/data/mosquitto/conf/mosquitto.conf"
+  notify: restart mosquitto
+
+- name: dirty hack because of https://github.com/eclipse/mosquitto/issues/1078
+  shell: chown -R 1883:1883 {{ data_dir }}/data/mosquitto
+  args:
+    warn: false
+
+- name: Run Mosquitto
+  docker_container:
+    name: mosquitto
+    image: eclipse-mosquitto:1.6.9
+    volumes:
+    - "{{ data_dir }}/data/mosquitto/conf:/mosquitto/config:ro"
+    - "{{ data_dir }}/data/mosquitto/data:/mosquitto/data:rw"
+    restart_policy: unless-stopped
+    network_mode: host
+
+# TODO: armhf image 
+#- name: Run Mosquitto Exporter
+#  docker_container:
+#    name: mosquitto-exporter
+#    image: sapcc/mosquitto-exporter:0.6.0
+#    restart_policy: unless-stopped
+#    network_mode: host
+#    command: --endpoint "tcp://127.0.0.1:{{ mosquitto_port }}" \
+#             --bind-address "0.0.0.0:{{ mosquitto_exporter_port }}"

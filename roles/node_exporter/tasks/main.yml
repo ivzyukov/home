@@ -9,10 +9,9 @@
       - "/proc:/host/proc:ro"
       - "/sys:/host/sys:ro"
       - "/:/rootfs:ro"
-    command: 
-        "--path.procfs=/host/proc \ 
+    command:
+        "--path.procfs=/host/proc \
         --path.sysfs=/host/sys \
-        --collector.filesystem.ignored-mount-points=^/(sys|proc|devtmpfs|host|etc|tmpfs)($|/)"            
+        --collector.filesystem.ignored-mount-points=^/(sys|proc|devtmpfs|host|etc|tmpfs)($|/)"
     restart_policy: unless-stopped
     network_mode: host
-    

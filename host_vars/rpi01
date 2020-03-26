@@ -1,0 +1,9 @@
+common_packages: [vim, htop, tree, sysstat, tcpdump, rsync, telnet, python-pip, mdadm, jq]
+dht22_delay_sec: 30
+dht22_pin: 4
+grafana_password: compaq
+grafana_username: admin
+pip_packages: [docker-py, Adafruit_DHT, prometheus_client]
+remote_ip: 192.168.2.11
+yeelight_bulb_ip_1: 192.168.2.7
+yeelight_bulb_ip_2: 192.168.2.10

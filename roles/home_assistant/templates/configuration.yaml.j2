@@ -19,6 +19,13 @@ automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml
 
+#logger:
+#  default: info
+#  logs:
+#    # log level for remote integration
+#    homeassistant.components.xiaomi_miio: debug
+#    miio.device: debug
+
 discovery:
   ignore:
     - yeelight
@@ -32,3 +39,13 @@ yeelight:
 cast:
   media_player:
     - host: 192.168.2.1
+
+remote:
+  - platform: xiaomi_miio
+    name: "den remote"
+    host: '{{ remote_ip }}'
+    token: '{{ remote_token }}'
+    commands:
+      switch_av_tv:
+        command:
+          - raw:mc0m8wlkxm81mEsmkyADIAdpjMwDDAQoAfJiAv4A/gT8Bf4MHgD+AP4KHgoeCh4A/gD+Ch4A+AkeAhwPXgD+CD4CHgk+DV4BCzCAAA==
