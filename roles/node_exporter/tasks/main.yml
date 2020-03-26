@@ -1,5 +1,43 @@
 ---
 
+- name: Add raspberrypi_exporter script
+  copy:
+    src: raspberrypi_exporter
+    dest: /usr/local/bin/raspberrypi_exporter
+    mode: 0755
+  when:
+    - ansible_distribution == 'Debian'
+    - ansible_architecture == 'armv7l'
+
+- name: Add raspberrypi_exporter service
+  copy:
+    src: "{{ item }}"
+    dest: /etc/systemd/system/
+  with_items:
+    - raspberrypi_exporter.service
+    - raspberrypi_exporter.timer
+  when:
+    - ansible_distribution == 'Debian'
+    - ansible_architecture == 'armv7l'
+
+- name: Create dir for raspberrypi_exporter metrics
+  file:
+    path: /var/lib/node_exporter/textfile_collector
+    state: directory
+  when:
+    - ansible_distribution == 'Debian'
+    - ansible_architecture == 'armv7l'
+
+- name: Start raspberrypi_exporter
+  systemd:
+    name: raspberrypi_exporter.timer
+    state: started
+    enabled: yes
+    daemon_reload: yes
+  when:
+    - ansible_distribution == 'Debian'
+    - ansible_architecture == 'armv7l'
+
 - name: Run Node Exporter
   docker_container:
     name: node_exporter
@@ -9,9 +47,11 @@
       - "/proc:/host/proc:ro"
       - "/sys:/host/sys:ro"
       - "/:/rootfs:ro"
+      - "/var/lib/node_exporter/textfile_collector:/var/lib/node_exporter/textfile_collector:ro"
     command:
         "--path.procfs=/host/proc \
         --path.sysfs=/host/sys \
-        --collector.filesystem.ignored-mount-points=^/(sys|proc|devtmpfs|host|etc|tmpfs)($|/)"
+        --collector.filesystem.ignored-mount-points=^/(sys|proc|devtmpfs|host|etc|tmpfs)($|/) \
+        --collector.textfile.directory=/var/lib/node_exporter/textfile_collector"
     restart_policy: unless-stopped
     network_mode: host

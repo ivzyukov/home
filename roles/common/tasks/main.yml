@@ -10,3 +10,16 @@
   pip:
     name: "{{ pip_packages }}"
   when: pip_packages is defined
+
+- name: check if raids exist
+  stat:
+    path: /etc/mdadm/mdadm.conf
+  register: mdadm_conf
+
+- name: add raid telegram alert
+  lineinfile:
+    dest: /etc/mdadm/mdadm.conf
+    state: present
+    regex: '^PROGRAM'
+    line: "PROGRAM /usr/local/bin/teleSend"
+  when: mdadm_conf.stat.exists == true

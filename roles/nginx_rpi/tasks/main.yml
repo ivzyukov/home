@@ -9,8 +9,8 @@
 
 - name: Copy nginx configs
   template:
-    src: nginx.conf
-    dest: /srv/nginx/conf
+    src: nginx.conf.j2
+    dest: /srv/nginx/conf/nginx.conf
   notify: restart nginx
 
 - name: Copy Web page
