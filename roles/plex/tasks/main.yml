@@ -1,0 +1,38 @@
+---
+- name: create directories for container
+  file:
+   path: "{{ item }}"
+   state: directory
+   mode: 0755
+  with_items:
+    - "/srv/plex/"
+    - "{{ data_dir }}/data/plex/library/"
+
+- name: Mount media shares
+  mount:
+    path: "{{ media_local_mount_point }}/{{ item }}"
+    src: "//{{ media_server }}/{{ item }}"
+    fstype: cifs
+    opts: "username={{ media_server_login }},password={{ media_server_pass }},iocharset=utf8"
+    state: mounted
+  with_items: "{{ media_mount_points }}"
+
+- name: Create symbolic links
+  file:
+    src: "{{ data_dir }}/data/plex/library"
+    dest: "/srv/plex/library"
+    state: link
+    force: yes
+
+- name: Run plex
+  docker_container:
+    name: plex
+    user: root
+    image: linuxserver/plex
+    volumes:
+      - "/srv/plex/library:/config:rw"
+      - "{{ media_local_mount_point }}:/movies:ro"
+    env:
+      VERSION: "docker"
+    restart_policy: unless-stopped
+    network_mode: host
