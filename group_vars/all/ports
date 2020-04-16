@@ -4,3 +4,4 @@ mosquitto_exporter_port: 9234
 prometheus_port: 9090
 dht22_port: 8001
 grafana_port: 3000
+homeassistant_port: 8123

@@ -6,7 +6,6 @@
    mode: 0755
   with_items:
     - "{{ data_dir }}/data/hassio/conf"
-    - "/srv/hassio"
     - "/srv/hassio/conf/www"
 
 - name: Create symbolic links for Home Assistant

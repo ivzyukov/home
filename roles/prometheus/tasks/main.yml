@@ -24,7 +24,8 @@
 - name: Run Prometheus
   docker_container:
     name: prometheus
-    image: rycus86/prometheus
+    user: root
+    image: prom/prometheus
     volumes:
       - /srv/prometheus/conf/:/etc/prometheus/:ro
       - /srv/prometheus/data/:/prometheus:rw

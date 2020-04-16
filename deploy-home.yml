@@ -68,3 +68,8 @@
   roles:
     - name: home_assistant
       tags: home_assistant
+
+- hosts: rpi01
+  roles:
+    - name: plex
+      tags: plex

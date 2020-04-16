@@ -9,6 +9,7 @@ verify_ssl = true
 ansible = "==2.9.2"
 pre-commit = "==1.10.5"
 six = "*"
+netaddr = "*"
 
 [requires]
 python_version = "3.7"

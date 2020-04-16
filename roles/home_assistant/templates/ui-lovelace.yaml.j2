@@ -26,15 +26,36 @@ views:
             style:
               top: 70%
               left: 55%
+          - type: state-icon
+            entity: light.kitchen_1
+            tap_action:
+              action: toggle
+            style:
+              top: 31%
+              left: 25%
+          - type: state-icon
+            entity: light.kitchen_2
+            tap_action:
+              action: toggle
+            style:
+              top: 31%
+              left: 31%
       - type: entities
         title: Lights
         entities:
           - light.living_room
           - light.pallet_room
+          - light.kitchen_1
+          - light.kitchen_2
       - type: vertical-stack
         cards:
           - type: weather-forecast
             entity: weather.home_de_pijp
+      - type: entities
+        title: Shelly switches
+        entities:
+          - switch.tv
+          - sensor.tv
       - type: entity-button
         tap_action:
           action: call-service
