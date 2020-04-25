@@ -29,6 +29,8 @@
     dest: "/srv/hassio/conf/{{ item }}"
   with_items:
     - configuration.yaml
+    - sensors.yaml
+    - automations.yaml
   notify: restart home-assistant
   tags: home-configs
 

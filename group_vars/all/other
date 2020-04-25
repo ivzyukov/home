@@ -1,5 +1,5 @@
 media_server: 192.168.2.21
-media_mount_points: 
+media_mount_points:
   - "Transmission/Movies"
   - "Public/CINEMA"
 media_local_mount_point: /mnt/plex

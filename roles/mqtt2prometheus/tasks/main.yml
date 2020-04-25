@@ -1,0 +1,7 @@
+---
+- name: Run container
+  docker_container:
+    name: mqtt2prometheus
+    image: pharlan/mqtt2prometheus
+    restart_policy: unless-stopped
+    network_mode: host

@@ -1,0 +1,141 @@
+- name: TV
+  platform: rest
+  resource: http://{{ shelly_plug_1 }}/meter/0
+  scan_interval: 30
+  {% raw %}
+  value_template: '{{ value_json.power }}'
+  {% endraw %} 
+
+- name: temp_bedroom
+  platform: mqtt
+  state_topic: "zigbee2mqtt/temp_sensor_bedroom"
+  {% raw %}
+  value_template: '{{ value_json.temperature }}'
+  {% endraw %} 
+  unit_of_measurement: '°C'
+  payload_available: "online"
+  payload_not_available: "offline"
+
+- name: humidity_bedroom
+  platform: mqtt
+  state_topic: "zigbee2mqtt/temp_sensor_bedroom"
+  {% raw %}
+  value_template: '{{ value_json.humidity }}'
+  {% endraw %} 
+  unit_of_measurement: '%'
+  payload_available: "online"
+  payload_not_available: "offline"
+
+- name: temp_garden
+  platform: mqtt
+  state_topic: "zigbee2mqtt/temp_sensor_garden"
+  {% raw %}
+  value_template: '{{ value_json.temperature }}'
+  {% endraw %} 
+  unit_of_measurement: '°C'
+  payload_available: "online"
+  payload_not_available: "offline"
+
+- name: humidity_garden
+  platform: mqtt
+  state_topic: "zigbee2mqtt/temp_sensor_garden"
+  {% raw %}
+  value_template: '{{ value_json.humidity }}'
+  {% endraw %} 
+  unit_of_measurement: '%'
+  payload_available: "online"
+  payload_not_available: "offline"
+
+- name: motion_sensor_livingroom
+  platform: mqtt
+  state_topic: "zigbee2mqtt/motion_sensor_livingroom"
+  {% raw %}
+  value_template: '{{ value_json.occupancy }}'
+  {% endraw %} 
+  payload_available: "online"
+  payload_not_available: "offline"
+
+- name: light_sensor_livingroom
+  platform: mqtt
+  state_topic: "zigbee2mqtt/motion_sensor_livingroom"
+  {% raw %}
+  value_template: '{{ value_json.illuminance }}'
+  {% endraw %} 
+  payload_available: "online"
+  payload_not_available: "offline"
+
+- name: motion_sensor_kitchen
+  platform: mqtt
+  state_topic: "zigbee2mqtt/motion_sensor_kitchen"
+  {% raw %}
+  value_template: '{{ value_json.occupancy }}'
+  {% endraw %} 
+  payload_available: "online"
+  payload_not_available: "offline"
+
+- name: light_sensor_kitchen
+  platform: mqtt
+  state_topic: "zigbee2mqtt/motion_sensor_kitchen"
+  {% raw %}
+  value_template: '{{ value_json.illuminance }}'
+  {% endraw %} 
+  payload_available: "online"
+  payload_not_available: "offline"
+
+- name: motion_sensor_den
+  platform: mqtt
+  state_topic: "zigbee2mqtt/motion_sensor_den"
+  {% raw %}
+  value_template: '{{ value_json.occupancy }}'
+  {% endraw %} 
+  payload_available: "online"
+  payload_not_available: "offline"
+
+- name: light_sensor_den
+  platform: mqtt
+  state_topic: "zigbee2mqtt/motion_sensor_den"
+  {% raw %}
+  value_template: '{{ value_json.illuminance }}'
+  {% endraw %} 
+  payload_available: "online"
+  payload_not_available: "offline"
+
+- name: motion_sensor_garden
+  platform: mqtt
+  state_topic: "zigbee2mqtt/motion_sensor_garden"
+  {% raw %}
+  value_template: '{{ value_json.occupancy }}'
+  {% endraw %} 
+  payload_available: "online"
+  payload_not_available: "offline"
+
+- name: light_sensor_garden
+  platform: mqtt
+  state_topic: "zigbee2mqtt/motion_sensor_garden"
+  {% raw %}
+  value_template: '{{ value_json.illuminance }}'
+  {% endraw %} 
+  payload_available: "online"
+  payload_not_available: "offline"
+
+- name: door_sensor_garden
+  platform: mqtt
+  state_topic: "zigbee2mqtt/door_sensor_garden"
+  {% raw %}
+  value_template: '{{ value_json.contact }}'
+  {% endraw %} 
+  payload_available: "online"
+  payload_not_available: "offline"
+
+- name: door_sensor_street
+  platform: mqtt
+  state_topic: "zigbee2mqtt/door_sensor_street"
+  {% raw %}
+  value_template: '{{ value_json.contact }}'
+  {% endraw %} 
+  payload_available: "online"
+  payload_not_available: "offline"
+
+# {"battery":100,"voltage":3095,"contact":false,"linkquality":44}
+# {"battery":100,"voltage":3055,"illuminance":32,"illuminance_lux":32,"linkquality":15,"occupancy":false}
+# {"battery":100,"voltage":3085,"temperature":22.55,"humidity":41.47,"pressure":1015,"linkquality":39}'

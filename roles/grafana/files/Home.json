@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1585340255547,
+  "iteration": 1587838327159,
   "links": [],
   "panels": [
     {
@@ -24,7 +24,7 @@
       "datasource": null,
       "gridPos": {
         "h": 6,
-        "w": 12,
+        "w": 18,
         "x": 0,
         "y": 0
       },
@@ -34,6 +34,332 @@
       "options": {},
       "title": "",
       "type": "text"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": null,
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 0,
+        "y": 6
+      },
+      "id": 4,
+      "links": [],
+      "options": {
+        "fieldOptions": {
+          "calcs": [
+            "last"
+          ],
+          "defaults": {
+            "mappings": [
+              {
+                "id": 0,
+                "op": "=",
+                "text": "N/A",
+                "type": 1,
+                "value": "null"
+              }
+            ],
+            "max": 30,
+            "min": 0,
+            "nullValueMode": "connected",
+            "thresholds": [
+              {
+                "color": "#1f78c1",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 8
+              },
+              {
+                "color": "semi-dark-green",
+                "value": 16
+              },
+              {
+                "color": "#d44a3a",
+                "value": 25
+              }
+            ],
+            "unit": "celsius"
+          },
+          "override": {},
+          "values": false
+        },
+        "orientation": "horizontal",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "6.5.2",
+      "targets": [
+        {
+          "expr": "mqtt_temperature{job=\"mqtt\",topic=\"zigbee2mqtt_temp_sensor_garden\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Temperature Garden",
+      "type": "gauge"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": null,
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 6,
+        "y": 6
+      },
+      "id": 14,
+      "links": [],
+      "options": {
+        "fieldOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "defaults": {
+            "mappings": [
+              {
+                "id": 0,
+                "op": "=",
+                "text": "N/A",
+                "type": 1,
+                "value": "null"
+              }
+            ],
+            "max": 30,
+            "min": 10,
+            "nullValueMode": "connected",
+            "thresholds": [
+              {
+                "color": "#1f78c1",
+                "value": null
+              },
+              {
+                "color": "semi-dark-green",
+                "value": 16
+              },
+              {
+                "color": "#d44a3a",
+                "value": 25
+              }
+            ],
+            "unit": "celsius"
+          },
+          "override": {},
+          "values": false
+        },
+        "orientation": "horizontal",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "6.5.2",
+      "targets": [
+        {
+          "expr": "mqtt_temperature{job=\"mqtt\",topic=\"zigbee2mqtt_temp_sensor_bedroom\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "refId": "A"
+        }
+      ],
+      "title": "Temperature Bedroom",
+      "type": "gauge"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": null,
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 12,
+        "y": 6
+      },
+      "id": 16,
+      "links": [],
+      "options": {
+        "fieldOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "defaults": {
+            "mappings": [
+              {
+                "id": 0,
+                "op": "=",
+                "text": "N/A",
+                "type": 1,
+                "value": "null"
+              }
+            ],
+            "max": 100,
+            "min": 20,
+            "nullValueMode": "connected",
+            "thresholds": [
+              {
+                "color": "#1f78c1",
+                "value": null
+              },
+              {
+                "color": "semi-dark-green",
+                "value": 40
+              },
+              {
+                "color": "#d44a3a",
+                "value": 80
+              }
+            ],
+            "unit": "celsius"
+          },
+          "override": {},
+          "values": false
+        },
+        "orientation": "horizontal",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "6.5.2",
+      "targets": [
+        {
+          "expr": "rpi_temperature",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "refId": "A"
+        }
+      ],
+      "title": "RPI Temperature",
+      "type": "gauge"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": null,
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 0,
+        "y": 12
+      },
+      "id": 6,
+      "links": [],
+      "options": {
+        "fieldOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "defaults": {
+            "mappings": [
+              {
+                "id": 0,
+                "op": "=",
+                "text": "N/A",
+                "type": 1,
+                "value": "null"
+              }
+            ],
+            "max": 100,
+            "min": 0,
+            "nullValueMode": "connected",
+            "thresholds": [
+              {
+                "color": "#1f78c1",
+                "value": null
+              },
+              {
+                "color": "semi-dark-green",
+                "value": 30
+              },
+              {
+                "color": "#d44a3a",
+                "value": 70
+              }
+            ],
+            "unit": "percent"
+          },
+          "override": {},
+          "values": false
+        },
+        "orientation": "horizontal",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "6.5.2",
+      "targets": [
+        {
+          "expr": "mqtt_humidity{job=\"mqtt\",topic=\"zigbee2mqtt_temp_sensor_garden\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "refId": "A"
+        }
+      ],
+      "title": "Humidity Garden",
+      "type": "gauge"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": null,
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 6,
+        "y": 12
+      },
+      "id": 15,
+      "links": [],
+      "options": {
+        "fieldOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "defaults": {
+            "mappings": [
+              {
+                "id": 0,
+                "op": "=",
+                "text": "N/A",
+                "type": 1,
+                "value": "null"
+              }
+            ],
+            "max": 100,
+            "min": 0,
+            "nullValueMode": "connected",
+            "thresholds": [
+              {
+                "color": "#1f78c1",
+                "value": null
+              },
+              {
+                "color": "semi-dark-green",
+                "value": 30
+              },
+              {
+                "color": "#d44a3a",
+                "value": 70
+              }
+            ],
+            "unit": "percent"
+          },
+          "override": {},
+          "values": false
+        },
+        "orientation": "horizontal",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "6.5.2",
+      "targets": [
+        {
+          "expr": "mqtt_humidity{job=\"mqtt\",topic=\"zigbee2mqtt_temp_sensor_bedroom\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "refId": "A"
+        }
+      ],
+      "title": "Humidity Bedroom",
+      "type": "gauge"
     },
     {
       "cacheTimeout": null,
@@ -55,9 +381,9 @@
       },
       "gridPos": {
         "h": 6,
-        "w": 3,
+        "w": 6,
         "x": 12,
-        "y": 0
+        "y": 12
       },
       "id": 12,
       "interval": null,
@@ -119,270 +445,85 @@
     },
     {
       "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": false,
-      "colors": [
-        "#1f78c1",
-        "#eab839",
-        "#d44a3a"
-      ],
       "datasource": null,
-      "format": "none",
-      "gauge": {
-        "maxValue": 30,
-        "minValue": 10,
-        "show": true,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
-      },
       "gridPos": {
-        "h": 6,
-        "w": 6,
+        "h": 7,
+        "w": 18,
         "x": 0,
-        "y": 6
+        "y": 18
       },
-      "id": 4,
-      "interval": null,
+      "id": 19,
       "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
+      "options": {
+        "displayMode": "lcd",
+        "fieldOptions": {
+          "calcs": [
+            "last"
+          ],
+          "defaults": {
+            "mappings": [],
+            "max": 100,
+            "min": 0,
+            "thresholds": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 20
+              },
+              {
+                "color": "green",
+                "value": 50
+              }
+            ],
+            "unit": "percent"
+          },
+          "override": {},
+          "values": false
         },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "options": {},
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": true
+        "orientation": "vertical"
       },
-      "tableColumn": "",
-      "targets": [
-        {
-          "expr": "dht22_temperature_celsius",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "refId": "A"
-        }
-      ],
-      "thresholds": "16,25",
-      "title": "Temperature",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
-    },
-    {
-      "cacheTimeout": null,
-      "colorBackground": false,
-      "colorValue": false,
-      "colors": [
-        "#1f78c1",
-        "#7eb26d",
-        "#d44a3a"
-      ],
-      "datasource": null,
-      "format": "none",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": true,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 6,
-        "x": 6,
-        "y": 6
-      },
-      "id": 6,
-      "interval": null,
-      "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "options": {},
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": true
-      },
-      "tableColumn": "",
-      "targets": [
-        {
-          "expr": "dht22_humidity",
-          "format": "time_series",
-          "intervalFactor": 1,
-          "refId": "A"
-        }
-      ],
-      "thresholds": "30,70",
-      "title": "Humidity",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "avg"
-    },
-    {
-      "cacheTimeout": null,
-      "colorBackground": true,
-      "colorValue": false,
-      "colors": [
-        "#1f78c1",
-        "#37872D",
-        "#d44a3a"
-      ],
-      "datasource": null,
-      "format": "none",
-      "gauge": {
-        "maxValue": 30,
-        "minValue": 10,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
-      },
-      "gridPos": {
-        "h": 6,
-        "w": 3,
-        "x": 12,
-        "y": 6
-      },
-      "id": 13,
-      "interval": null,
-      "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "options": {},
       "pluginVersion": "6.5.2",
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": true
-      },
-      "tableColumn": "",
       "targets": [
         {
-          "expr": "rpi_temperature",
+          "expr": "label_replace(mqtt_battery, \"topic_short\", \"$1\", \"topic\", \"^zigbee2mqtt_(.*)\")",
           "format": "time_series",
+          "instant": false,
           "intervalFactor": 1,
+          "legendFormat": "{{ topic_short }}",
           "refId": "A"
         }
       ],
-      "thresholds": "30,80",
-      "title": "RPI Temperature",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "current"
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "",
+      "type": "bargauge"
     },
     {
       "aliasColors": {},
       "bars": false,
+      "cacheTimeout": null,
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 6,
-        "w": 12,
+        "h": 7,
+        "w": 9,
         "x": 0,
-        "y": 12
+        "y": 25
       },
       "hiddenSeries": false,
-      "id": 2,
+      "id": 17,
       "legend": {
         "avg": false,
         "current": false,
         "max": false,
         "min": false,
-        "show": false,
+        "show": true,
         "total": false,
         "values": false
       },
@@ -394,16 +535,17 @@
         "dataLinks": []
       },
       "percentage": false,
-      "pointradius": 5,
+      "pluginVersion": "6.5.2",
+      "pointradius": 2,
       "points": false,
       "renderer": "flot",
       "seriesOverrides": [],
       "spaceLength": 10,
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "dht22_temperature_celsius",
+          "expr": "mqtt_temperature{job=\"mqtt\",topic=\"zigbee2mqtt_temp_sensor_garden\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -413,7 +555,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Temperature graph",
+      "title": "Temperature Garden",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -453,25 +595,26 @@
     {
       "aliasColors": {},
       "bars": false,
+      "cacheTimeout": null,
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 6,
-        "w": 12,
-        "x": 0,
-        "y": 18
+        "h": 7,
+        "w": 9,
+        "x": 9,
+        "y": 25
       },
       "hiddenSeries": false,
-      "id": 8,
+      "id": 20,
       "legend": {
         "avg": false,
         "current": false,
         "max": false,
         "min": false,
-        "show": false,
+        "show": true,
         "total": false,
         "values": false
       },
@@ -483,16 +626,17 @@
         "dataLinks": []
       },
       "percentage": false,
-      "pointradius": 5,
+      "pluginVersion": "6.5.2",
+      "pointradius": 2,
       "points": false,
       "renderer": "flot",
       "seriesOverrides": [],
       "spaceLength": 10,
-      "stack": false,
+      "stack": true,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "dht22_humidity",
+          "expr": "mqtt_humidity{job=\"mqtt\",topic=\"zigbee2mqtt_temp_sensor_garden\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -502,7 +646,189 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Humidity graph",
+      "title": "Humidity Garden",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 9,
+        "x": 0,
+        "y": 32
+      },
+      "hiddenSeries": false,
+      "id": 18,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pluginVersion": "6.5.2",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "mqtt_temperature{job=\"mqtt\",topic=\"zigbee2mqtt_temp_sensor_bedroom\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Temperature Bedroom",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 9,
+        "x": 9,
+        "y": 32
+      },
+      "hiddenSeries": false,
+      "id": 21,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pluginVersion": "6.5.2",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "mqtt_humidity{job=\"mqtt\",topic=\"zigbee2mqtt_temp_sensor_bedroom\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Humidity Bedroom",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -600,11 +926,36 @@
         "tagsQuery": "",
         "type": "query",
         "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "text": "temp_sensor_bedroom",
+          "value": "temp_sensor_bedroom"
+        },
+        "datasource": "Prometheus",
+        "definition": "label_values(mqtt_battery, topic)",
+        "hide": 2,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "sensor",
+        "options": [],
+        "query": "label_values(mqtt_battery, topic)",
+        "refresh": 1,
+        "regex": "^zigbee2mqtt_(.*)",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
       }
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {
@@ -635,5 +986,5 @@
   "timezone": "",
   "title": "Home",
   "uid": "3MiQZxRgk",
-  "version": 14
+  "version": 46
 }

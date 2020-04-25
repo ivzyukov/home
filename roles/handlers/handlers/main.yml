@@ -26,3 +26,7 @@
 - name: restart mosquitto
   listen: restart mosquitto
   shell: "docker restart mosquitto"
+
+- name: restart zigbee2mqtt
+  listen: restart zigbee2mqtt
+  shell: "docker restart zigbee2mqtt"

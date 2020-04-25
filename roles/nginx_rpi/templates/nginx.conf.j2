@@ -10,8 +10,12 @@ server {
     ssl_certificate_key /etc/ssl/raspberrypi.home.key;
     server_name raspberrypi.home;
 
+    location ~* \.(eot|otf|ttf|woff|woff2)$ {
+        add_header Access-Control-Allow-Origin *;
+    }
+
     location / {
-        root   /usr/share/nginx/html;
+        root   /etc/nginx/html;
     }
 
     error_page   500 502 503 504  /50x.html;

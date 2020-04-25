@@ -4,8 +4,12 @@ body {
 }
 
 body {
-  font-family: 'Press Start 2P', cursive
   padding-top: 20px;
+}
+
+@font-face {
+  font-family: 'Press Start 2P';
+  src: url(PressStart2P-Regular.ttf);
 }
 
 @media (max-width: 767.98px) {
@@ -35,7 +39,7 @@ body {
     width: 40px;
     line-height: 40px;
     text-align: center;
-    color: beige;
+    color: black;
     background-color: darkseagreen;
 }
 
@@ -81,7 +85,7 @@ body {
 
 .bg-purple { background-color: var(--purple); }
 
-.bg-orange { background-color: var(--orange); }
+.bg-orange { background-color: #252745; }
 
 .border-bottom { border-bottom: 1px solid #e5e5e5; }
 
@@ -90,3 +94,17 @@ body {
 .lh-100 { line-height: 2; }
 .lh-125 { line-height: 1.25; }
 .lh-150 { line-height: 1.5; }
+
+.text {
+  font-family: 'Press Start 2P';
+  font-size: 200%;
+  line-height: 1.4;
+  display: inline-block;
+  color: white;
+  animation: chroab 400ms ease-in both;
+}
+
+@keyframes chroab  {
+    0% { text-shadow: 0 0 #a50610, 0 0 #0c2aa8, 0 6px 0 transparent, 8px 0 0 transparent; }
+  100% { text-shadow: 0.06ex 0 #a50610, -0.06ex 0 #0c2aa8, 0 0.14ex 0 rgba(0,0,0,.8), 0.12ex 0 0 rgba(0,0,0,.8); }
+}

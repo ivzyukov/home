@@ -13,6 +13,12 @@
     dest: /srv/nginx/conf/nginx.conf
   notify: restart nginx
 
+- name: Copy mime configs
+  template:
+    src: mime.types
+    dest: /srv/nginx/conf/mime.types
+  notify: restart nginx
+
 - name: Copy Web page
   copy:
     src: page/
@@ -38,8 +44,9 @@
     name: nginx
     image: arm32v7/nginx
     volumes:
-      - "/srv/nginx/conf/html:/usr/share/nginx/html:ro"
+      - "/srv/nginx/conf/html:/etc/nginx/html:ro"
       - "/srv/nginx/conf/nginx.conf:/etc/nginx/conf.d/default.conf:ro"
+      - "/srv/nginx/conf/mime.types:/etc/nginx/mime.types:ro"
       - "/etc/ssl/:/etc/ssl:ro"
     restart_policy: unless-stopped
     network_mode: host

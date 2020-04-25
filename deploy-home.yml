@@ -49,10 +49,11 @@
     - name: node_exporter
       tags: node_exporter
 
-- hosts: rpi01
-  roles:
-    - name: dht22_exporter
-      tags: dht22_exporter
+# Replaced with Aqara sensors
+#- hosts: rpi01
+#  roles:
+#    - name: dht22_exporter
+#      tags: dht22_exporter
 
 - hosts: rpi01
   roles:
@@ -66,10 +67,21 @@
 
 - hosts: rpi01
   roles:
-    - name: home_assistant
-      tags: home_assistant
+    - name: zigbee2mqtt
+      tags: zigbee2mqtt
 
 - hosts: rpi01
   roles:
-    - name: plex
-      tags: plex
+    - name: mqtt2prometheus
+      tags: mqtt2prometheus
+
+- hosts: rpi01
+  roles:
+    - name: home_assistant
+      tags: home_assistant
+
+# Waiting for SSD delivery
+#- hosts: rpi01
+#  roles:
+#    - name: plex
+#      tags: plex

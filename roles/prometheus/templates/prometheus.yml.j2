@@ -1,5 +1,5 @@
 global:
-  scrape_interval: 30s
+  scrape_interval: 1m
 scrape_configs:
   - job_name: 'node'
     static_configs:
@@ -14,6 +14,12 @@ scrape_configs:
   - job_name: 'openvpn'
     static_configs:
       - targets: [ '{{ hostvars["rpi01"].ansible_host }}:{{ openvpn_exporter_port }}' ]
-#  - job_name: 'mosquitto'
+  - job_name: 'mqtt'
+    static_configs:
+      - targets: [ '{{ hostvars["rpi01"].ansible_host }}:{{ mqtt2prometheus_port }}' ]
+    metric_relabel_configs:
+      - source_labels: [ __name__ ]
+        regex: 'mqtt_occupancy|mqtt_illuminance_lux'
+        action: drop
 #    static_configs:
 #      - targets: [ '{{ hostvars["rpi01"].ansible_host }}:{{ mosquitto_exporter_port }}' ]

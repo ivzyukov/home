@@ -22,6 +22,7 @@ lovelace:
 tts:
   - platform: google_translate
 
+sensor: !include sensors.yaml
 group: !include groups.yaml
 automation: !include automations.yaml
 script: !include scripts.yaml
@@ -34,9 +35,9 @@ scene: !include scenes.yaml
 #    homeassistant.components.xiaomi_miio: debug
 #    miio.device: debug
 
-discovery:
-  ignore:
-    - yeelight
+mqtt:
+  broker: localhost
+  port: {{ mosquitto_port }}
 
 switch:
   - name: TV
@@ -51,14 +52,11 @@ switch:
     headers:
       content-Type: application/x-www-form-urlencoded
 
-sensor:
-  - name: TV
-    platform: rest
-    resource: http://{{ shelly_plug_1 }}/meter/0
-    scan_interval: 30
-    {% raw %}
-    value_template: '{{ value_json.power }}'
-    {% endraw %} 
+discovery:
+  ignore:
+    - yeelight
+    - igd
+    - homekit
 
 yeelight:
   devices:
@@ -70,6 +68,14 @@ yeelight:
       name: Living Room
     {{ yeelight_bulb_ip_1 }}:
       name: Pallet Room
+
+light:
+  - platform: group
+    name: kitchen_lights
+    entities:
+      - light.kitchen_1
+      - light.kitchen_2
+
 cast:
   media_player:
     - host: 192.168.2.1

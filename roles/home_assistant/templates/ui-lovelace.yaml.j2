@@ -45,8 +45,11 @@ views:
         entities:
           - light.living_room
           - light.pallet_room
-          - light.kitchen_1
-          - light.kitchen_2
+          - light.kitchen_lights
+          - sensor.light_sensor_livingroom
+          - sensor.light_sensor_kitchen
+          - sensor.light_sensor_den
+          - sensor.light_sensor_garden
       - type: vertical-stack
         cards:
           - type: weather-forecast
@@ -57,16 +60,29 @@ views:
           - switch.tv
           - sensor.tv
       - type: entity-button
+        name: AV/TV
         tap_action:
           action: call-service
           service: remote.send_command
           service_data:
             command: switch_av_tv
             entity_id: remote.xiaomi_miio
+            icon: 'mdi:mdi-remote'
         hold_action:
           action: more-info
         show_icon: true
         show_name: true
-        entity: remote.xiaomi_miio
-        icon: 'mdi:mdi-remote'
-        name: AV/TV
+
+      - type: entities
+        title: Sensors
+        entities:
+          - sensor.temp_bedroom
+          - sensor.humidity_bedroom
+          - sensor.temp_garden
+          - sensor.humidity_garden
+          - sensor.motion_sensor_livingroom
+          - sensor.motion_sensor_kitchen
+          - sensor.motion_sensor_den
+          - sensor.motion_sensor_garden
+          - sensor.door_sensor_garden
+          - sensor.door_sensor_street

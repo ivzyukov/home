@@ -1,12 +1,20 @@
 ---
 
+- name: set hostname
+  hostname:
+    name: "{{ inventory_hostname }}"
+
+- name: Set timezone to Europe/Amsterdam
+  timezone:
+    name: Europe/Amsterdam
+
 - name: Install all basic packages
   package:
     name: "{{ common_packages }}"
     state: present
   when: common_packages is defined
 
-- name: Install  python3 modules
+- name: Install python3 modules
   pip:
     name: "{{ pip_packages }}"
   when: pip_packages is defined
