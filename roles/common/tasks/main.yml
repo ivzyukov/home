@@ -4,9 +4,9 @@
   hostname:
     name: "{{ inventory_hostname }}"
 
-- name: Set timezone to Europe/Amsterdam
+- name: Set timezone to {{ my_timezone }}
   timezone:
-    name: Europe/Amsterdam
+    name: "{{ my_timezone }}"
 
 - name: Install all basic packages
   package:
@@ -16,6 +16,7 @@
 
 - name: Install python3 modules
   pip:
+    executable: pip3
     name: "{{ pip_packages }}"
   when: pip_packages is defined
 

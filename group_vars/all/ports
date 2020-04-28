@@ -6,3 +6,4 @@ dht22_port: 8001
 grafana_port: 3000
 homeassistant_port: 8123
 mqtt2prometheus_port: 9001
+node_exporter_port: 9100
