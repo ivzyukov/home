@@ -1,2 +1,2 @@
 #                     Deploying Home
-![Image of dfashboard](./dashboard.png)
+![Image of dashboard](./dashboard.png)
