@@ -1,0 +1,49 @@
+---
+- name: Create directories
+  file:
+   path: "{{ item }}"
+   state: directory
+   mode: 0755
+  with_items:
+    - "{{ data_dir }}/data/pihole/conf"
+    - "{{ data_dir }}/data/pihole/dnsmasq.d"
+    - "/srv/pihole"
+
+- name: Create symbolic links
+  file:
+    src: "{{ data_dir }}/data/pihole/conf"
+    dest: "/srv/pihole/conf"
+    state: link
+    force: yes
+
+- name: Create symbolic links
+  file:
+    src: "{{ data_dir }}/data/pihole/dnsmasq.d"
+    dest: "/srv/pihole/dnsmasq.d"
+    state: link
+    force: yes
+
+#- name: Copy pihole config
+#  template:
+#    src: pihole.conf
+#    dest: "{{ data_dir }}/data/pihole/conf/pihole.conf"
+#  notify: restart pihole
+
+- name: Run pihole
+  docker_container:
+    name: pihole
+    image: pihole/pihole
+    volumes:
+      - "{{ data_dir }}/data/pihole/conf:/etc/pihole/"
+      - "{{ data_dir }}/data/pihole/dnsmasq.d:/etc/dnsmasq.d/"
+    env:
+      TZ: "{{ my_timezone }}"
+      WEBPASSWORD: "{{ pihole_password }}"
+      ServerIP: "{{ ansible_host }}"
+    dns_servers:
+      - 127.0.0.1
+      - 1.1.1.1
+    capabilities:
+      - NET_ADMIN
+    restart_policy: unless-stopped
+    network_mode: host

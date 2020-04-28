@@ -39,6 +39,6 @@
     devices:
       - "/dev/ttyACM0"
     env:
-      TZ: "Europe/Amsterdam"
+      TZ: "{{ my_timezone }}"
     restart_policy: unless-stopped
     network_mode: host

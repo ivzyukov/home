@@ -80,6 +80,11 @@
     - name: home_assistant
       tags: home_assistant
 
+- hosts: rpi02
+  roles:
+    - name: pihole
+      tags: pihole
+
 # Waiting for SSD delivery
 #- hosts: rpi01
 #  roles:

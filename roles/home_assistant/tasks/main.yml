@@ -46,6 +46,6 @@
     volumes:
       - /srv/hassio/conf:/config
     env:
-      TZ: "Europe/Amsterdam"
+      TZ: "{{ my_timezone }}"
     restart_policy: unless-stopped
     network_mode: host

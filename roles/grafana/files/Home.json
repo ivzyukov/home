@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1587838327159,
+  "iteration": 1587847128409,
   "links": [],
   "panels": [
     {
@@ -24,7 +24,7 @@
       "datasource": null,
       "gridPos": {
         "h": 6,
-        "w": 18,
+        "w": 16,
         "x": 0,
         "y": 0
       },
@@ -37,10 +37,92 @@
     },
     {
       "cacheTimeout": null,
+      "colorBackground": true,
+      "colorValue": false,
+      "colors": [
+        "#C4162A",
+        "#E0B400",
+        "#37872D"
+      ],
+      "datasource": "Prometheus",
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 8,
+        "x": 16,
+        "y": 0
+      },
+      "id": 12,
+      "interval": null,
+      "links": [],
+      "mappingType": 2,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "options": {},
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "1",
+          "text": "OK",
+          "to": "1"
+        },
+        {
+          "from": "0",
+          "text": "DEGRADED",
+          "to": "1"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "expr": "sum(node_md_disks_active{instance=~\"$instance\",device=\"$md\"}) / sum(node_md_disks{instance=~\"$instance\",device=\"$md\"})",
+          "format": "time_series",
+          "instant": true,
+          "intervalFactor": 1,
+          "refId": "A",
+          "step": 600
+        }
+      ],
+      "thresholds": "1,1",
+      "title": "Disks status in $md",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [],
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
       "datasource": null,
       "gridPos": {
         "h": 6,
-        "w": 6,
+        "w": 8,
         "x": 0,
         "y": 6
       },
@@ -110,8 +192,8 @@
       "datasource": null,
       "gridPos": {
         "h": 6,
-        "w": 6,
-        "x": 6,
+        "w": 8,
+        "x": 8,
         "y": 6
       },
       "id": 14,
@@ -171,16 +253,17 @@
     },
     {
       "cacheTimeout": null,
-      "datasource": null,
+      "datasource": "Prometheus",
       "gridPos": {
         "h": 6,
-        "w": 6,
-        "x": 12,
+        "w": 8,
+        "x": 16,
         "y": 6
       },
-      "id": 16,
+      "id": 22,
       "links": [],
       "options": {
+        "displayMode": "basic",
         "fieldOptions": {
           "calcs": [
             "lastNotNull"
@@ -188,57 +271,63 @@
           "defaults": {
             "mappings": [
               {
+                "from": "1",
                 "id": 0,
-                "op": "=",
-                "text": "N/A",
-                "type": 1,
-                "value": "null"
+                "text": "Closed",
+                "to": "1",
+                "type": 2
+              },
+              {
+                "from": "0",
+                "id": 1,
+                "text": "Opened",
+                "to": "0",
+                "type": 2
               }
             ],
-            "max": 100,
-            "min": 20,
+            "max": 1,
+            "min": 0,
             "nullValueMode": "connected",
             "thresholds": [
               {
-                "color": "#1f78c1",
+                "color": "#C4162A",
                 "value": null
               },
               {
-                "color": "semi-dark-green",
-                "value": 40
-              },
-              {
-                "color": "#d44a3a",
-                "value": 80
+                "color": "#37872D",
+                "value": 1
               }
             ],
-            "unit": "celsius"
+            "unit": "none"
           },
           "override": {},
           "values": false
         },
-        "orientation": "horizontal",
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true
+        "orientation": "horizontal"
       },
       "pluginVersion": "6.5.2",
       "targets": [
         {
-          "expr": "rpi_temperature",
+          "expr": "label_replace(mqtt_contact, \"topic_short\", \"$1\", \"topic\", \"^zigbee2mqtt_(.*)\")",
           "format": "time_series",
+          "instant": true,
           "intervalFactor": 1,
-          "refId": "A"
+          "legendFormat": "{{ topic_short }}",
+          "refId": "A",
+          "step": 600
         }
       ],
-      "title": "RPI Temperature",
-      "type": "gauge"
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Doors",
+      "type": "bargauge"
     },
     {
       "cacheTimeout": null,
       "datasource": null,
       "gridPos": {
         "h": 6,
-        "w": 6,
+        "w": 8,
         "x": 0,
         "y": 12
       },
@@ -302,8 +391,8 @@
       "datasource": null,
       "gridPos": {
         "h": 6,
-        "w": 6,
-        "x": 6,
+        "w": 8,
+        "x": 8,
         "y": 12
       },
       "id": 15,
@@ -363,92 +452,74 @@
     },
     {
       "cacheTimeout": null,
-      "colorBackground": true,
-      "colorValue": false,
-      "colors": [
-        "#C4162A",
-        "#E0B400",
-        "#37872D"
-      ],
-      "datasource": "Prometheus",
-      "format": "none",
-      "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": true
-      },
+      "datasource": null,
       "gridPos": {
         "h": 6,
-        "w": 6,
-        "x": 12,
+        "w": 8,
+        "x": 16,
         "y": 12
       },
-      "id": 12,
-      "interval": null,
+      "id": 16,
       "links": [],
-      "mappingType": 2,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
+      "options": {
+        "fieldOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "defaults": {
+            "mappings": [
+              {
+                "id": 0,
+                "op": "=",
+                "text": "N/A",
+                "type": 1,
+                "value": "null"
+              }
+            ],
+            "max": 100,
+            "min": 20,
+            "nullValueMode": "connected",
+            "thresholds": [
+              {
+                "color": "#1f78c1",
+                "value": null
+              },
+              {
+                "color": "semi-dark-green",
+                "value": 40
+              },
+              {
+                "color": "#d44a3a",
+                "value": 80
+              }
+            ],
+            "unit": "celsius"
+          },
+          "override": {},
+          "values": false
         },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "options": {},
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "1",
-          "text": "OK",
-          "to": "1"
-        },
-        {
-          "from": "0",
-          "text": "DEGRADED",
-          "to": "1"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
+        "orientation": "horizontal",
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
       },
-      "tableColumn": "",
+      "pluginVersion": "6.5.2",
       "targets": [
         {
-          "expr": "sum(node_md_disks_active{instance=~\"$instance\",device=\"$md\"}) / sum(node_md_disks{instance=~\"$instance\",device=\"$md\"})",
+          "expr": "rpi_temperature",
           "format": "time_series",
-          "instant": true,
           "intervalFactor": 1,
-          "refId": "A",
-          "step": 600
+          "refId": "A"
         }
       ],
-      "thresholds": "1,1",
-      "title": "Disks status in $md",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [],
-      "valueName": "current"
+      "title": "RPI Temperature",
+      "type": "gauge"
     },
     {
       "cacheTimeout": null,
       "datasource": null,
       "gridPos": {
         "h": 7,
-        "w": 18,
+        "w": 24,
         "x": 0,
         "y": 18
       },
@@ -512,7 +583,7 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 7,
-        "w": 9,
+        "w": 12,
         "x": 0,
         "y": 25
       },
@@ -603,8 +674,8 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 7,
-        "w": 9,
-        "x": 9,
+        "w": 12,
+        "x": 12,
         "y": 25
       },
       "hiddenSeries": false,
@@ -694,7 +765,7 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 7,
-        "w": 9,
+        "w": 12,
         "x": 0,
         "y": 32
       },
@@ -785,8 +856,8 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 7,
-        "w": 9,
-        "x": 9,
+        "w": 12,
+        "x": 12,
         "y": 32
       },
       "hiddenSeries": false,
@@ -986,5 +1057,5 @@
   "timezone": "",
   "title": "Home",
   "uid": "3MiQZxRgk",
-  "version": 46
+  "version": 50
 }
