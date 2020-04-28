@@ -1,1 +1,2 @@
-* Deploying Home
+#                     Deploying Home
+![Image of dashboard](./dashboard.png)
