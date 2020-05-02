@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1587847128409,
+  "iteration": 1588415891198,
   "links": [],
   "panels": [
     {
@@ -152,11 +152,11 @@
                 "value": null
               },
               {
-                "color": "#EAB839",
+                "color": "semi-dark-green",
                 "value": 8
               },
               {
-                "color": "semi-dark-green",
+                "color": "semi-dark-yellow",
                 "value": 16
               },
               {
@@ -679,7 +679,7 @@
         "y": 25
       },
       "hiddenSeries": false,
-      "id": 20,
+      "id": 18,
       "legend": {
         "avg": false,
         "current": false,
@@ -707,7 +707,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "mqtt_humidity{job=\"mqtt\",topic=\"zigbee2mqtt_temp_sensor_garden\"}",
+          "expr": "mqtt_temperature{job=\"mqtt\",topic=\"zigbee2mqtt_temp_sensor_bedroom\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -717,7 +717,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Humidity Garden",
+      "title": "Temperature Bedroom",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -770,7 +770,7 @@
         "y": 32
       },
       "hiddenSeries": false,
-      "id": 18,
+      "id": 20,
       "legend": {
         "avg": false,
         "current": false,
@@ -798,7 +798,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "mqtt_temperature{job=\"mqtt\",topic=\"zigbee2mqtt_temp_sensor_bedroom\"}",
+          "expr": "mqtt_humidity{job=\"mqtt\",topic=\"zigbee2mqtt_temp_sensor_garden\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -808,7 +808,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Temperature Bedroom",
+      "title": "Humidity Garden",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -929,6 +929,97 @@
           "max": null,
           "min": null,
           "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "cacheTimeout": null,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 39
+      },
+      "hiddenSeries": false,
+      "id": 23,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": false,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pluginVersion": "6.5.2",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "mqtt_pressure{job=\"mqtt\",topic=\"zigbee2mqtt_temp_sensor_bedroom\"}",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Atmospheric Pressure",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "pressurehg",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "pressurebar",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
         }
       ],
       "yaxis": {
@@ -1057,5 +1148,5 @@
   "timezone": "",
   "title": "Home",
   "uid": "3MiQZxRgk",
-  "version": 50
+  "version": 52
 }
