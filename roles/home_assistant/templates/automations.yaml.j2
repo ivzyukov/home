@@ -1,4 +1,6 @@
-- alias: Turn on kitchen light when there is movement and dusk
+{% raw %}
+- id: kitchen_lights_on
+  alias: Turn on kitchen light when there is movement and dusk
   trigger:
     - platform: state
       entity_id: sensor.motion_sensor_kitchen
@@ -11,7 +13,8 @@
     service: light.turn_on
     entity_id: light.kitchen_lights
 
-- alias: Turn off kitchen light 5 minute after last movement
+- id: kitchen_lights_off
+  alias: Turn off kitchen light 5 minute after last movement
   trigger:
     platform: state
     entity_id: sensor.motion_sensor_kitchen
@@ -21,3 +24,33 @@
   action:
     service: light.turn_off
     entity_id: light.kitchen_lights
+
+- id: garden_door_tts
+  alias: Door to garden temperature
+  trigger:
+    - platform: state
+      entity_id: sensor.door_sensor_garden
+      from: 'True'
+      to: 'False'
+  action:
+    service: tts.google_say
+    entity_id: media_player.living_room_speaker
+    data_template:
+      message: '{{ states.sensor.temp_garden.state }} degrees on balcony' #states.sensor.temp_garden.state
+
+- id: shut_the_door_tts
+  alias: Check entrance door every minute
+  trigger:
+    platform: time_pattern
+    minutes: '/1'
+  condition:
+    - condition: state
+      entity_id: sensor.door_sensor_street
+      state: 'False'
+  action:
+    - service: tts.google_say
+      entity_id: media_player.living_room_speaker
+      data:
+        message: 'Входная дверь открыта, надо бы закрыть'
+        language: 'ru'
+{% endraw %}

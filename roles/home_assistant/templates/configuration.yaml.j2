@@ -21,6 +21,19 @@ lovelace:
 
 tts:
   - platform: google_translate
+    cache: true
+    cache_dir: /tmp/tts
+    time_memory: 300
+    base_url: http://192.168.2.5:8123
+    service_name: google_say
+
+#  - platform: yandextts
+#    api_key: 17888a45-a4ad-4751-91d8-7306177a02b7
+#    language: 'ru-RU'
+#    codec: mp3
+#    voice: oksana
+#    emotion: evil
+#    speed: 2
 
 sensor: !include sensors.yaml
 group: !include groups.yaml
@@ -78,7 +91,7 @@ light:
 
 cast:
   media_player:
-    - host: 192.168.2.1
+    - host: 192.168.2.4
 
 remote:
   - platform: xiaomi_miio
