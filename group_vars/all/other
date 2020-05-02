@@ -2,3 +2,4 @@ media_mount_points:
   - "Transmission/Movies"
   - "Public/CINEMA"
 media_local_mount_point: /mnt/plex
+my_timezone: Europe/Amsterdam
