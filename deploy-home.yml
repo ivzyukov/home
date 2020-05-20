@@ -85,8 +85,7 @@
     - name: pihole
       tags: pihole
 
-# Waiting for SSD delivery
-#- hosts: rpi01
-#  roles:
-#    - name: plex
-#      tags: plex
+- hosts: rpi01
+  roles:
+    - name: plex
+      tags: plex

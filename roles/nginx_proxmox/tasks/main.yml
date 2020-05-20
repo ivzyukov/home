@@ -31,7 +31,7 @@
 - name: Run nginx
   docker_container:
     name: nginx
-    image: nginx:latest
+    image: nginx:{{ nginx_version }}
     volumes:
       - "/srv/nginx/conf/proxmox-nginx.conf:/etc/nginx/conf.d/proxmox.conf:ro"
       - "/etc/ssl/:/etc/ssl:ro"

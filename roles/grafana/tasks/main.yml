@@ -25,7 +25,7 @@
   docker_container:
     name: grafana
     user: root
-    image: grafana/grafana:latest
+    image: grafana/grafana:{{ grafana_version }}
     volumes:
       - "/srv/grafana/conf/grafana.ini:/etc/grafana/grafana.ini:ro"
       - "/srv/grafana/data:/var/lib/grafana:rw"

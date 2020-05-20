@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1588415891198,
+  "iteration": 1589386944408,
   "links": [],
   "panels": [
     {
@@ -569,7 +569,65 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "",
+      "title": "Battery",
+      "type": "bargauge"
+    },
+    {
+      "cacheTimeout": null,
+      "datasource": null,
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 25
+      },
+      "id": 24,
+      "links": [],
+      "options": {
+        "displayMode": "lcd",
+        "fieldOptions": {
+          "calcs": [
+            "last"
+          ],
+          "defaults": {
+            "mappings": [],
+            "max": 100,
+            "min": 0,
+            "thresholds": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 20
+              },
+              {
+                "color": "green",
+                "value": 50
+              }
+            ],
+            "unit": "percent"
+          },
+          "override": {},
+          "values": false
+        },
+        "orientation": "vertical"
+      },
+      "pluginVersion": "6.5.2",
+      "targets": [
+        {
+          "expr": "label_replace(mqtt_linkquality, \"topic_short\", \"$1\", \"topic\", \"^zigbee2mqtt_(.*)\")",
+          "format": "time_series",
+          "instant": false,
+          "intervalFactor": 1,
+          "legendFormat": "{{ topic_short }}",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Link quality",
       "type": "bargauge"
     },
     {
@@ -585,7 +643,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 25
+        "y": 32
       },
       "hiddenSeries": false,
       "id": 17,
@@ -676,7 +734,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 25
+        "y": 32
       },
       "hiddenSeries": false,
       "id": 18,
@@ -767,7 +825,7 @@
         "h": 7,
         "w": 12,
         "x": 0,
-        "y": 32
+        "y": 39
       },
       "hiddenSeries": false,
       "id": 20,
@@ -858,7 +916,7 @@
         "h": 7,
         "w": 12,
         "x": 12,
-        "y": 32
+        "y": 39
       },
       "hiddenSeries": false,
       "id": 21,
@@ -949,7 +1007,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 39
+        "y": 46
       },
       "hiddenSeries": false,
       "id": 23,
@@ -980,7 +1038,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "mqtt_pressure{job=\"mqtt\",topic=\"zigbee2mqtt_temp_sensor_bedroom\"}",
+          "expr": "mqtt_pressure{job=\"mqtt\",topic=\"zigbee2mqtt_temp_sensor_garden\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -1117,7 +1175,7 @@
     ]
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
@@ -1148,5 +1206,5 @@
   "timezone": "",
   "title": "Home",
   "uid": "3MiQZxRgk",
-  "version": 52
+  "version": 55
 }

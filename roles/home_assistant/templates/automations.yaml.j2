@@ -1,4 +1,3 @@
-{% raw %}
 - id: kitchen_lights_on
   alias: Turn on kitchen light when there is movement and dusk
   trigger:
@@ -25,6 +24,33 @@
     service: light.turn_off
     entity_id: light.kitchen_lights
 
+- id: den_light_on
+  alias: Turn on den light when there is movement and dark
+  trigger:
+    - platform: state
+      entity_id: sensor.motion_sensor_den
+      to: 'True'
+  condition:
+    - condition: numeric_state
+      entity_id: sensor.light_sensor_den
+      below: 10
+  action:
+    service: light.turn_on
+    entity_id: light.pallet_room
+
+- id: den_light_off
+  alias: Turn off den light 5 minute after last movement
+  trigger:
+    platform: state
+    entity_id: sensor.light_sensor_den
+    to: 'False'
+    for:
+      minutes: 5
+  action:
+    service: light.turn_off
+    entity_id: light.pallet_room
+    
+{% raw %}
 - id: garden_door_tts
   alias: Door to garden temperature
   trigger:
@@ -36,7 +62,8 @@
     service: tts.google_say
     entity_id: media_player.living_room_speaker
     data_template:
-      message: '{{ states.sensor.temp_garden.state }} degrees on balcony' #states.sensor.temp_garden.state
+      message: '{{ states.sensor.temp_garden.state }} degrees on balcony'
+{% endraw %}
 
 - id: shut_the_door_tts
   alias: Check entrance door every minute
@@ -53,4 +80,47 @@
       data:
         message: 'Входная дверь открыта, надо бы закрыть'
         language: 'ru'
-{% endraw %}
+
+- id: enable_zigbee_join
+  alias: Enable Zigbee joining
+  trigger:
+    platform: state
+    entity_id: input_boolean.zigbee_permit_join
+    to: 'on'
+  action:
+  - service: mqtt.publish
+    data:
+      topic: zigbee2mqtt/bridge/config/permit_join
+      payload: 'true'
+  - service: timer.start
+    data:
+      entity_id: timer.zigbee_permit_join
+- id: disable_zigbee_join
+  alias: Disable Zigbee joining
+  trigger:
+  - entity_id: input_boolean.zigbee_permit_join
+    platform: state
+    to: 'off'
+  action:
+  - data:
+      payload: 'false'
+      topic: zigbee2mqtt/bridge/config/permit_join
+    service: mqtt.publish
+  - data:
+      entity_id: timer.zigbee_permit_join
+    service: timer.cancel
+- id: disable_zigbee_join_timer
+  alias: Disable Zigbee joining by timer
+  trigger:
+  - platform: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.zigbee_permit_join
+  action:
+  - service: mqtt.publish
+    data:
+      topic: zigbee2mqtt/bridge/config/permit_join
+      payload: 'false'
+  - service: input_boolean.turn_off
+    data:
+      entity_id: input_boolean.zigbee_permit_join

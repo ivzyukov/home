@@ -2,8 +2,8 @@
 - name: Run mtproxy
   docker_container:
     name: mtproto-proxy
-    image: telegrammessenger/proxy:latest
+    image: telegrammessenger/proxy:{{ mtproxy_version }}
     volumes:
       - "/srv/mtproxy/conf/:/data"
     ports:
-      - "9876:443"
+      - "{{ mtproxy_port }}:443"

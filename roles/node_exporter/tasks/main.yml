@@ -42,7 +42,7 @@
   docker_container:
     name: node_exporter
     privileged: yes
-    image: quay.io/prometheus/node-exporter
+    image: quay.io/prometheus/node-exporter:{{ node_exporter_version }}
     volumes:
       - "/proc:/host/proc:ro"
       - "/sys:/host/sys:ro"

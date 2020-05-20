@@ -42,7 +42,7 @@
 - name: Run nginx
   docker_container:
     name: nginx
-    image: arm32v7/nginx
+    image: arm32v7/nginx:{{ nginx_version }}
     volumes:
       - "/srv/nginx/conf/html:/etc/nginx/html:ro"
       - "/srv/nginx/conf/nginx.conf:/etc/nginx/conf.d/default.conf:ro"
