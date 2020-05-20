@@ -14,7 +14,6 @@ all:
       data_dir: "/data"
       fast_dir: "/mnt/usb"
       ansible_host: 192.168.2.3
-#      ansible_python_interpreter: "/usr/bin/python3"
     proxmox:
       ansible_become: yes
       ansible_host: 192.168.2.25
@@ -22,4 +21,9 @@ all:
     node_exporter:
       hosts:
         rpi01:
+        rpi02:
         proxmox:
+    raspberry:
+      hosts:
+        rpi01:
+        rpi02:

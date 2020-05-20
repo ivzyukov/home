@@ -1,16 +1,12 @@
 title: De Pijp WIP
 views:
-  - path: default_view
-    title: Home
-   # panel: true
-    type: horizontal-stack
+  - title: Home
+    panel: true
+    type: vertical-stack
     cards:
       - type: picture-elements
         title: Floor plan
         image: /local/floorplan.png
-        #style:
-        #  width: 100%
-        #  height: 100%
         elements:
           - type: state-icon
             entity: light.living_room
@@ -40,50 +36,82 @@ views:
             style:
               top: 31%
               left: 31%
+  - title: Sensors
+    cards:
       - type: entities
         title: Lights
         entities:
           - light.living_room
           - light.pallet_room
           - light.kitchen_lights
-          - sensor.light_sensor_livingroom
-          - sensor.light_sensor_kitchen
-          - sensor.light_sensor_den
-          - sensor.light_sensor_garden
-      - type: vertical-stack
-        cards:
-          - type: weather-forecast
-            entity: weather.home_de_pijp
-      - type: entities
-        title: Shelly switches
-        entities:
-          - switch.tv
-          - sensor.tv
-      - type: entity-button
-        name: AV/TV
-        tap_action:
-          action: call-service
-          service: remote.send_command
-          service_data:
-            command: switch_av_tv
-            entity_id: remote.xiaomi_miio
-            icon: 'mdi:mdi-remote'
-        hold_action:
-          action: more-info
-        show_icon: true
-        show_name: true
-      - type: media-control
-        entity: media_player.living_room_speaker
+          - switch.light_bedroom
+          - entity: sensor.light_sensor_livingroom
+            secondary_info: last-changed
+          - entity: sensor.light_sensor_kitchen
+            secondary_info: last-changed
+          - entity: sensor.light_sensor_den
+            secondary_info: last-changed
+          - entity: sensor.light_sensor_garden
+            secondary_info: last-changed
       - type: entities
         title: Sensors
         entities:
-          - sensor.temp_bedroom
-          - sensor.humidity_bedroom
-          - sensor.temp_garden
-          - sensor.humidity_garden
-          - sensor.motion_sensor_livingroom
-          - sensor.motion_sensor_kitchen
-          - sensor.motion_sensor_den
-          - sensor.motion_sensor_garden
-          - sensor.door_sensor_garden
-          - sensor.door_sensor_street
+          - entity: sensor.temp_bedroom
+            secondary_info: last-changed
+          - entity: sensor.humidity_bedroom
+            secondary_info: last-changed
+          - entity: sensor.temp_garden
+            secondary_info: last-changed
+          - entity: sensor.humidity_garden
+            secondary_info: last-changed
+          - entity: sensor.motion_sensor_livingroom
+            secondary_info: last-changed
+          - entity: sensor.motion_sensor_kitchen
+            secondary_info: last-changed
+          - entity: sensor.motion_sensor_den
+            secondary_info: last-changed
+          - entity: sensor.motion_sensor_garden
+            secondary_info: last-changed
+          - entity: sensor.door_sensor_garden
+            secondary_info: last-changed
+          - entity: sensor.door_sensor_street
+            secondary_info: last-changed
+      - type: vertical-stack
+        cards:
+        - type: weather-forecast
+          entity: weather.home_de_pijp
+        - type: entities
+          title: Shelly switches
+          entities:
+            - switch.tv
+            - sensor.tv
+            - sensor.light_bedroom
+        - type: entity-button
+          name: AV/TV
+          tap_action:
+            action: call-service
+            service: remote.send_command
+            service_data:
+              command: switch_av_tv
+              entity_id: remote.xiaomi_miio
+  - title: Advanced
+    cards:      
+      - type: entities
+        title: Kitchen utomations 
+        entities:
+          - automation.turn_on_kitchen_light_when_there_is_movement_and_dusk
+          - automation.turn_off_kitchen_light_5_minute_after_last_movement
+      - type: entities
+        title: Den automations 
+        entities:
+          - automation.turn_on_den_light_when_there_is_movement_and_dark
+          - automation.turn_off_den_light_5_minute_after_last_movement
+      - type: entities
+        entities:
+          - entity: input_boolean.zigbee_permit_join
+          - entity: timer.zigbee_permit_join
+          - entity: sensor.bridge_state
+        show_header_toggle: false
+        title: Zigbee
+      - type: media-control
+        entity: media_player.living_room_speaker

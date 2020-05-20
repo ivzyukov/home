@@ -25,7 +25,7 @@
   docker_container:
     name: prometheus
     user: root
-    image: prom/prometheus
+    image: prom/prometheus:{{ prometheus_version }}
     volumes:
       - /srv/prometheus/conf/:/etc/prometheus/:ro
       - /srv/prometheus/data/:/prometheus:rw
@@ -36,6 +36,7 @@
           --web.console.libraries=/usr/share/prometheus/console_libraries \
           --web.console.templates=/usr/share/prometheus/consoles \
           --web.external-url=http://0.0.0.0/prometheus/ \
+          --web.enable-admin-api \
           --web.route-prefix=/prometheus/"
           #              --storage.local.target-heap-size=268697600"
     restart_policy: unless-stopped

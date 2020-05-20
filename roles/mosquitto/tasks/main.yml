@@ -37,7 +37,7 @@
 - name: Run Mosquitto
   docker_container:
     name: mosquitto
-    image: eclipse-mosquitto:1.6.9
+    image: eclipse-mosquitto:{{ mosquitto_version }}
     volumes:
     - "{{ data_dir }}/data/mosquitto/conf:/mosquitto/config:ro"
     - "{{ data_dir }}/data/mosquitto/data:/mosquitto/data:rw"

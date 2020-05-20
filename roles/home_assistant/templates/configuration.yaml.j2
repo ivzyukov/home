@@ -5,6 +5,10 @@ homeassistant:
   unit_system: metric
   time_zone: {{ my_timezone }}
   name: De Pijp WIP
+  customize_glob: !include customize_glob.yaml
+
+frontend:
+  themes: !include_dir_merge_named themes
 
 http:
   server_host: 0.0.0.0
@@ -52,11 +56,33 @@ mqtt:
   broker: localhost
   port: {{ mosquitto_port }}
 
+input_boolean:
+  zigbee_permit_join:
+    name: Allow devices to join
+    initial: off
+    icon: mdi:cellphone-wireless
+
+timer:
+  zigbee_permit_join:
+    name: Time remaining
+    duration: 600
+
 switch:
   - name: TV
     platform: rest
     resource: http://{{ shelly_plug_1 }}/relay/0
-    scan_interval: 5
+    scan_interval: 10
+    body_on: 'turn=on'
+    body_off: 'turn=off'
+    {% raw %}
+    is_on_template: '{{ value_json.ison }}'
+    {% endraw %} 
+    headers:
+      content-Type: application/x-www-form-urlencoded
+  - name: light_bedroom
+    platform: rest
+    resource: http://{{ shelly_plug_2 }}/relay/0
+    scan_interval: 10
     body_on: 'turn=on'
     body_off: 'turn=off'
     {% raw %}
@@ -95,7 +121,7 @@ cast:
 
 remote:
   - platform: xiaomi_miio
-    name: "den remote"
+    name: 'den remote'
     host: '{{ xiaomi_remote_ip }}'
     token: '{{ xiaomi_remote_token }}'
     commands:

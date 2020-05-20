@@ -1,7 +1,13 @@
 - name: TV
   platform: rest
   resource: http://{{ shelly_plug_1 }}/meter/0
-  scan_interval: 30
+  scan_interval: 60
+  value_template: {% raw %}'{{ value_json.power }}'{% endraw %} 
+
+- name: light_bedroom
+  platform: rest
+  resource: http://{{ shelly_plug_2 }}/meter/0
+  scan_interval: 60
   {% raw %}
   value_template: '{{ value_json.power }}'
   {% endraw %} 
@@ -135,6 +141,22 @@
   {% endraw %} 
   payload_available: "online"
   payload_not_available: "offline"
+
+- name: Bridge state
+  platform: mqtt
+  state_topic: "zigbee2mqtt/bridge/state"
+  icon: mdi:router-wireless
+
+- name: ha_version
+  platform: version
+
+ # - name: Zigbee2mqtt Networkmap
+ #   platform: mqtt
+ #   # if you change base_topic of Zigbee2mqtt, change state_topic accordingly
+ #   state_topic: zigbee2mqtt/bridge/networkmap/raw
+ #   value_template: {% raw %}{{ now().strftime('%Y-%m-%d %H:%M:%S') }}{% endraw %} 
+ #   # again, if you change base_topic of Zigbee2mqtt, change json_attributes_topic accordingly
+ #   json_attributes_topic: zigbee2mqtt/bridge/networkmap/raw
 
 # {"battery":100,"voltage":3095,"contact":false,"linkquality":44}
 # {"battery":100,"voltage":3055,"illuminance":32,"illuminance_lux":32,"linkquality":15,"occupancy":false}
