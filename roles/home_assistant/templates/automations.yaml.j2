@@ -81,6 +81,113 @@
         message: 'Входная дверь открыта, надо бы закрыть'
         language: 'ru'
 
+{% raw %}
+- id: cube_shake
+  initial_state: 'on'
+  alias: Cube - shake
+  trigger:
+    - platform: mqtt
+      topic: 'zigbee2mqtt/cube_1'
+  condition:
+    - condition: template
+      value_template: "{{ trigger.payload_json.action == 'shake' }}"
+  action:
+    - service: light.turn_off
+      entity_id: light.pallet_room
+    - service: light.turn_off
+      entity_id: light.living_room
+    - service: light.turn_off
+      entity_id: light.kitchen_lights
+{% endraw %}
+
+{% raw %}
+- id: cube_tap
+  initial_state: 'on'
+  alias: Cube - tap
+  trigger:
+    - platform: mqtt
+      topic: 'zigbee2mqtt/cube_1'
+  condition:
+    - condition: state
+      entity_id: sensor.aqara_cube_side
+      state: '0'
+    - condition: template
+      value_template: "{{ trigger.payload_json.action == 'tap' }}"
+  action:
+    - service: light.toggle
+      entity_id: light.pallet_room
+{% endraw %}
+{% raw %}
+- alias: Cube - rotate
+  initial_state: 'on'
+  trigger:
+    platform: mqtt
+    topic: 'zigbee2mqtt/cube_1'
+  condition:
+    - condition: state
+      entity_id: sensor.aqara_cube_side
+      state: '0'
+    - condition: state
+      entity_id: light.pallet_room
+      state: 'on'
+    - condition: template
+      value_template: "{{ trigger.payload_json.action in ['rotate_right', 'rotate_left'] }}"
+  action:
+    - service: light.turn_on
+      data_template:
+        entity_id: light.pallet_room
+        brightness: >-
+          {% if trigger.payload_json.action == 'rotate_right' %}
+          {{ states.light.pallet_room.attributes.brightness | int + 50 }}
+          {% else %}
+          {{ states.light.pallet_room.attributes.brightness | int - 50 }}
+          {% endif %}
+{% endraw %}
+
+{% raw %}
+- id: cube_tap_kitchen
+  initial_state: 'on'
+  alias: Cube - tap kitchen
+  trigger:
+    - platform: mqtt
+      topic: 'zigbee2mqtt/cube_1'
+  condition:
+    - condition: state
+      entity_id: sensor.aqara_cube_side
+      state: '3'
+    - condition: template
+      value_template: "{{ trigger.payload_json.action == 'tap' }}"
+  action:
+    - service: light.toggle
+      entity_id: light.kitchen_lights
+{% endraw %}
+{% raw %}
+- alias: Cube - rotate_kitchen
+  initial_state: 'on'
+  trigger:
+    platform: mqtt
+    topic: 'zigbee2mqtt/cube_1'
+  condition:
+    - condition: state
+      entity_id: sensor.aqara_cube_side
+      state: '3'
+    - condition: state
+      entity_id: light.kitchen_lights
+      state: 'on'
+    - condition: template
+      value_template: "{{ trigger.payload_json.action in ['rotate_right', 'rotate_left'] }}"
+  action:
+    - service: light.turn_on
+      data_template:
+        entity_id: light.kitchen_lights
+        brightness: >-
+          {% if trigger.payload_json.action == 'rotate_right' %}
+          {{ states.light.kitchen_lights.attributes.brightness | int + 30 }}
+          {% else %}
+          {{ states.light.kitchen_lights.attributes.brightness | int - 30 }}
+          {% endif %}
+{% endraw %}
+
 - id: enable_zigbee_join
   alias: Enable Zigbee joining
   trigger:

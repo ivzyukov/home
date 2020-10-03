@@ -49,9 +49,11 @@
       - "/:/rootfs:ro"
       - "/var/lib/node_exporter/textfile_collector:/var/lib/node_exporter/textfile_collector:ro"
     command:
-        "--path.procfs=/host/proc \
-        --path.sysfs=/host/sys \
-        --collector.filesystem.ignored-mount-points=^/(sys|proc|devtmpfs|host|etc|tmpfs)($|/) \
-        --collector.textfile.directory=/var/lib/node_exporter/textfile_collector"
+        "--path.rootfs /rootfs \
+        --path.procfs /rootfs/proc \
+        --path.sysfs /rootfs/sys \
+        --collector.textfile.directory /var/lib/node_exporter/textfile_collector \
+        --collector.filesystem.ignored-mount-points '^/(cifs|cgroup|run|tmpfs|dev|proc|sys|var/lib/docker/.+)($|/)' \
+        --log.level debug"
     restart_policy: unless-stopped
     network_mode: host

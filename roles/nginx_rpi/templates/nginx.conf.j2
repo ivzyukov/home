@@ -48,7 +48,7 @@ server {
             # include Host header
             proxy_set_header Host $http_host;
             # proxy request to plex server
-            proxy_pass https://localhost:32400;
+            proxy_pass https://{{ hostvars[groups['plex'][0]].ansible_host }}:{{ plex_port }};
             proxy_redirect off;
             proxy_buffering off;
             proxy_http_version 1.1;

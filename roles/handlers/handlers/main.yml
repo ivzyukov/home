@@ -30,3 +30,7 @@
 - name: restart zigbee2mqtt
   listen: restart zigbee2mqtt
   shell: "docker restart zigbee2mqtt"
+
+- name: restart dnsmasq
+  listen: restart dnsmasq
+  shell: "docker restart dnsmasq"

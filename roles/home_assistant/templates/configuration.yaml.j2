@@ -22,13 +22,16 @@ default_config:
 
 lovelace:
   mode: yaml
+  resources:
+    - url: /local/zigbee2mqtt-networkmap.js?v=0.6.0
+      type: module
 
 tts:
   - platform: google_translate
     cache: true
     cache_dir: /tmp/tts
     time_memory: 300
-    base_url: http://192.168.2.5:8123
+    base_url: http://{{ ansible_host }}:{{ homeassistant_port }}
     service_name: google_say
 
 #  - platform: yandextts
@@ -68,7 +71,7 @@ timer:
     duration: 600
 
 switch:
-  - name: tv
+  - name: TV
     platform: rest
     resource: http://{{ shelly_plug_1 }}/relay/0
     scan_interval: 10
@@ -112,19 +115,55 @@ light:
   - platform: group
     name: kitchen_lights
     entities:
+      - light.aqara_bulb_1
+      - light.aqara_bulb_2
+  - platform: group
+    name: all
+    entities:
       - light.kitchen_1
       - light.kitchen_2
+      - light.aqara_bulb_1
+      - light.aqara_bulb_2
+      - light.pallet_room
+      - light.living_room
+  - platform: mqtt
+    name: aqara_bulb_1
+    state_topic: "zigbee2mqtt/aqara_bulb_1"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    brightness: true
+    color_temp: true
+    schema: "json"
+    command_topic: "zigbee2mqtt/aqara_bulb_1/set"
+    brightness_scale: 254
+  - platform: mqtt
+    name: aqara_bulb_2
+    state_topic: "zigbee2mqtt/aqara_bulb_2"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    brightness: true
+    color_temp: true
+    schema: "json"
+    command_topic: "zigbee2mqtt/aqara_bulb_2/set"
+    brightness_scale: 254
+#input_select:
+#  cube_side:
+#    name: 'Cube side'
+#    options:
+#      - zero
+#      - one
+#    initial: zero
+#    icon: mdi:cube-outline
+
 
 cast:
   media_player:
     - host: 192.168.2.4
 
-remote:
-  - platform: xiaomi_miio
-    name: 'den remote'
-    host: '{{ xiaomi_remote_ip }}'
-    token: '{{ xiaomi_remote_token }}'
-    commands:
-      switch_av_tv:
-        command:
-          - raw:mc0m8wlkxm81mEsmkyADIAdpjMwDDAQoAfJiAv4A/gT8Bf4MHgD+AP4KHgoeCh4A/gD+Ch4A+AkeAhwPXgD+CD4CHgk+DV4BCzCAAA==
+#remote:
+#  - platform: xiaomi_miio
+#    name: 'den remote'
+#    host: '{{ xiaomi_remote_ip }}'
+#    token: '{{ xiaomi_remote_token }}'
+#    commands:
+#      switch_av_tv:
+#        command:
+#          - raw:mc0m8wlkxm81mEsmkyADIAdpjMwDDAQoAfJiAv4A/gT8Bf4MHgD+AP4KHgoeCh4A/gD+Ch4A+AkeAhwPXgD+CD4CHgk+DV4BCzCAAA==
