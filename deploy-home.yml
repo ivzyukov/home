@@ -14,6 +14,11 @@
     - name: tools
       tags: tools
 
+- hosts: netbox
+  roles:
+    - name: dnsmasq
+      tags: dnsmasq
+
 - hosts: rpi01
   roles:
     - name: prometheus
@@ -85,7 +90,7 @@
     - name: pihole
       tags: pihole
 
-- hosts: rpi01
+- hosts: plex
   roles:
     - name: plex
       tags: plex

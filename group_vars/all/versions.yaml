@@ -1,9 +1,9 @@
 prometheus_version: v2.18.1
 grafana_version: 6.7.3
-plex_version: arm32v7-latest
+plex_version: amd64-latest #for rpi - arm32v7-latest
 ha_version: stable
 mosquitto_version: 1.6.9
 mtproxy_version: 1.4
 nginx_version: stable
-zigbee2mqtt_version: 1.12.2
-node_exporter_version: v0.18.1
+zigbee2mqtt_version: 1.15.0  #1.12.2
+node_exporter_version: v1.0.1

@@ -17,13 +17,22 @@ all:
     proxmox:
       ansible_become: yes
       ansible_host: 192.168.2.25
+    netbox:
+      ansible_become: yes
+      ansible_host: 192.168.2.118
+      data_dir: "/data"
+      fast_dir: "/data"
   children:
     node_exporter:
       hosts:
         rpi01:
         rpi02:
         proxmox:
+        netbox:
     raspberry:
       hosts:
         rpi01:
         rpi02:
+    plex:
+      hosts:
+        netbox:

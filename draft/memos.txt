@@ -1,0 +1,46 @@
+## Delete all metrics by label
+curl -X POST -g 'http://localhost:9090/prometheus/api/v1/admin/tsdb/delete_series?match[]={topic="zigbee2mqtt_0x680ae2fffe91bbb9"}'
+
+cat /etc/netplan/00-installer-config.yaml
+# This is the network config written by 'subiquity'
+#network:
+#  ethernets:
+#    eth0:
+#      dhcp4: true
+#  version: 2
+#
+
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    eth0:
+     dhcp4: no
+    eth1:
+     dhcp4: no
+    eth2:
+     dhcp4: no
+    eth3:
+     dhcp4: no
+     #    wlan0:
+     #     dhcp4: no
+  bridges:
+    br0:
+      addresses:
+        - 192.168.2.118/24
+      gateway4: 192.168.2.254
+      nameservers:
+          search: [home]
+          addresses: [192.168.2.3, 192.168.2.254]
+      interfaces:
+        - eth0
+        - eth1
+        - eth2
+        - eth3
+          #        - wlan0
+          
+apt install iptables-persistent netfilter-persistent
+sudo iptables --policy FORWARD ACCEPT
+
+
+zigbee2mqtt/bridge/config/force_remove

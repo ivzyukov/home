@@ -15,6 +15,16 @@
     state: link
     force: yes
 
+- name: Copy floorplan
+  copy:
+    src: floorplan.png
+    dest: /srv/hassio/conf/www/floorplan.png
+
+- name: Copy NetworkMap module
+  copy:
+    src: zigbee2mqtt-networkmap.js
+    dest: /srv/hassio/conf/www/zigbee2mqtt-networkmap.js
+
 - name: Copy Home Assistant config
   template:
     src: "{{ item }}.j2"
@@ -34,11 +44,6 @@
     - customize_glob.yaml
   notify: restart home-assistant
   tags: home-configs
-
-- name: Copy floorplan
-  copy:
-    src: floorplan.png
-    dest: /srv/hassio/conf/www/floorplan.png
 
 - name: Run Home Assistant container
   docker_container:

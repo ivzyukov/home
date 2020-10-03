@@ -1,0 +1,47 @@
+---
+- name: Create directories for dnsmasq
+  file:
+   path: "{{ item }}"
+   state: directory
+   mode: 0755
+  with_items:
+    - /srv/dnsmasq/conf
+    - /srv/dnsmasq/log
+
+- name: Copy dnsmasq configs
+  copy:
+    content: '{{ dnsmasq_conf }}'
+    dest: /srv/dnsmasq/conf/dnsmasq.conf
+  notify: restart dnsmasq
+  tags: nginx
+
+- name: Disable systemd-resolved
+  service:
+    name: systemd-resolved
+    state: stopped
+    enabled: false
+
+- name: Run dnsmasq
+  docker_container:
+    name: dnsmasq
+    image: jpillora/dnsmasq
+    volumes:
+      - "/srv/dnsmasq/conf/dnsmasq.conf:/etc/dnsmasq.conf:rw"
+    env:
+      HTTP_USER: admin 
+      HTTP_PASS: admin
+    privileged: yes
+    restart_policy: unless-stopped
+    network_mode: host
+
+#$ docker run \
+#  --name dnsmasq \
+#  -d \
+#  -p 53:53/udp \
+#  -p 5380:8080 \
+#  -v /opt/dnsmasq.conf:/etc/dnsmasq.conf \
+#  --log-opt "max-size=100m" \
+#  -e "HTTP_USER=foo" \
+#  -e "HTTP_PASS=bar" \
+#  --restart always \
+#  jpillora/dnsmasq

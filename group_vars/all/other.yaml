@@ -1,0 +1,9 @@
+media_mount:
+  - point: Transmission/Movies
+    name: mnt-plex-Transmission-Movies
+  - point: Public/CINEMA
+    name: mnt-plex-Public-CINEMA
+
+media_mount_local: /mnt/plex
+my_timezone: Europe/Amsterdam
+my_domain: home

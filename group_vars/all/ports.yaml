@@ -8,3 +8,4 @@ homeassistant_port: 8123
 mqtt2prometheus_port: 9001
 node_exporter_port: 9100
 mtproxy_port: 9876
+plex_port: 32400
