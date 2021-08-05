@@ -1,130 +1,53 @@
-title: De Pijp WIP
+title: Transvaalbuurt WIP
 views:
-  - title: Home
+  - title: Den
     panel: true
     type: vertical-stack
     cards:
       - type: picture-elements
-        title: Floor plan
-        image: /local/floorplan.png
+        image: /local/office.png
         elements:
-          - type: state-icon
-            entity: light.living_room
-            tap_action:
-              action: toggle
-            style:
-              top: 70%
-              left: 26%
-          - type: state-icon
-            entity: light.pallet_room
-            tap_action:
-              action: toggle
-            style:
-              top: 70%
-              left: 55%
-          - type: state-icon
-            entity: light.aqara_bulb_2
-            tap_action:
-              action: toggle
-            style:
-              top: 31%
-              left: 25%
           - type: state-icon
             entity: light.aqara_bulb_1
             tap_action:
               action: toggle
             style:
-              top: 31%
-              left: 31%
+              top: 50%
+              left: 80%
+
   - title: Sensors
     cards:
       - type: entities
         title: Lights
         entities:
-          - light.living_room
-          - light.pallet_room
-          - light.kitchen_lights
-          - light.kitchen_1
-          - switch.light_bedroom
-          - entity: sensor.aqara_cube_side
-            secondary_info: last-changed
-          - entity: sensor.light_sensor_livingroom
-            secondary_info: last-changed
-          - entity: sensor.light_sensor_kitchen
-            secondary_info: last-changed
-          - entity: sensor.light_sensor_den
-            secondary_info: last-changed
+          - light.light_den
       - type: entities
         title: Sensors
         entities:
-          - entity: sensor.temp_bedroom
-            secondary_info: last-changed
-          - entity: sensor.humidity_bedroom
-            secondary_info: last-changed
-          - entity: sensor.temp_den
+          - entity: sensor.temperature_den
             secondary_info: last-changed
           - entity: sensor.humidity_den
             secondary_info: last-changed
-          - entity: sensor.temp_garden
+          - entity: sensor.door_den
             secondary_info: last-changed
-          - entity: sensor.humidity_garden
-            secondary_info: last-changed
-          - entity: sensor.motion_sensor_livingroom
-            secondary_info: last-changed
-          - entity: sensor.motion_sensor_kitchen
-            secondary_info: last-changed
-          - entity: sensor.motion_sensor_den
-            secondary_info: last-changed
-          - entity: sensor.door_sensor_garden
-            secondary_info: last-changed
-          - entity: sensor.door_sensor_street
-            secondary_info: last-changed
+      - type: entities
+        title: Zigbee
+        entities:
+          - entity: input_boolean.zigbee_permit_join
+          - entity: sensor.bridge_state
       - type: vertical-stack
         cards:
         - type: weather-forecast
-          entity: weather.home_de_pijp
+          entity: weather.huis
         - type: entities
           title: Shelly switches
+          show_header_toggle: false
           entities:
-            - switch.tv
-            - sensor.tv
-            - sensor.light_bedroom
-        #- type: entity-button
-        #  name: AV/TV
-        #  tap_action:
-        #    action: call-service
-        #    service: remote.send_command
-        #    service_data:
-        #      command: switch_av_tv
-        #      entity_id: remote.xiaomi_miio
-  - title: Advanced
-    cards:      
-      - type: entities
-        title: Kitchen utomations 
-        entities:
-          - automation.turn_on_kitchen_light_when_there_is_movement_and_dusk
-          - automation.turn_off_kitchen_light_5_minute_after_last_movement
-      - type: entities
-        title: Den automations 
-        entities:
-          - automation.turn_on_den_light_when_there_is_movement_and_dark
-          - automation.turn_off_den_light_5_minute_after_last_movement
-      - type: entities
-        title: Text to speech 
-        entities:
-          - automation.door_to_garden_is_open
-          - automation.check_entrance_door_every_minute
-      - type: entities
-        entities:
-          - entity: input_boolean.zigbee_permit_join
-          - entity: timer.zigbee_permit_join
-          - entity: sensor.bridge_state
-        show_header_toggle: false
-        title: Zigbee
-      - type: media-control
-        entity: media_player.living_room_speaker
-      - type: media-control
-        entity: media_player.living_room_tv
+            - switch.heater
+            - sensor.heater_usage
+            - switch.plug
+            - sensor.plug_usage
+
   - title: Zigbee Network
     panel: true # this renders the first card on full width, other cards in this view will not be rendered
     cards:

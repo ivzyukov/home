@@ -5,15 +5,15 @@ dnsmasq_conf: |
   local-ttl=2
   
   log-async
-  server=192.168.2.254#53
+  server=192.168.2.1#53
   except-interface=nonexisting
-  server=/home/192.168.2.254
-  server=/2.168.192.in-addr.arpa/192.168.2.254
+  server=/home/192.168.2.1
+  server=/2.168.192.in-addr.arpa/192.168.2.1
   server=/use-application-dns.net/
-
+  
   dhcp-authoritative
   dhcp-range=192.168.2.2,192.168.2.200,24h
-  dhcp-option=option:router,192.168.2.254
+  dhcp-option=option:router,192.168.2.1
   #dhcp-leasefile=/etc/pihole/dhcp.leases
   #quiet-dhcp
   
@@ -30,3 +30,6 @@ dnsmasq_conf: |
   dhcp-host=EC:FA:BC:6A:60:42,192.168.2.9,shellyplug-rpi
   dhcp-host=EC:FA:BC:6A:56:F3,192.168.2.151,shellyplug-s-tv
   dhcp-host=F0:EF:86:01:7D:06,192.168.2.97,Chromecast
+  dhcp-host=00:90:A9:EF:51:F7,192.168.2.21,PharlCloud
+  
+  #address=/raspberrypi.home/192.168.2.5

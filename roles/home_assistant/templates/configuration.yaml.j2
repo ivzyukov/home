@@ -1,10 +1,10 @@
 homeassistant:
-  latitude: 52.356407
-  longitude: 4.901339
-  elevation: 6
+  #latitude: 52.356407
+  #longitude: 4.901339
+  #elevation: 6
   unit_system: metric
   time_zone: {{ my_timezone }}
-  name: De Pijp WIP
+  name: Transvaalbuurt WIP
   customize_glob: !include customize_glob.yaml
 
 frontend:
@@ -43,10 +43,7 @@ tts:
 #    speed: 2
 
 sensor: !include sensors.yaml
-group: !include groups.yaml
 automation: !include automations.yaml
-script: !include scripts.yaml
-scene: !include scenes.yaml
 
 #logger:
 #  default: info
@@ -65,13 +62,13 @@ input_boolean:
     initial: off
     icon: mdi:cellphone-wireless
 
-timer:
-  zigbee_permit_join:
-    name: Time remaining
-    duration: 600
+#timer:
+#  zigbee_permit_join:
+#    name: Time remaining
+#    duration: 600
 
 switch:
-  - name: TV
+  - name: Heater
     platform: rest
     resource: http://{{ shelly_plug_1 }}/relay/0
     scan_interval: 10
@@ -82,7 +79,7 @@ switch:
     {% endraw %} 
     headers:
       content-Type: application/x-www-form-urlencoded
-  - name: light_bedroom
+  - name: Plug
     platform: rest
     resource: http://{{ shelly_plug_2 }}/relay/0
     scan_interval: 10
@@ -97,37 +94,12 @@ switch:
 discovery:
   ignore:
     - yeelight
-    - igd
     - homekit
 
-yeelight:
-  devices:
-    {{ yeelight_bulb_ip_4 }}:
-      name: Kitchen 1
-    {{ yeelight_bulb_ip_3 }}:
-      name: Kitchen 2
-    {{ yeelight_bulb_ip_2 }}:
-      name: Living Room
-    {{ yeelight_bulb_ip_1 }}:
-      name: Pallet Room
-
 light:
-  - platform: group
-    name: kitchen_lights
-    entities:
-      - light.aqara_bulb_1
-      - light.aqara_bulb_2
-  - platform: group
-    name: all
-    entities:
-      - light.kitchen_1
-      - light.kitchen_2
-      - light.aqara_bulb_1
-      - light.aqara_bulb_2
-      - light.pallet_room
-      - light.living_room
   - platform: mqtt
-    name: aqara_bulb_1
+    name: "Light Den"
+    unique_id: aqara_bulb_1
     state_topic: "zigbee2mqtt/aqara_bulb_1"
     availability_topic: "zigbee2mqtt/bridge/state"
     brightness: true
@@ -135,35 +107,3 @@ light:
     schema: "json"
     command_topic: "zigbee2mqtt/aqara_bulb_1/set"
     brightness_scale: 254
-  - platform: mqtt
-    name: aqara_bulb_2
-    state_topic: "zigbee2mqtt/aqara_bulb_2"
-    availability_topic: "zigbee2mqtt/bridge/state"
-    brightness: true
-    color_temp: true
-    schema: "json"
-    command_topic: "zigbee2mqtt/aqara_bulb_2/set"
-    brightness_scale: 254
-#input_select:
-#  cube_side:
-#    name: 'Cube side'
-#    options:
-#      - zero
-#      - one
-#    initial: zero
-#    icon: mdi:cube-outline
-
-
-cast:
-  media_player:
-    - host: 192.168.2.4
-
-#remote:
-#  - platform: xiaomi_miio
-#    name: 'den remote'
-#    host: '{{ xiaomi_remote_ip }}'
-#    token: '{{ xiaomi_remote_token }}'
-#    commands:
-#      switch_av_tv:
-#        command:
-#          - raw:mc0m8wlkxm81mEsmkyADIAdpjMwDDAQoAfJiAv4A/gT8Bf4MHgD+AP4KHgoeCh4A/gD+Ch4A+AkeAhwPXgD+CD4CHgk+DV4BCzCAAA==

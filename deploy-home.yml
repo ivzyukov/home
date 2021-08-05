@@ -39,15 +39,15 @@
     - name: nginx_rpi
       tags: nginx_rpi
 
-- hosts: proxmox
-  roles:
-    - name: nginx_proxmox
-      tags: nginx_proxmox
+#- hosts: proxmox
+#  roles:
+#    - name: nginx_proxmox
+#      tags: nginx_proxmox
 
-- hosts: proxmox
-  roles:
-    - name: mtproxy
-      tags: mtproxy
+#- hosts: proxmox
+#  roles:
+#    - name: mtproxy
+#      tags: mtproxy
 
 - hosts: node_exporter
   roles:
@@ -85,12 +85,17 @@
     - name: home_assistant
       tags: home_assistant
 
-- hosts: rpi02
-  roles:
-    - name: pihole
-      tags: pihole
+#- hosts: rpi02
+#  roles:
+#    - name: pihole
+#      tags: pihole
 
 - hosts: plex
   roles:
     - name: plex
       tags: plex
+
+- hosts: netbox
+  roles: 
+    - name: octoprint
+      tags: octoprint

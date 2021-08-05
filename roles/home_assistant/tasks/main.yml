@@ -8,17 +8,10 @@
     - "{{ data_dir }}/data/hassio/conf"
     - "/srv/hassio/conf/www"
 
-- name: Create symbolic links for Home Assistant
-  file:
-    src: "{{ data_dir }}/data/hassio/conf"
-    dest: "/srv/hassio/conf"
-    state: link
-    force: yes
-
-- name: Copy floorplan
+- name: Copy office floorplan
   copy:
-    src: floorplan.png
-    dest: /srv/hassio/conf/www/floorplan.png
+    src: office.png
+    dest: /srv/hassio/conf/www/office.png
 
 - name: Copy NetworkMap module
   copy:

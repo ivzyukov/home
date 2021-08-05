@@ -3,23 +3,24 @@
 all:
   hosts:
     rpi01:
-      #      ansible_user: pi
+      #ansible_user: pi
       ansible_become: yes
       data_dir: "/data"
-      fast_dir: "/mnt/usb"
-      ansible_host: 192.168.2.5
-      #      ansible_password: raspberry
+      #fast_dir: "/mnt/usb"
+      fast_device: "/dev/sda"
+      ansible_host: 192.168.2.14
+      #ansible_password: raspberry
     rpi02:
       ansible_become: yes
       data_dir: "/data"
       fast_dir: "/mnt/usb"
-      ansible_host: 192.168.2.3
+      ansible_host: 192.168.2.5
     proxmox:
       ansible_become: yes
       ansible_host: 192.168.2.25
     netbox:
       ansible_become: yes
-      ansible_host: 192.168.2.118
+      ansible_host: 192.168.2.254
       data_dir: "/data"
       fast_dir: "/data"
   children:

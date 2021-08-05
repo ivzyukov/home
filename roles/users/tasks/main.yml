@@ -30,3 +30,4 @@
     key: "{{ item.ssh_pub |join('\n') }}"
   loop: "{{ users }}"
   when: ansible_env.SUDO_USER|default() != 'ivzyukov'
+
