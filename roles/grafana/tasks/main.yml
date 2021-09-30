@@ -51,7 +51,7 @@
     }'
     status_code: [200, 201, 409, 500]
     body_format: json
-    retries: 5
+    #retries: 5
     timeout: 30
   when: not ansible_check_mode
   with_fileglob:

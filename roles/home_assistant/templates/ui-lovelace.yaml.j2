@@ -38,7 +38,7 @@ views:
       - type: vertical-stack
         cards:
         - type: weather-forecast
-          entity: weather.huis
+          entity: weather.openweathermap
         - type: entities
           title: Shelly switches
           show_header_toggle: false
@@ -75,3 +75,56 @@ views:
             --zigbee2mqtt-networkmap-node-coordinator-color: rgba(224, 78, 93, .7);
             --zigbee2mqtt-networkmap-node-router-color: rgba(0, 165, 255, .7);
           }
+# exported from manual config
+  - path: default_view
+    type: panel
+    title: Den panel
+    badges: []
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: vertical-stack
+            cards:
+              - type: horizontal-stack
+                cards:
+                  - type: weather-forecast
+                    entity: weather.openweathermap
+                  - type: light
+                    entity: light.light_den
+              - type: horizontal-stack
+                cards:
+                  - type: iframe
+                    url: >-
+                      https://embed.windy.com/embed2.html?lat=52.373&lon=4.877&detailLat=52.373&detailLon=4.877&width=650&height=450&zoom=8&level=surface&overlay=wind&product=ecmwf&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1
+                    aspect_ratio: 50%
+                  - type: horizontal-stack
+                    cards:
+                      - type: button
+                        tap_action:
+                          action: toggle
+                        entity: switch.plug
+                        icon: hass:flash
+                        name: Anycubic
+                      - type: button
+                        tap_action:
+                          action: toggle
+                        entity: switch.heater
+                        icon: hass:flash
+                        name: Lamp
+              - type: horizontal-stack
+                cards:
+                  - type: sensor
+                    entity: sensor.temperature_den
+                    graph: line
+                  - type: sensor
+                    entity: sensor.humidity_den
+                    graph: line
+                  - type: sensor
+                    entity: sensor.plug_usage
+                    graph: line
+                    name: Power Usage
+                  - type: sensor
+                    entity: sensor.heater_usage
+                    graph: line
+                    name: Power Usage
+
