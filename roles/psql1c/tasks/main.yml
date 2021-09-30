@@ -1,0 +1,26 @@
+---
+
+- name: Create directories for psql
+  file:
+   path: "{{ item }}"
+   state: directory
+   mode: 0755
+  with_items:
+    - "{{ data_dir }}/psql/data/"
+    - "{{ data_dir }}/psql/log/"
+
+- name: Run Postgresql
+  docker_container:
+    name: psql
+    image: silverbulleters/ya-docker-postgresql-1c:{{ psql_version }}
+    volumes:
+      - "{{ data_dir }}/psql/data:/var/lib/pgpro:rw"
+      - "{{ data_dir }}/psql/log:/var/log/postgresql:rw"
+    env:
+      PG_PASSWORD: pgpassword
+      DB_USER: pg1c
+      DB_PASS: pg1cpass
+      PG_MAX_CONNECTION: 130
+      PG_TIMEZONE: "{{ my_timezone }}"
+    restart_policy: unless-stopped
+    network_mode: host

@@ -1,0 +1,27 @@
+---
+
+- hosts: sarvar
+  roles:
+    - name: common
+      tags: common
+
+    - name: docker
+      tags: docker
+
+    - name: users
+      tags: users
+
+    - name: tools
+      tags: tools
+
+    - name: node_exporter
+      tags: node_exporter
+
+    - name: prometheus
+      tags: prometheus
+
+    - name: grafana
+      tags: grafana
+
+    - name: psql1c
+      tags: psql1c
