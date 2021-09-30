@@ -101,6 +101,6 @@
       tags: plex
 
 - hosts: netbox
-  roles: 
+  roles:
     - name: octoprint
       tags: octoprint
