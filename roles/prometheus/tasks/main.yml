@@ -5,20 +5,13 @@
    state: directory
    mode: 0755
   with_items:
-    - "/srv/prometheus/conf"
-    - "{{ data_dir }}/data/prometheus"
-
-- name: Create symbolic link for data directory
-  file:
-    src: "{{ data_dir }}/data/prometheus"
-    dest: "/srv/prometheus/data"
-    state: link
-    force: yes
+    - "{{ data_dir }}/prometheus/data"
+    - "{{ data_dir }}/prometheus/conf"
 
 - name: Copy Prometheus config
   template:
     src: prometheus.yml.j2
-    dest: /srv/prometheus/conf/prometheus.yml
+    dest: "{{ data_dir }}/prometheus/conf/prometheus.yml"
   notify: restart prometheus
 
 - name: Run Prometheus
@@ -27,8 +20,8 @@
     user: root
     image: prom/prometheus:{{ prometheus_version }}
     volumes:
-      - /srv/prometheus/conf/:/etc/prometheus/:ro
-      - /srv/prometheus/data/:/prometheus:rw
+      - "{{ data_dir }}/prometheus/conf/:/etc/prometheus/:ro"
+      - "{{ data_dir }}/prometheus/data/:/prometheus:rw"
     command:
         "--config.file=/etc/prometheus/prometheus.yml \
           --storage.tsdb.path=/prometheus \

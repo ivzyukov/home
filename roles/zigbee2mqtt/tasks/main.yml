@@ -31,7 +31,7 @@
 - name: Run container
   docker_container:
     name: zigbee2mqtt
-    image: koenkk/zigbee2mqtt:{{ zigbee2mqtt_version }}
+    image: '{{ zigbee2mqtt_version }}'
     privileged: yes
     volumes:
     - "{{ data_dir }}/data/zigbee2mqtt/:/app/data:rw"

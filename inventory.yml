@@ -7,14 +7,14 @@ all:
       ansible_become: yes
       data_dir: "/data"
       #fast_dir: "/mnt/usb"
-      fast_device: "/dev/sda"
-      ansible_host: 192.168.2.14
-      #ansible_password: raspberry
+      #fast_device: "/dev/sda"
+      ansible_host: 192.168.2.6
+      ansible_password: raspberry
     rpi02:
       ansible_become: yes
       data_dir: "/data"
       fast_dir: "/mnt/usb"
-      ansible_host: 192.168.2.5
+      ansible_host: 192.168.2.7
     proxmox:
       ansible_become: yes
       ansible_host: 192.168.2.25
@@ -23,17 +23,11 @@ all:
       ansible_host: 192.168.2.254
       data_dir: "/data"
       fast_dir: "/data"
-  children:
-    node_exporter:
-      hosts:
-        rpi01:
-        rpi02:
-        proxmox:
-        netbox:
-    raspberry:
-      hosts:
-        rpi01:
-        rpi02:
-    plex:
-      hosts:
-        netbox:
+  #children:
+  #  #raspberry:
+  #  #  hosts:
+  #  #    rpi01:
+  #  #    rpi02:
+  #  plex:
+  #    hosts:
+  #      netbox:

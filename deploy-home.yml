@@ -14,6 +14,9 @@
     - name: tools
       tags: tools
 
+    - name: node_exporter
+      tags: node_exporter
+
 - hosts: netbox
   roles:
     - name: dnsmasq
@@ -29,7 +32,7 @@
     - name: grafana
       tags: grafana
 
-- hosts: rpi01
+- hosts: netbox
   roles:
     - name: openvpn_monitor
       tags: oprnvpn_monitor
@@ -49,18 +52,13 @@
 #    - name: mtproxy
 #      tags: mtproxy
 
-- hosts: node_exporter
-  roles:
-    - name: node_exporter
-      tags: node_exporter
-
 # Replaced with Aqara sensors
 #- hosts: rpi01
 #  roles:
 #    - name: dht22_exporter
 #      tags: dht22_exporter
 
-- hosts: rpi01
+- hosts: netbox
   roles:
     - name: openvpn_exporter
       tags: openvpn_exporter
@@ -85,12 +83,19 @@
     - name: home_assistant
       tags: home_assistant
 
+- hosts: rpi01
+  roles:
+    - name: kiosk  #  works only for Raspberry Pi
+      tags: kiosk
+      vars:
+        kiosk_url: http://localhost:8123
+
 #- hosts: rpi02
 #  roles:
 #    - name: pihole
 #      tags: pihole
 
-- hosts: plex
+- hosts: netbox
   roles:
     - name: plex
       tags: plex
