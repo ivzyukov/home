@@ -26,11 +26,11 @@
     - ui-lovelace.yaml
   tags: [ "home-configs", "ui-lovelace" ]
 
-- name: Copy Themes
-  copy:
-    src: files/themes
-    dest: /srv/hassio/conf/themes
-  tags: [ "home-configs", "ui-lovelace" ]
+#- name: Copy Themes
+#  copy:
+#    src: files/themes
+#    dest: /srv/hassio/conf/themes
+#  tags: [ "home-configs", "ui-lovelace" ]
 
 - name: Copy Home Assistant config
   template:

@@ -1,12 +1,12 @@
 /*********
   Rui Santos
   Complete project details at https://RandomNerdTutorials.com/esp32-cam-video-streaming-web-server-camera-home-assistant/
-  
-  IMPORTANT!!! 
+
+  IMPORTANT!!!
    - Select Board "AI Thinker ESP32-CAM"
    - GPIO 0 must be connected to GND to upload a sketch
    - After connecting GPIO 0 to GND, press the ESP32-CAM on-board RESET button to put your board in flashing mode
-  
+
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files.
 
@@ -44,7 +44,7 @@ const char* password = "7777777788888888";
   #define XCLK_GPIO_NUM    21
   #define SIOD_GPIO_NUM    26
   #define SIOC_GPIO_NUM    27
-  
+
   #define Y9_GPIO_NUM      35
   #define Y8_GPIO_NUM      34
   #define Y7_GPIO_NUM      39
@@ -63,7 +63,7 @@ const char* password = "7777777788888888";
   #define XCLK_GPIO_NUM     27
   #define SIOD_GPIO_NUM     25
   #define SIOC_GPIO_NUM     23
-  
+
   #define Y9_GPIO_NUM       19
   #define Y8_GPIO_NUM       36
   #define Y7_GPIO_NUM       18
@@ -82,7 +82,7 @@ const char* password = "7777777788888888";
   #define XCLK_GPIO_NUM     27
   #define SIOD_GPIO_NUM     25
   #define SIOC_GPIO_NUM     23
-  
+
   #define Y9_GPIO_NUM       19
   #define Y8_GPIO_NUM       36
   #define Y7_GPIO_NUM       18
@@ -101,7 +101,7 @@ const char* password = "7777777788888888";
   #define XCLK_GPIO_NUM      0
   #define SIOD_GPIO_NUM     26
   #define SIOC_GPIO_NUM     27
-  
+
   #define Y9_GPIO_NUM       35
   #define Y8_GPIO_NUM       34
   #define Y7_GPIO_NUM       39
@@ -192,7 +192,7 @@ void startCameraServer(){
     .handler   = stream_handler,
     .user_ctx  = NULL
   };
-  
+
   //Serial.printf("Starting web server on port: '%d'\n", config.server_port);
   if (httpd_start(&stream_httpd, &config) == ESP_OK) {
     httpd_register_uri_handler(stream_httpd, &index_uri);
@@ -201,10 +201,10 @@ void startCameraServer(){
 
 void setup() {
   WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0); //disable brownout detector
- 
+
   Serial.begin(115200);
   Serial.setDebugOutput(false);
-  
+
   camera_config_t config;
   config.ledc_channel = LEDC_CHANNEL_0;
   config.ledc_timer = LEDC_TIMER_0;
@@ -225,7 +225,7 @@ void setup() {
   config.pin_pwdn = PWDN_GPIO_NUM;
   config.pin_reset = RESET_GPIO_NUM;
   config.xclk_freq_hz = 20000000;
-  config.pixel_format = PIXFORMAT_JPEG; 
+  config.pixel_format = PIXFORMAT_JPEG;
   config.frame_size = FRAMESIZE_VGA;  // 640x480
   config.jpeg_quality = 10;
   config.fb_count = 1;
@@ -238,7 +238,7 @@ void setup() {
   //   config.jpeg_quality = 12;
   //   config.fb_count = 1;
   // }
-  
+
   // Camera init
   esp_err_t err = esp_camera_init(&config);
   if (err != ESP_OK) {
@@ -253,10 +253,10 @@ void setup() {
   }
   Serial.println("");
   Serial.println("WiFi connected");
-  
+
   Serial.print("Camera Stream Ready! Go to: http://");
   Serial.print(WiFi.localIP());
-  
+
   // Start streaming web server
   startCameraServer();
 }

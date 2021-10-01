@@ -5,20 +5,13 @@
    state: directory
    mode: 0755
   with_items:
-    - "{{ data_dir }}/data/grafana"
-    - /srv/grafana/conf
-
-- name: Create symbolic link for data directory
-  file:
-    src: "{{ data_dir }}/data/grafana"
-    dest: "/srv/grafana/data"
-    state: link
-    force: yes
+    - "{{ data_dir }}/grafana/data"
+    - "{{ data_dir }}/grafana/conf"
 
 - name: Copy grafana config
   template:
     src: grafana.ini.j2
-    dest: /srv/grafana/conf/grafana.ini
+    dest: "{{ data_dir }}/grafana/conf/grafana.ini"
   notify: restart grafana
 
 - name: Run Grafana
@@ -27,8 +20,8 @@
     user: root
     image: grafana/grafana:{{ grafana_version }}
     volumes:
-      - "/srv/grafana/conf/grafana.ini:/etc/grafana/grafana.ini:ro"
-      - "/srv/grafana/data:/var/lib/grafana:rw"
+      - "{{ data_dir }}/grafana/conf/grafana.ini:/etc/grafana/grafana.ini:ro"
+      - "{{ data_dir }}/grafana/data:/var/lib/grafana:rw"
     env:
       GF_SECURITY_ADMIN_USER: "{{ grafana_username }}"
       GF_SECURITY_ADMIN_PASSWORD: "{{ grafana_password }}"

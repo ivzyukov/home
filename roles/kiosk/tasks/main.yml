@@ -23,14 +23,14 @@
     content: |
       [Service]
       ExecStart=
-      ExecStart=-/sbin/agetty --autologin kiosk --noclear %I $TERM      
+      ExecStart=-/sbin/agetty --autologin kiosk --noclear %I $TERM
 
 - name: install dependencies
   apt:
     pkg:
-      - xserver-xorg 
-      - x11-xserver-utils 
-      - xinit 
+      - xserver-xorg
+      - x11-xserver-utils
+      - xinit
       - openbox
       - chromium-browser
     state: present
@@ -42,7 +42,7 @@
     content: |
       xset -dpms            # turn off display power management system
       xset s noblank        # turn off screen blanking
-      xset s off            # turn off screen saver  
+      xset s off            # turn off screen saver
       # Run Chromium in kiosk mode
       chromium-browser  --noerrdialogs --disable-infobars --kiosk '{{ kiosk_url }}' --check-for-update-interval=31536000
 

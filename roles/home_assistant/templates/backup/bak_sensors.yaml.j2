@@ -4,7 +4,7 @@
   scan_interval: 60
   {%- raw %}
   value_template: '{{ value_json.power }}'
-  {%- endraw %} 
+  {%- endraw %}
 
 - name: light_bedroom
   platform: rest
@@ -12,14 +12,14 @@
   scan_interval: 60
   {%- raw %}
   value_template: '{{ value_json.power }}'
-  {%- endraw %} 
+  {%- endraw %}
 
 - name: temp_bedroom
   platform: mqtt
   state_topic: "zigbee2mqtt/temp_sensor_bedroom"
   {%- raw %}
   value_template: '{{ value_json.temperature }}'
-  {% endraw -%} 
+  {% endraw -%}
   unit_of_measurement: '°C'
   payload_available: "online"
   payload_not_available: "offline"
@@ -29,7 +29,7 @@
   state_topic: "zigbee2mqtt/temp_sensor_den"
   {%- raw %}
   value_template: '{{ value_json.temperature }}'
-  {%- endraw %} 
+  {%- endraw %}
   unit_of_measurement: '°C'
   payload_available: "online"
   payload_not_available: "offline"
@@ -39,7 +39,7 @@
   state_topic: "zigbee2mqtt/temp_sensor_den"
   {%- raw %}
   value_template: '{{ value_json.humidity }}'
-  {%- endraw %} 
+  {%- endraw %}
   unit_of_measurement: '%'
   payload_available: "online"
   payload_not_available: "offline"
@@ -49,7 +49,7 @@
   state_topic: "zigbee2mqtt/temp_sensor_bedroom"
   {%- raw %}
   value_template: '{{ value_json.humidity }}'
-  {%- endraw %} 
+  {%- endraw %}
   unit_of_measurement: '%'
   payload_available: "online"
   payload_not_available: "offline"
@@ -59,7 +59,7 @@
   state_topic: "zigbee2mqtt/temp_sensor_garden"
   {%- raw %}
   value_template: '{{ value_json.temperature }}'
-  {%- endraw %} 
+  {%- endraw %}
   unit_of_measurement: '°C'
   payload_available: "online"
   payload_not_available: "offline"
@@ -69,7 +69,7 @@
   state_topic: "zigbee2mqtt/temp_sensor_garden"
   {%- raw %}
   value_template: '{{ value_json.humidity }}'
-  {%- endraw %} 
+  {%- endraw %}
   unit_of_measurement: '%'
   payload_available: "online"
   payload_not_available: "offline"
@@ -79,7 +79,7 @@
   state_topic: "zigbee2mqtt/motion_sensor_livingroom"
   {%- raw %}
   value_template: '{{ value_json.occupancy }}'
-  {%- endraw %} 
+  {%- endraw %}
   payload_available: "online"
   payload_not_available: "offline"
 
@@ -88,7 +88,7 @@
   state_topic: "zigbee2mqtt/motion_sensor_livingroom"
   {%- raw %}
   value_template: '{{ value_json.illuminance }}'
-  {%- endraw %} 
+  {%- endraw %}
   payload_available: "online"
   payload_not_available: "offline"
 
@@ -97,7 +97,7 @@
   state_topic: "zigbee2mqtt/motion_sensor_kitchen"
   {%- raw %}
   value_template: '{{ value_json.occupancy }}'
-  {%- endraw %} 
+  {%- endraw %}
   payload_available: "online"
   payload_not_available: "offline"
 
@@ -106,7 +106,7 @@
   state_topic: "zigbee2mqtt/motion_sensor_kitchen"
   {%- raw %}
   value_template: '{{ value_json.illuminance }}'
-  {%- endraw %} 
+  {%- endraw %}
   payload_available: "online"
   payload_not_available: "offline"
 
@@ -115,7 +115,7 @@
   state_topic: "zigbee2mqtt/motion_sensor_den"
   {%- raw %}
   value_template: '{{ value_json.occupancy }}'
-  {%- endraw %} 
+  {%- endraw %}
   payload_available: "online"
   payload_not_available: "offline"
 
@@ -124,7 +124,7 @@
   state_topic: "zigbee2mqtt/motion_sensor_den"
   {%- raw %}
   value_template: '{{ value_json.illuminance }}'
-  {%- endraw %} 
+  {%- endraw %}
   payload_available: "online"
   payload_not_available: "offline"
 
@@ -133,7 +133,7 @@
   state_topic: "zigbee2mqtt/door_sensor_garden"
   {%- raw %}
   value_template: '{{ value_json.contact }}'
-  {%- endraw %} 
+  {%- endraw %}
   payload_available: "online"
   payload_not_available: "offline"
 
@@ -142,7 +142,7 @@
   state_topic: "zigbee2mqtt/door_sensor_street"
   {%- raw %}
   value_template: '{{ value_json.contact }}'
-  {%- endraw %} 
+  {%- endraw %}
   payload_available: "online"
   payload_not_available: "offline"
 
@@ -157,7 +157,7 @@
   state_topic: "zigbee2mqtt/cube_1"
   {%- raw %}
   value_template: '{{ value_json.side }}'
-  {%- endraw %} 
+  {%- endraw %}
   payload_available: "online"
   payload_not_available: "offline"
 
@@ -182,7 +182,7 @@
  #   platform: mqtt
  #   # if you change base_topic of Zigbee2mqtt, change state_topic accordingly
  #   state_topic: zigbee2mqtt/bridge/networkmap/raw
- #   value_template: {%- raw %}{{ now().strftime('%Y-%m-%d %H:%M:%S') }}{% endraw -%} 
+ #   value_template: {%- raw %}{{ now().strftime('%Y-%m-%d %H:%M:%S') }}{% endraw -%}
  #   # again, if you change base_topic of Zigbee2mqtt, change json_attributes_topic accordingly
  #   json_attributes_topic: zigbee2mqtt/bridge/networkmap/raw
 

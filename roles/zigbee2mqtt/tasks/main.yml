@@ -1,5 +1,5 @@
 ---
-- name: Create directories 
+- name: Create directories
   file:
    path: "{{ item }}"
    state: directory
@@ -15,7 +15,7 @@
     state: link
     force: yes
 
-- name: Create symbolic links 
+- name: Create symbolic links
   file:
     src: "{{ data_dir }}/data/zigbee2mqtt/log"
     dest: "/srv/zigbee2mqtt/log"
