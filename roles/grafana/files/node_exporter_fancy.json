@@ -13,7 +13,7 @@
       }
     ]
   },
-  "description": "【English version】Update 2020.06.28, add the overall resource overview! Support Grafana6&7,Support Node Exporter v0.16 and above.Optimize the main metrics display. Includes: CPU, memory, disk IO, network, temperature and other monitoring metrics。https://github.com/starsliao/Prometheus",
+  "description": "\u3010English version\u3011Update 2020.06.28, add the overall resource overview! Support Grafana6&7,Support Node Exporter v0.16 and above.Optimize the main metrics display. Includes: CPU, memory, disk IO, network, temperature and other monitoring metrics\u3002https://github.com/starsliao/Prometheus",
   "editable": true,
   "gnetId": 11074,
   "graphTooltip": 0,
@@ -68,7 +68,7 @@
       },
       "id": 187,
       "panels": [],
-      "title": "Resource Overview (associated JOB)，Host：【$show_hostname】Instance：$node",
+      "title": "Resource Overview (associated JOB)\uff0cHost\uff1a\u3010$show_hostname\u3011Instance\uff1a$node",
       "type": "row"
     },
     {
@@ -113,7 +113,7 @@
         },
         {
           "$$hashKey": "object:9892",
-          "alias": "IP（Link to details）",
+          "alias": "IP\uff08Link to details\uff09",
           "align": "auto",
           "colorMode": null,
           "colors": [
@@ -376,7 +376,7 @@
           "format": "table",
           "instant": true,
           "interval": "",
-          "legendFormat": "主机名",
+          "legendFormat": "\u4e3b\u673a\u540d",
           "refId": "A"
         },
         {
@@ -385,7 +385,7 @@
           "hide": false,
           "instant": true,
           "interval": "",
-          "legendFormat": "运行时间",
+          "legendFormat": "\u8fd0\u884c\u65f6\u95f4",
           "refId": "D"
         },
         {
@@ -394,7 +394,7 @@
           "hide": false,
           "instant": true,
           "interval": "",
-          "legendFormat": "总内存",
+          "legendFormat": "\u603b\u5185\u5b58",
           "refId": "B"
         },
         {
@@ -403,7 +403,7 @@
           "hide": false,
           "instant": true,
           "interval": "",
-          "legendFormat": "总核数",
+          "legendFormat": "\u603b\u6838\u6570",
           "refId": "C"
         },
         {
@@ -411,7 +411,7 @@
           "format": "table",
           "instant": true,
           "interval": "",
-          "legendFormat": "5分钟负载",
+          "legendFormat": "5\u5206\u949f\u8d1f\u8f7d",
           "refId": "L"
         },
         {
@@ -420,7 +420,7 @@
           "hide": false,
           "instant": true,
           "interval": "",
-          "legendFormat": "CPU使用率",
+          "legendFormat": "CPU\u4f7f\u7528\u7387",
           "refId": "F"
         },
         {
@@ -429,7 +429,7 @@
           "hide": false,
           "instant": true,
           "interval": "",
-          "legendFormat": "内存使用率",
+          "legendFormat": "\u5185\u5b58\u4f7f\u7528\u7387",
           "refId": "G"
         },
         {
@@ -438,7 +438,7 @@
           "hide": false,
           "instant": true,
           "interval": "",
-          "legendFormat": "分区使用率",
+          "legendFormat": "\u5206\u533a\u4f7f\u7528\u7387",
           "refId": "E"
         },
         {
@@ -447,7 +447,7 @@
           "hide": false,
           "instant": true,
           "interval": "",
-          "legendFormat": "最大读取",
+          "legendFormat": "\u6700\u5927\u8bfb\u53d6",
           "refId": "H"
         },
         {
@@ -456,7 +456,7 @@
           "hide": false,
           "instant": true,
           "interval": "",
-          "legendFormat": "最大写入",
+          "legendFormat": "\u6700\u5927\u5199\u5165",
           "refId": "I"
         },
         {
@@ -465,7 +465,7 @@
           "hide": false,
           "instant": true,
           "interval": "",
-          "legendFormat": "下载带宽",
+          "legendFormat": "\u4e0b\u8f7d\u5e26\u5bbd",
           "refId": "J"
         },
         {
@@ -474,7 +474,7 @@
           "hide": false,
           "instant": true,
           "interval": "",
-          "legendFormat": "上传带宽",
+          "legendFormat": "\u4e0a\u4f20\u5e26\u5bbd",
           "refId": "K"
         }
       ],
@@ -493,12 +493,12 @@
         "iowait": "#EAB839",
         "irq": "#BF1B00",
         "nice": "#C15C17",
-        "sdb_每秒I/O操作%": "#d683ce",
+        "sdb_\u6bcf\u79d2I/O\u64cd\u4f5c%": "#d683ce",
         "softirq": "#E24D42",
         "steal": "#FCE2DE",
         "system": "#508642",
         "user": "#5195CE",
-        "磁盘花费在I/O操作占比": "#ba43a9"
+        "\u78c1\u76d8\u82b1\u8d39\u5728I/O\u64cd\u4f5c\u5360\u6bd4": "#ba43a9"
       },
       "bars": false,
       "dashLength": 10,
@@ -603,7 +603,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "$job：Overall total 5m load & average CPU used%",
+      "title": "$job\uff1aOverall total 5m load & average CPU used%",
       "tooltip": {
         "shared": true,
         "sort": 2,
@@ -644,14 +644,14 @@
     },
     {
       "aliasColors": {
-        "192.168.200.241:9100_总内存": "dark-red",
-        "内存_Avaliable": "#6ED0E0",
-        "内存_Cached": "#EF843C",
-        "内存_Free": "#629E51",
-        "内存_Total": "#6d1f62",
-        "内存_Used": "#eab839",
-        "可用": "#9ac48a",
-        "总内存": "#bf1b00"
+        "192.168.200.241:9100_\u603b\u5185\u5b58": "dark-red",
+        "\u5185\u5b58_Avaliable": "#6ED0E0",
+        "\u5185\u5b58_Cached": "#EF843C",
+        "\u5185\u5b58_Free": "#629E51",
+        "\u5185\u5b58_Total": "#6d1f62",
+        "\u5185\u5b58_Used": "#eab839",
+        "\u53ef\u7528": "#9ac48a",
+        "\u603b\u5185\u5b58": "#bf1b00"
       },
       "bars": false,
       "dashLength": 10,
@@ -752,7 +752,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "$job：Overall total memory & average memory used%",
+      "title": "$job\uff1aOverall total memory & average memory used%",
       "tooltip": {
         "shared": true,
         "sort": 2,
@@ -891,7 +891,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "$job：Overall total disk & average disk used%",
+      "title": "$job\uff1aOverall total disk & average disk used%",
       "tooltip": {
         "shared": true,
         "sort": 2,
@@ -941,7 +941,7 @@
       },
       "id": 189,
       "panels": [],
-      "title": "Resource Details：【$show_hostname】",
+      "title": "Resource Details\uff1a\u3010$show_hostname\u3011",
       "type": "row"
     },
     {
@@ -1356,7 +1356,7 @@
           "instant": true,
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "总量",
+          "legendFormat": "\u603b\u91cf",
           "refId": "C"
         },
         {
@@ -1380,7 +1380,7 @@
           "refId": "B"
         }
       ],
-      "title": "【$show_hostname】：Disk Space Used Basic(EXT?/XFS)",
+      "title": "\u3010$show_hostname\u3011\uff1aDisk Space Used Basic(EXT?/XFS)",
       "transform": "table",
       "type": "table"
     },
@@ -1485,11 +1485,11 @@
     {
       "aliasColors": {
         "cn-shenzhen.i-wz9cq1dcb6zwc39ehw59_cni0_in": "light-red",
-        "cn-shenzhen.i-wz9cq1dcb6zwc39ehw59_cni0_in下载": "green",
-        "cn-shenzhen.i-wz9cq1dcb6zwc39ehw59_cni0_out上传": "yellow",
-        "cn-shenzhen.i-wz9cq1dcb6zwc39ehw59_eth0_in下载": "purple",
+        "cn-shenzhen.i-wz9cq1dcb6zwc39ehw59_cni0_in\u4e0b\u8f7d": "green",
+        "cn-shenzhen.i-wz9cq1dcb6zwc39ehw59_cni0_out\u4e0a\u4f20": "yellow",
+        "cn-shenzhen.i-wz9cq1dcb6zwc39ehw59_eth0_in\u4e0b\u8f7d": "purple",
         "cn-shenzhen.i-wz9cq1dcb6zwc39ehw59_eth0_out": "purple",
-        "cn-shenzhen.i-wz9cq1dcb6zwc39ehw59_eth0_out上传": "blue"
+        "cn-shenzhen.i-wz9cq1dcb6zwc39ehw59_eth0_out\u4e0a\u4f20": "blue"
       },
       "bars": true,
       "dashLength": 10,
@@ -1592,7 +1592,7 @@
       "yaxes": [
         {
           "format": "bytes",
-          "label": "transmit（-）/receive（+）",
+          "label": "transmit\uff08-\uff09/receive\uff08+\uff09",
           "logBase": 1,
           "max": null,
           "min": null,
@@ -1994,12 +1994,12 @@
         "iowait": "#EAB839",
         "irq": "#BF1B00",
         "nice": "#C15C17",
-        "sdb_每秒I/O操作%": "#d683ce",
+        "sdb_\u6bcf\u79d2I/O\u64cd\u4f5c%": "#d683ce",
         "softirq": "#E24D42",
         "steal": "#FCE2DE",
         "system": "#508642",
         "user": "#5195CE",
-        "磁盘花费在I/O操作占比": "#ba43a9"
+        "\u78c1\u76d8\u82b1\u8d39\u5728I/O\u64cd\u4f5c\u5360\u6bd4": "#ba43a9"
       },
       "bars": false,
       "dashLength": 10,
@@ -2150,15 +2150,15 @@
     },
     {
       "aliasColors": {
-        "192.168.200.241:9100_总内存": "dark-red",
-        "使用率": "yellow",
-        "内存_Avaliable": "#6ED0E0",
-        "内存_Cached": "#EF843C",
-        "内存_Free": "#629E51",
-        "内存_Total": "#6d1f62",
-        "内存_Used": "#eab839",
-        "可用": "#9ac48a",
-        "总内存": "#bf1b00"
+        "192.168.200.241:9100_\u603b\u5185\u5b58": "dark-red",
+        "\u4f7f\u7528\u7387": "yellow",
+        "\u5185\u5b58_Avaliable": "#6ED0E0",
+        "\u5185\u5b58_Cached": "#EF843C",
+        "\u5185\u5b58_Free": "#629E51",
+        "\u5185\u5b58_Total": "#6d1f62",
+        "\u5185\u5b58_Used": "#eab839",
+        "\u53ef\u7528": "#9ac48a",
+        "\u603b\u5185\u5b58": "#bf1b00"
       },
       "bars": false,
       "dashLength": 10,
@@ -2311,8 +2311,8 @@
     },
     {
       "aliasColors": {
-        "192.168.10.227:9100_em1_in下载": "super-light-green",
-        "192.168.10.227:9100_em1_out上传": "dark-blue"
+        "192.168.10.227:9100_em1_in\u4e0b\u8f7d": "super-light-green",
+        "192.168.10.227:9100_em1_out\u4e0a\u4f20": "dark-blue"
       },
       "bars": false,
       "dashLength": 10,
@@ -2412,7 +2412,7 @@
       "yaxes": [
         {
           "format": "bps",
-          "label": "transmit（-）/receive（+）",
+          "label": "transmit\uff08-\uff09/receive\uff08+\uff09",
           "logBase": 1,
           "max": null,
           "min": null,
@@ -2434,9 +2434,9 @@
     },
     {
       "aliasColors": {
-        "15分钟": "#6ED0E0",
-        "1分钟": "#BF1B00",
-        "5分钟": "#CCA300"
+        "15\u5206\u949f": "#6ED0E0",
+        "1\u5206\u949f": "#BF1B00",
+        "5\u5206\u949f": "#CCA300"
       },
       "bars": false,
       "dashLength": 10,
@@ -2904,7 +2904,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Disk IOps Completed（IOPS）",
+      "title": "Disk IOps Completed\uff08IOPS\uff09",
       "tooltip": {
         "shared": true,
         "sort": 2,
@@ -2950,19 +2950,19 @@
         "iowait": "#EAB839",
         "irq": "#BF1B00",
         "nice": "#C15C17",
-        "sdb_每秒I/O操作%": "#d683ce",
+        "sdb_\u6bcf\u79d2I/O\u64cd\u4f5c%": "#d683ce",
         "softirq": "#E24D42",
         "steal": "#FCE2DE",
         "system": "#508642",
         "user": "#5195CE",
-        "磁盘花费在I/O操作占比": "#ba43a9"
+        "\u78c1\u76d8\u82b1\u8d39\u5728I/O\u64cd\u4f5c\u5360\u6bd4": "#ba43a9"
       },
       "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": "Prometheus",
       "decimals": null,
-      "description": "The time spent on I/O in the natural time of each second.（wall-clock time）",
+      "description": "The time spent on I/O in the natural time of each second.\uff08wall-clock time\uff09",
       "fieldConfig": {
         "defaults": {
           "custom": {}
@@ -3384,9 +3384,9 @@
       "aliasColors": {
         "filefd_192.168.200.241:9100": "super-light-green",
         "switches_192.168.200.241:9100": "semi-dark-red",
-        "使用的文件描述符_10.118.72.128:9100": "red",
-        "每秒上下文切换次数_10.118.71.245:9100": "yellow",
-        "每秒上下文切换次数_10.118.72.128:9100": "yellow"
+        "\u4f7f\u7528\u7684\u6587\u4ef6\u63cf\u8ff0\u7b26_10.118.72.128:9100": "red",
+        "\u6bcf\u79d2\u4e0a\u4e0b\u6587\u5207\u6362\u6b21\u6570_10.118.71.245:9100": "yellow",
+        "\u6bcf\u79d2\u4e0a\u4e0b\u6587\u5207\u6362\u6b21\u6570_10.118.72.128:9100": "yellow"
       },
       "bars": false,
       "cacheTimeout": null,
@@ -3646,7 +3646,7 @@
         "hide": 2,
         "includeAll": false,
         "index": -1,
-        "label": "最大挂载目录",
+        "label": "\u6700\u5927\u6302\u8f7d\u76ee\u5f55",
         "multi": false,
         "name": "maxmount",
         "options": [],
@@ -3672,7 +3672,7 @@
         "hide": 2,
         "includeAll": false,
         "index": -1,
-        "label": "展示使用的主机名",
+        "label": "\u5c55\u793a\u4f7f\u7528\u7684\u4e3b\u673a\u540d",
         "multi": false,
         "name": "show_hostname",
         "options": [],

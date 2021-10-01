@@ -28,7 +28,7 @@
     volumes:
       - "/srv/dnsmasq/conf/dnsmasq.conf:/etc/dnsmasq.conf:rw"
     env:
-      HTTP_USER: admin 
+      HTTP_USER: admin
       HTTP_PASS: admin
     privileged: yes
     restart_policy: unless-stopped

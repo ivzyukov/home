@@ -25,6 +25,3 @@
       - "/dev/ttyUSB0"
     restart_policy: unless-stopped
     network_mode: host
-
-
-

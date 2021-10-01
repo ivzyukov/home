@@ -1,9 +1,46 @@
+---
+kiosk_url: http://localhost:8123
 media_mount:
   - point: Transmission/Movies
     name: mnt-plex-Transmission-Movies
   - point: Public/CINEMA
     name: mnt-plex-Public-CINEMA
-
 media_mount_local: /mnt/plex
 my_timezone: Europe/Amsterdam
 my_domain: home
+pip_packages: [docker-py]
+common_packages:
+  - git
+  - vim
+  - htop
+  - tree
+  - sysstat
+  - tcpdump
+  - rsync
+  - telnet
+  - python3-pip
+  - mdadm
+  - jq
+  - iotop
+scrape_config:
+  - job_name: 'node'
+    static_configs:
+      - targets: ["{% for host in groups['all'] %} '{{ hostvars[host].ansible_host }}:{{ node_exporter_port }}' {% if not loop.last %},{% endif %}{% endfor %}"]
+  - job_name: 'Prometheus'
+    metrics_path: "/prometheus/metrics"
+    static_configs:
+      - targets: [ '{{ ansible_host }}:{{ prometheus_port }}' ]
+  # Replaced with Aqara sensors
+  #- job_name: 'DTH22'
+  #  static_configs:
+  #    - targets: [ '{{ ansible_host }}:{{ dht22_port }}' ]
+  - job_name: 'openvpn'
+    static_configs:
+      - targets: [ '{{ ansible_host }}:{{ openvpn_exporter_port }}' ]
+  - job_name: 'mqtt'
+    static_configs:
+      - targets: [ '{{ ansible_host }}:{{ mqtt2prometheus_port }}' ]
+    metric_relabel_configs:
+      - source_labels: [ __name__ ]
+        regex: 'mqtt_occupancy|mqtt_illuminance_lux'
+        action: drop

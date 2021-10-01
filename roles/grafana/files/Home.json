@@ -228,7 +228,7 @@
           "instant": true,
           "interval": "",
           "intervalFactor": 1,
-          "legendFormat": "总量",
+          "legendFormat": "\u603b\u91cf",
           "refId": "C"
         },
         {

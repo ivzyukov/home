@@ -38,7 +38,7 @@ network:
         - eth2
         - eth3
           #        - wlan0
-          
+
 apt install iptables-persistent netfilter-persistent
 sudo iptables --policy FORWARD ACCEPT
 
