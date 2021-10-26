@@ -34,3 +34,11 @@
 - name: restart dnsmasq
   listen: restart dnsmasq
   shell: "docker restart dnsmasq"
+
+- name: restart alertmanager
+  listen: restart alertmanager
+  shell: "docker restart alertmanager"
+
+- name: restart psql
+  listen: restart psql
+  shell: "docker restart psql"

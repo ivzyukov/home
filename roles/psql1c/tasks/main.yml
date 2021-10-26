@@ -20,7 +20,16 @@
       PG_PASSWORD: pgpassword
       DB_USER: pg1c
       DB_PASS: pg1cpass
-      PG_MAX_CONNECTION: 130
+      PG_MAX_CONNECTION: "130"
       PG_TIMEZONE: "{{ my_timezone }}"
+    restart_policy: unless-stopped
+    network_mode: host
+
+- name: Run Postgresql Exporter on :9187 #https://github.com/prometheus-community/postgres_exporter
+  docker_container:
+    name: psql-exporter
+    image: quay.io/prometheuscommunity/postgres-exporter:{{ psql_exporter_version }}
+    env:
+      DATA_SOURCE_NAME: "postgresql://postgres:pgpassword@localhost:5432/postgres?sslmode=disable"
     restart_policy: unless-stopped
     network_mode: host
