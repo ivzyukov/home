@@ -1,0 +1,51 @@
+---
+- name: Create directories for Grafana
+  file:
+   path: "{{ item }}"
+   state: directory
+   mode: 0755
+  with_items:
+    - "{{ data_dir }}/grafana/data"
+    - "{{ data_dir }}/grafana/conf"
+
+- name: Copy grafana config
+  template:
+    src: grafana.ini.j2
+    dest: "{{ data_dir }}/grafana/conf/grafana.ini"
+  notify: restart grafana
+
+- name: Run Grafana
+  docker_container:
+    name: grafana
+    user: root
+    image: grafana/grafana:{{ grafana_version }}
+    volumes:
+      - "{{ data_dir }}/grafana/conf/grafana.ini:/etc/grafana/grafana.ini:ro"
+      - "{{ data_dir }}/grafana/data:/var/lib/grafana:rw"
+    env:
+      GF_SECURITY_ADMIN_USER: "{{ grafana_username }}"
+      GF_SECURITY_ADMIN_PASSWORD: "{{ grafana_password }}"
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_PANELS_DISABLE_SANITIZE_HTML: "true"
+    restart_policy: unless-stopped
+    network_mode: host
+
+- name: Add ODH Monitoring dashboards
+  uri:
+    url: "http://localhost:3000/api/dashboards/db"
+    method: POST
+    user: "{{ grafana_username }}"
+    password: "{{ grafana_password }}"
+    force_basic_auth: true
+    body: '{
+      "dashboard": {{ lookup("file", item) }},
+      "overwrite": true,
+      "message": "My dashboards"
+    }'
+    status_code: [200, 201, 409, 500]
+    body_format: json
+    #retries: 5
+    timeout: 30
+  when: not ansible_check_mode
+  with_fileglob:
+    - "*.json"

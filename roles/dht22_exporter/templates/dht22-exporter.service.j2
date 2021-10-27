@@ -1,0 +1,9 @@
+[Unit]
+Description=dht22 prometheus exporter
+After=network.target
+
+[Service]
+ExecStart=/srv/dht22-exporter/dht22_exporter.py {{ dht22_pin }} {{ dht22_delay_sec}} {{ dht22_port }}
+
+[Install]
+WantedBy=default.target

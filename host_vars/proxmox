@@ -1,0 +1,3 @@
+common_packages: [sudo, vim, htop, tree, sysstat, tcpdump, rsync, telnet, python3-pip]
+
+pip_packages: [docker-py]

@@ -1,0 +1,3 @@
+common_packages: [git, vim, htop, tree, sysstat, tcpdump, rsync, telnet, python3-pip, mdadm, jq, samba, samba-common-bin, smbclient, cifs-utils, iotop]
+
+pip_packages: [docker-py]

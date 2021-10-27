@@ -1,0 +1,64 @@
+- name: Heater Usage
+  platform: rest
+  resource: http://{{ shelly_plug_1 }}/meter/0
+  scan_interval: 60
+  {%- raw %}
+  value_template: '{{ value_json.power }}'
+  {%- endraw %}
+
+- name: Plug Usage
+  platform: rest
+  resource: http://{{ shelly_plug_2 }}/meter/0
+  scan_interval: 60
+  {%- raw %}
+  value_template: '{{ value_json.power }}'
+  {%- endraw %}
+
+- name: Temperature Den
+  platform: mqtt
+  unique_id: temperature_den
+  state_topic: "zigbee2mqtt/temp_sensor_den"
+  {%- raw %}
+  value_template: '{{ value_json.temperature }}'
+  {%- endraw %}
+  unit_of_measurement: '°C'
+  payload_available: "online"
+  payload_not_available: "offline"
+
+- name: Humidity Den
+  platform: mqtt
+  unique_id: humidity_den
+  state_topic: "zigbee2mqtt/temp_sensor_den"
+  {%- raw %}
+  value_template: '{{ value_json.humidity }}'
+  {%- endraw %}
+  unit_of_measurement: '%'
+  payload_available: "online"
+  payload_not_available: "offline"
+
+- name: Door Den
+  unique_id: door_den
+  platform: mqtt
+  state_topic: "zigbee2mqtt/door_sensor_den"
+  {%- raw %}
+  value_template: '{{ value_json.contact }}'
+  {%- endraw %}
+  payload_available: "online"
+  payload_not_available: "offline"
+
+- name: Bridge state
+  platform: mqtt
+  state_topic: "zigbee2mqtt/bridge/state"
+  icon: mdi:router-wireless
+
+- name: Zigbee2mqtt Networkmap
+  platform: mqtt
+  state_topic: zigbee2mqtt/bridge/networkmap/raw
+  {%- raw %}
+  value_template: >-
+      {{ now().strftime('%Y-%m-%d %H:%M:%S') }}
+  {%- endraw %}
+  json_attributes_topic: zigbee2mqtt/bridge/networkmap/raw
+
+- name: ha_version
+  platform: version

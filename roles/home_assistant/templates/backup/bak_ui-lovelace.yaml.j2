@@ -1,0 +1,154 @@
+title: De Pijp WIP
+views:
+  - title: Home
+    panel: true
+    type: vertical-stack
+    cards:
+      - type: picture-elements
+        title: Floor plan
+        image: /local/floorplan.png
+        elements:
+          - type: state-icon
+            entity: light.living_room
+            tap_action:
+              action: toggle
+            style:
+              top: 70%
+              left: 26%
+          - type: state-icon
+            entity: light.pallet_room
+            tap_action:
+              action: toggle
+            style:
+              top: 70%
+              left: 55%
+          - type: state-icon
+            entity: light.aqara_bulb_2
+            tap_action:
+              action: toggle
+            style:
+              top: 31%
+              left: 25%
+          - type: state-icon
+            entity: light.aqara_bulb_1
+            tap_action:
+              action: toggle
+            style:
+              top: 31%
+              left: 31%
+  - title: Sensors
+    cards:
+      - type: entities
+        title: Lights
+        entities:
+          - light.living_room
+          - light.pallet_room
+          - light.kitchen_lights
+          - light.kitchen_1
+          - switch.light_bedroom
+          - entity: sensor.aqara_cube_side
+            secondary_info: last-changed
+          - entity: sensor.light_sensor_livingroom
+            secondary_info: last-changed
+          - entity: sensor.light_sensor_kitchen
+            secondary_info: last-changed
+          - entity: sensor.light_sensor_den
+            secondary_info: last-changed
+      - type: entities
+        title: Sensors
+        entities:
+          - entity: sensor.temp_bedroom
+            secondary_info: last-changed
+          - entity: sensor.humidity_bedroom
+            secondary_info: last-changed
+          - entity: sensor.temp_den
+            secondary_info: last-changed
+          - entity: sensor.humidity_den
+            secondary_info: last-changed
+          - entity: sensor.temp_garden
+            secondary_info: last-changed
+          - entity: sensor.humidity_garden
+            secondary_info: last-changed
+          - entity: sensor.motion_sensor_livingroom
+            secondary_info: last-changed
+          - entity: sensor.motion_sensor_kitchen
+            secondary_info: last-changed
+          - entity: sensor.motion_sensor_den
+            secondary_info: last-changed
+          - entity: sensor.door_sensor_garden
+            secondary_info: last-changed
+          - entity: sensor.door_sensor_street
+            secondary_info: last-changed
+      - type: vertical-stack
+        cards:
+        - type: weather-forecast
+          entity: weather.home_de_pijp
+        - type: entities
+          title: Shelly switches
+          entities:
+            - switch.tv
+            - sensor.tv
+            - sensor.light_bedroom
+        #- type: entity-button
+        #  name: AV/TV
+        #  tap_action:
+        #    action: call-service
+        #    service: remote.send_command
+        #    service_data:
+        #      command: switch_av_tv
+        #      entity_id: remote.xiaomi_miio
+  - title: Advanced
+    cards:
+      - type: entities
+        title: Kitchen utomations
+        entities:
+          - automation.turn_on_kitchen_light_when_there_is_movement_and_dusk
+          - automation.turn_off_kitchen_light_5_minute_after_last_movement
+      - type: entities
+        title: Den automations
+        entities:
+          - automation.turn_on_den_light_when_there_is_movement_and_dark
+          - automation.turn_off_den_light_5_minute_after_last_movement
+      - type: entities
+        title: Text to speech
+        entities:
+          - automation.door_to_garden_is_open
+          - automation.check_entrance_door_every_minute
+      - type: entities
+        entities:
+          - entity: input_boolean.zigbee_permit_join
+          - entity: timer.zigbee_permit_join
+          - entity: sensor.bridge_state
+        show_header_toggle: false
+        title: Zigbee
+      - type: media-control
+        entity: media_player.living_room_speaker
+      - type: media-control
+        entity: media_player.living_room_tv
+  - title: Zigbee Network
+    panel: true # this renders the first card on full width, other cards in this view will not be rendered
+    cards:
+      - type: custom:zigbee2mqtt-networkmap
+        entity: sensor.zigbee2mqtt_networkmap
+        # the following are optional:
+        mqtt_base_topic: zigbee2mqtt # if you change base_topic of Zigbee2mqtt, change it accordingly
+        force: 3000 # decrease it to get smaller map if you have many devices
+        node_size: 16
+        font_size: 12
+        link_width: 2
+        height: 400 # height of the card
+        # use this css config or use whatever css tech to change look and feel,
+        # the same variable can also be used in Home Assistant themes, see https://www.home-assistant.io/components/frontend/#defining-themes
+        css: |
+          :host {
+            --zigbee2mqtt-networkmap-node-color: rgba(18, 120, 98, .7);
+            --zigbee2mqtt-networkmap-node-fill-color: #dcfaf3;
+            --zigbee2mqtt-networkmap-node-pinned-color: rgba(190, 56, 93, .6);
+            --zigbee2mqtt-networkmap-link-color: rgba(18, 120, 98, .5);
+            --zigbee2mqtt-networkmap-hover-color: #be385d;
+            --zigbee2mqtt-networkmap-link-selected-color: rgba(202, 164, 85, .6);
+            --zigbee2mqtt-networkmap-label-color: #127862;
+            --zigbee2mqtt-networkmap-arrow-color: rgba(18, 120, 98, 0.7);
+            --zigbee2mqtt-networkmap-node-coordinator-color: rgba(224, 78, 93, .7);
+            --zigbee2mqtt-networkmap-node-router-color: rgba(0, 165, 255, .7);
+          }

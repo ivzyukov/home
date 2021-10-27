@@ -1,0 +1,129 @@
+title: Transvaalbuurt WIP
+views:
+  - title: Den
+    panel: true
+    type: vertical-stack
+    cards:
+      - type: picture-elements
+        image: /local/office.png
+        elements:
+          - type: state-icon
+            entity: light.aqara_bulb_1
+            tap_action:
+              action: toggle
+            style:
+              top: 50%
+              left: 80%
+
+  - title: Sensors
+    cards:
+      - type: entities
+        title: Lights
+        entities:
+          - light.light_den
+      - type: entities
+        title: Sensors
+        entities:
+          - entity: sensor.temperature_den
+            secondary_info: last-changed
+          - entity: sensor.humidity_den
+            secondary_info: last-changed
+          - entity: sensor.door_den
+            secondary_info: last-changed
+      - type: entities
+        title: Zigbee
+        entities:
+          - entity: input_boolean.zigbee_permit_join
+          - entity: sensor.bridge_state
+      - type: vertical-stack
+        cards:
+        - type: weather-forecast
+          entity: weather.openweathermap
+        - type: entities
+          title: Shelly switches
+          show_header_toggle: false
+          entities:
+            - switch.heater
+            - sensor.heater_usage
+            - switch.plug
+            - sensor.plug_usage
+
+  - title: Zigbee Network
+    panel: true # this renders the first card on full width, other cards in this view will not be rendered
+    cards:
+      - type: custom:zigbee2mqtt-networkmap
+        entity: sensor.zigbee2mqtt_networkmap
+        # the following are optional:
+        mqtt_base_topic: zigbee2mqtt # if you change base_topic of Zigbee2mqtt, change it accordingly
+        force: 3000 # decrease it to get smaller map if you have many devices
+        node_size: 16
+        font_size: 12
+        link_width: 2
+        height: 400 # height of the card
+        # use this css config or use whatever css tech to change look and feel,
+        # the same variable can also be used in Home Assistant themes, see https://www.home-assistant.io/components/frontend/#defining-themes
+        css: |
+          :host {
+            --zigbee2mqtt-networkmap-node-color: rgba(18, 120, 98, .7);
+            --zigbee2mqtt-networkmap-node-fill-color: #dcfaf3;
+            --zigbee2mqtt-networkmap-node-pinned-color: rgba(190, 56, 93, .6);
+            --zigbee2mqtt-networkmap-link-color: rgba(18, 120, 98, .5);
+            --zigbee2mqtt-networkmap-hover-color: #be385d;
+            --zigbee2mqtt-networkmap-link-selected-color: rgba(202, 164, 85, .6);
+            --zigbee2mqtt-networkmap-label-color: #127862;
+            --zigbee2mqtt-networkmap-arrow-color: rgba(18, 120, 98, 0.7);
+            --zigbee2mqtt-networkmap-node-coordinator-color: rgba(224, 78, 93, .7);
+            --zigbee2mqtt-networkmap-node-router-color: rgba(0, 165, 255, .7);
+          }
+# exported from manual config
+  - path: default_view
+    type: panel
+    title: Den panel
+    badges: []
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: vertical-stack
+            cards:
+              - type: horizontal-stack
+                cards:
+                  - type: weather-forecast
+                    entity: weather.openweathermap
+                  - type: light
+                    entity: light.light_den
+              - type: horizontal-stack
+                cards:
+                  - type: iframe
+                    url: >-
+                      https://embed.windy.com/embed2.html?lat=52.373&lon=4.877&detailLat=52.373&detailLon=4.877&width=650&height=450&zoom=8&level=surface&overlay=wind&product=ecmwf&menu=&message=&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1
+                    aspect_ratio: 50%
+                  - type: horizontal-stack
+                    cards:
+                      - type: button
+                        tap_action:
+                          action: toggle
+                        entity: switch.plug
+                        icon: hass:flash
+                        name: Anycubic
+                      - type: button
+                        tap_action:
+                          action: toggle
+                        entity: switch.heater
+                        icon: hass:flash
+                        name: Lamp
+              - type: horizontal-stack
+                cards:
+                  - type: sensor
+                    entity: sensor.temperature_den
+                    graph: line
+                  - type: sensor
+                    entity: sensor.humidity_den
+                    graph: line
+                  - type: sensor
+                    entity: sensor.plug_usage
+                    graph: line
+                    name: Power Usage
+                  - type: sensor
+                    entity: sensor.heater_usage
+                    graph: line
+                    name: Power Usage

@@ -1,0 +1,32 @@
+---
+- name: create admin group
+  group:
+    name: admin
+    state: present
+
+- name: passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers.d/010_admin
+    state: present
+    line: "%admin ALL=(ALL:ALL) NOPASSWD:ALL"
+    create: yes
+
+- name: create personal user account
+  user:
+    name: "{{ item.name }}"
+    uid: "{{ item.uid }}"
+    groups: "{{ item.groups }}"
+    append: yes
+  loop: "{{ users }}"
+  when:
+    - not ansible_check_mode
+#    - ansible_env.SUDO_USER|default() != 'ivzyukov'
+
+- name: insert personal ssh key in authorized
+  authorized_key:
+    user: "{{ item.name }}"
+    state: present
+    exclusive: yes
+    key: "{{ item.ssh_pub |join('\n') }}"
+  loop: "{{ users }}"
+#  when: ansible_env.SUDO_USER|default() != 'ivzyukov'

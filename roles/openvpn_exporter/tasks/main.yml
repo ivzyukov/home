@@ -1,0 +1,9 @@
+- name: Run openvpn-exporter
+  docker_container:
+    name: openvpn-exporter
+    image: pharlan/openvpn-exporter
+    volumes:
+      - "/etc/openvpn/server/openvpn-status.log:/etc/openvpn/server/openvpn-status.log:ro"
+    restart_policy: unless-stopped
+    network_mode: host
+    command: "-openvpn.status_paths  /etc/openvpn/server/openvpn-status.log -web.listen-address :{{ openvpn_exporter_port }}"

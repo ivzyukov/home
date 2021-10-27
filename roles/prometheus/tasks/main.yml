@@ -1,0 +1,36 @@
+---
+- name: Create directories for prometheus
+  file:
+   path: "{{ item }}"
+   state: directory
+   mode: 0755
+  with_items:
+    - "{{ data_dir }}/prometheus/data"
+    - "{{ data_dir }}/prometheus/conf"
+
+- name: Copy Prometheus config
+  template:
+    src: prometheus.yml.j2
+    dest: "{{ data_dir }}/prometheus/conf/prometheus.yml"
+  notify: restart prometheus
+
+- name: Run Prometheus
+  docker_container:
+    name: prometheus
+    user: root
+    image: prom/prometheus:{{ prometheus_version }}
+    volumes:
+      - "{{ data_dir }}/prometheus/conf/:/etc/prometheus/:ro"
+      - "{{ data_dir }}/prometheus/data/:/prometheus:rw"
+    command:
+        "--config.file=/etc/prometheus/prometheus.yml \
+          --storage.tsdb.path=/prometheus \
+          --storage.tsdb.retention=90d \
+          --web.console.libraries=/usr/share/prometheus/console_libraries \
+          --web.console.templates=/usr/share/prometheus/consoles \
+          --web.external-url=http://0.0.0.0/prometheus/ \
+          --web.enable-admin-api \
+          --web.route-prefix=/prometheus/"
+          #              --storage.local.target-heap-size=268697600"
+    restart_policy: unless-stopped
+    network_mode: host

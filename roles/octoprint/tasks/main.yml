@@ -1,0 +1,27 @@
+---
+- name: Create directories
+  file:
+   path: "{{ item }}"
+   state: directory
+   mode: 0755
+  with_items:
+    - "{{ data_dir }}/octoprint/data"
+    - "/srv/octoprint"
+
+- name: Create symbolic links for Mosquitto
+  file:
+    src: "{{ data_dir }}/octoprint/data"
+    dest: "/srv/octoprint/data"
+    state: link
+    force: yes
+
+- name: Run container
+  docker_container:
+    name: octoprint
+    image: octoprint/octoprint
+    volumes:
+    - "{{ data_dir }}/octoprint/data:/octorpint:rw"
+    devices:
+      - "/dev/ttyUSB0"
+    restart_policy: unless-stopped
+    network_mode: host

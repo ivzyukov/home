@@ -1,0 +1,48 @@
+---
+
+- name: Check if docker installed
+  shell: dpkg -l docker-ce
+  register: output
+  ignore_errors: True
+  check_mode: no
+
+- name: Install docker on debian x86_64 systems
+  block:
+  - name: Install prerequisites
+    apt: name={{item}} update_cache=yes
+    with_items:
+     - apt-transport-https
+     - ca-certificates
+     - curl
+     - software-properties-common
+  - name: Add Docker GPG key
+    apt_key: url=https://download.docker.com/linux/{{ ansible_distribution|lower }}/gpg
+  - name: Add Docker APT repository
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution|lower }} {{ ansible_distribution_release }} stable
+  - name: install docker
+    package:
+      name: docker-ce
+      state: present
+  when:
+    - ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+    - ansible_architecture == 'x86_64'
+    - output.rc != 0
+
+- name: Install docker on Raspberry
+  block:
+    - get_url:
+        url: https://get.docker.com
+        dest: /tmp/get_docker.sh
+        mode: 0744
+    - command: "sh /tmp/get_docker.sh"
+  when:
+    - ansible_distribution == 'Debian'
+    - ansible_architecture == 'armv7l'
+    - output.rc != 0
+
+- name: Enable docker
+  service:
+    name: docker
+    state: started
+    enabled: true

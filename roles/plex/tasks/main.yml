@@ -1,0 +1,46 @@
+---
+- name: create directories for container
+  file:
+   path: "{{ item }}"
+   state: directory
+   mode: 0755
+  with_items:
+    - "/srv/plex/"
+    - "{{ fast_dir }}/plex/library"
+
+- name: Create symbolic links
+  file:
+    src: "{{ fast_dir }}/plex/library"
+    dest: "/srv/plex/library"
+    state: link
+    force: yes
+
+- name: Create mount systemd units
+  template:
+    src: mount.j2
+    dest: "/etc/systemd/system/{{ media_mount_loop.name }}.mount"
+  with_items: "{{ media_mount }}"
+  loop_control:
+    loop_var: media_mount_loop
+
+- name: Run mount systemd units
+  systemd:
+    state: started
+    name: "{{ media_mount_loop.name }}.mount"
+    enabled: yes
+  with_items: "{{ media_mount }}"
+  loop_control:
+    loop_var: media_mount_loop
+
+- name: Run plex
+  docker_container:
+    name: plex
+    user: root
+    image: linuxserver/plex:{{ plex_version }}
+    volumes:
+      - "/srv/plex/library:/config:rw"
+      - "{{ media_mount_local }}:/movies:ro"
+    env:
+      VERSION: "docker"
+    restart_policy: unless-stopped
+    network_mode: host

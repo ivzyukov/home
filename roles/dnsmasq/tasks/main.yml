@@ -1,0 +1,35 @@
+---
+- name: Create directories for dnsmasq
+  file:
+   path: "{{ item }}"
+   state: directory
+   mode: 0755
+  with_items:
+    - /srv/dnsmasq/conf
+    - /srv/dnsmasq/log
+
+- name: Copy dnsmasq configs
+  copy:
+    content: '{{ dnsmasq_conf }}'
+    dest: /srv/dnsmasq/conf/dnsmasq.conf
+  notify: restart dnsmasq
+  tags: nginx
+
+- name: Disable systemd-resolved
+  service:
+    name: systemd-resolved
+    state: stopped
+    enabled: false
+
+- name: Run dnsmasq
+  docker_container:
+    name: dnsmasq
+    image: jpillora/dnsmasq
+    volumes:
+      - "/srv/dnsmasq/conf/dnsmasq.conf:/etc/dnsmasq.conf:rw"
+    env:
+      HTTP_USER: admin
+      HTTP_PASS: admin
+    privileged: yes
+    restart_policy: unless-stopped
+    network_mode: host

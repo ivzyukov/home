@@ -1,0 +1,44 @@
+---
+- name: restart prometheus
+  listen: restart prometheus
+  shell: "docker restart prometheus"
+
+- name: restart openvpn-monitor
+  listen: restart openvpn-monitor
+  shell: "docker restart openvpn-monitor"
+
+- name: restart nginx
+  listen: restart nginx
+  shell: "docker restart nginx"
+
+- name: restart grafana
+  listen: restart grafana
+  shell: "docker restart grafana"
+
+- name: restart dht22
+  listen: restart dht22
+  shell: "systemctl restart dht22-exporter.service"
+
+- name: restart home-assistant
+  listen: restart home-assistant
+  shell: "docker restart home-assistant"
+
+- name: restart mosquitto
+  listen: restart mosquitto
+  shell: "docker restart mosquitto"
+
+- name: restart zigbee2mqtt
+  listen: restart zigbee2mqtt
+  shell: "docker restart zigbee2mqtt"
+
+- name: restart dnsmasq
+  listen: restart dnsmasq
+  shell: "docker restart dnsmasq"
+
+- name: restart alertmanager
+  listen: restart alertmanager
+  shell: "docker restart alertmanager"
+
+- name: restart psql
+  listen: restart psql
+  shell: "docker restart psql"

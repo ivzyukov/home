@@ -1,0 +1,13 @@
+[Unit]
+Description=NFS mount
+Requires=network-online.target
+After=smbd.service
+
+[Mount]
+What=//{{ media_server }}/{{ media_mount_loop.point }}
+Where={{ media_mount_local }}/{{ media_mount_loop.point }}
+Type=cifs
+Options=username={{ media_server_login }},password={{ media_server_pass }},iocharset=utf8
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,53 @@
+---
+
+- name: create kiosk user account
+  user:
+    name: kiosk
+    append: yes
+
+- name: set-default multi-user.target
+  file:
+    src: multi-user.target
+    path: /usr/lib/systemd/system/default.target
+    state: link
+
+- name: link getty service
+  file:
+    src: /lib/systemd/system/getty@.service
+    path: /etc/systemd/system/getty.target.wants/getty@tty1.service
+    state: link
+
+- name: create autologin config
+  copy:
+    dest: /etc/systemd/system/getty@tty1.service.d/autologin.conf
+    content: |
+      [Service]
+      ExecStart=
+      ExecStart=-/sbin/agetty --autologin kiosk --noclear %I $TERM
+
+- name: install dependencies
+  apt:
+    pkg:
+      - xserver-xorg
+      - x11-xserver-utils
+      - xinit
+      - openbox
+      - chromium-browser
+    state: present
+    install_recommends: no
+
+- name: set up openbox
+  copy:
+    dest: /etc/xdg/openbox/autostart
+    content: |
+      xset -dpms            # turn off display power management system
+      xset s noblank        # turn off screen blanking
+      xset s off            # turn off screen saver
+      # Run Chromium in kiosk mode
+      chromium-browser  --noerrdialogs --disable-infobars --kiosk '{{ kiosk_url }}' --check-for-update-interval=31536000
+
+- name: enable autostart
+  copy:
+    dest: /home/kiosk/.bash_profile
+    content: |
+      [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && startx -- -nocursor

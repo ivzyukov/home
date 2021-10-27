@@ -1,0 +1,106 @@
+---
+
+- hosts: all
+  roles:
+    - name: common
+      tags: common
+
+    - name: docker
+      tags: docker
+
+    - name: users
+      tags: users
+
+    - name: tools
+      tags: tools
+
+    - name: node_exporter
+      tags: node_exporter
+
+- hosts: netbox
+  roles:
+    - name: dnsmasq
+      tags: dnsmasq
+
+- hosts: rpi01
+  roles:
+    - name: prometheus
+      tags: prometheus
+
+- hosts: rpi01
+  roles:
+    - name: grafana
+      tags: grafana
+
+- hosts: netbox
+  roles:
+    - name: openvpn_monitor
+      tags: oprnvpn_monitor
+
+- hosts: rpi01
+  roles:
+    - name: nginx_rpi
+      tags: nginx_rpi
+
+#- hosts: proxmox
+#  roles:
+#    - name: nginx_proxmox
+#      tags: nginx_proxmox
+
+#- hosts: proxmox
+#  roles:
+#    - name: mtproxy
+#      tags: mtproxy
+
+# Replaced with Aqara sensors
+#- hosts: rpi01
+#  roles:
+#    - name: dht22_exporter
+#      tags: dht22_exporter
+
+- hosts: netbox
+  roles:
+    - name: openvpn_exporter
+      tags: openvpn_exporter
+
+- hosts: rpi01
+  roles:
+    - name: mosquitto
+      tags: mosquitto
+
+- hosts: rpi01
+  roles:
+    - name: zigbee2mqtt
+      tags: zigbee2mqtt
+
+- hosts: rpi01
+  roles:
+    - name: mqtt2prometheus
+      tags: mqtt2prometheus
+
+- hosts: rpi01
+  roles:
+    - name: home_assistant
+      tags: home_assistant
+
+- hosts: rpi01
+  roles:
+    - name: kiosk  #  works only for Raspberry Pi
+      tags: kiosk
+      vars:
+        kiosk_url: http://localhost:8123
+
+#- hosts: rpi02
+#  roles:
+#    - name: pihole
+#      tags: pihole
+
+- hosts: netbox
+  roles:
+    - name: plex
+      tags: plex
+
+- hosts: netbox
+  roles:
+    - name: octoprint
+      tags: octoprint

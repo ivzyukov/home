@@ -1,0 +1,6 @@
+users:
+- groups: admin
+  name: ivzyukov
+  ssh_pub: [ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC8bNUg+I1AZtw170xvszi1B5jxiJsI0oazSDBSIwUvdFOYUkshqCFReTuJ75Y17oHXIH2U4JMLZ8xYx4k5fxoQDofAfJCH5k/mU2SwN0K5OtoR4wSleX9XgB+0XhxxVB00M70EVdM6hDXtcfWx1zeacmeUDdHdr48AcWF/4XOVVI5z6TC2tkZgzR/LihR1CBpKJypvOs3BY1vGQLfOKE6H31DuLfCMu1ebSjP9B8iXw1MkkeVna/0IDHUZGbNS4DwDF1O5Oprck/ThvkXX3Lf62GPHCy7YPA6qCjwbGHyNwgZobYBqz6gAHrshMHP1uEnsrCeAg8xkeXSkhG2Fe6o1
+      harry.vzyukov@gmail.com]
+  uid: 45678

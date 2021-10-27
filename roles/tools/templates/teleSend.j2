@@ -1,0 +1,10 @@
+#!/bin/bash
+
+telegram_bot_token={{ telegram_bot_token }}
+telegram_chat_id={{ telegram_chat_id }}
+message="$@"
+
+/usr/bin/curl -X POST \
+	-H 'Content-Type: application/json' \
+	-d "{\"chat_id\": \"${telegram_chat_id}\",\"text\": \"${message}\"}" \
+	https://api.telegram.org/bot$telegram_bot_token/sendMessage

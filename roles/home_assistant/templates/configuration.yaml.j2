@@ -1,0 +1,113 @@
+homeassistant:
+  latitude: 52.355344
+  longitude: 4.923463
+  #elevation: 6
+  unit_system: metric
+  time_zone: {{ my_timezone }}
+  name: Transvaalbuurt WIP
+  customize_glob: !include customize_glob.yaml
+
+frontend:
+  themes: !include_dir_merge_named themes
+
+http:
+  server_host: 0.0.0.0
+  server_port: {{ homeassistant_port }}
+  cors_allowed_origins:
+    - https://google.com
+    - https://www.home-assistant.io
+  login_attempts_threshold: 5
+
+default_config:
+
+lovelace:
+  mode: yaml
+  resources:
+    - url: /local/zigbee2mqtt-networkmap.js?v=0.6.0
+      type: module
+
+tts:
+  - platform: google_translate
+    cache: true
+    cache_dir: /tmp/tts
+    time_memory: 300
+    base_url: http://{{ ansible_host }}:{{ homeassistant_port }}
+    service_name: google_say
+
+#  - platform: yandextts
+#    api_key: 
+#    language: 'ru-RU'
+#    codec: mp3
+#    voice: oksana
+#    emotion: evil
+#    speed: 2
+
+sensor: !include sensors.yaml
+automation: !include automations.yaml
+
+#logger:
+#  default: info
+#  logs:
+#    # log level for remote integration
+#    homeassistant.components.xiaomi_miio: debug
+#    miio.device: debug
+
+mqtt:
+  broker: localhost
+  port: {{ mosquitto_port }}
+
+input_boolean:
+  zigbee_permit_join:
+    name: Allow devices to join
+    initial: off
+    icon: mdi:cellphone-wireless
+
+#timer:
+#  zigbee_permit_join:
+#    name: Time remaining
+#    duration: 600
+
+# weather:
+#   - platform: openweathermap
+#     api_key: db85086702e46acd94fc1487dd4febc8
+
+switch:
+  - name: Heater
+    platform: rest
+    resource: http://{{ shelly_plug_1 }}/relay/0
+    scan_interval: 10
+    body_on: 'turn=on'
+    body_off: 'turn=off'
+    {% raw %}
+    is_on_template: '{{ value_json.ison }}'
+    {% endraw %}
+    headers:
+      content-Type: application/x-www-form-urlencoded
+  - name: Plug
+    platform: rest
+    resource: http://{{ shelly_plug_2 }}/relay/0
+    scan_interval: 10
+    body_on: 'turn=on'
+    body_off: 'turn=off'
+    {% raw %}
+    is_on_template: '{{ value_json.ison }}'
+    {% endraw %}
+    headers:
+      content-Type: application/x-www-form-urlencoded
+
+discovery:
+  ignore:
+    - yeelight
+    - homekit
+
+light:
+  - platform: mqtt
+    name: "Light Den"
+    unique_id: aqara_bulb_1
+    state_topic: "zigbee2mqtt/aqara_bulb_1"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    brightness: true
+    color_temp: true
+    schema: "json"
+    command_topic: "zigbee2mqtt/aqara_bulb_1/set"
+    brightness_scale: 254

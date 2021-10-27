@@ -1,0 +1,39 @@
+---
+- name: Create directories for nginx
+  file:
+   path: "{{ item }}"
+   state: directory
+   mode: 0755
+  with_items:
+    - /srv/nginx/conf
+
+- name: Copy nginx configs
+  template:
+    src: proxmox-nginx.conf
+    dest: /srv/nginx/conf/proxmox-nginx.conf
+  notify: restart nginx
+  tags: nginx
+
+- name: Copy cert
+  copy:
+    dest: "/etc/ssl/proxmox.home.crt"
+    content: "{{ proxmox_home_crt }}"
+    mode: 0744
+  notify: restart nginx
+
+- name: Copy key
+  copy:
+    dest: "/etc/ssl/proxmox.home.key"
+    content: "{{ proxmox_home_key }}"
+    mode: 0744
+  notify: restart nginx
+
+- name: Run nginx
+  docker_container:
+    name: nginx
+    image: nginx:{{ nginx_version }}
+    volumes:
+      - "/srv/nginx/conf/proxmox-nginx.conf:/etc/nginx/conf.d/proxmox.conf:ro"
+      - "/etc/ssl/:/etc/ssl:ro"
+    restart_policy: unless-stopped
+    network_mode: host

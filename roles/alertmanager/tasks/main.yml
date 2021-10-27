@@ -1,0 +1,27 @@
+---
+- name: Create directories
+  file:
+   path: "{{ item }}"
+   state: directory
+   mode: 0755
+  with_items:
+    - "{{ data_dir }}/alertmanager/conf"
+
+- name: Copy config
+  template:
+    src: alertmanager.yml.j2
+    dest: "{{ data_dir }}/alertmanager/conf/alertmanager.yml"
+  notify: restart alertmanager
+
+- name: Run alertmanager
+  docker_container:
+    name: alertmanager
+    user: root
+    image: prom/alertmanager:{{ alertmanager_version }}
+    volumes:
+      - "{{ data_dir }}/alertmanager/conf/:/etc/alertmanager/:ro"
+    command:
+        "--config.file=/etc/prometheus/prometheus.yml \
+        "
+    restart_policy: unless-stopped
+    network_mode: host

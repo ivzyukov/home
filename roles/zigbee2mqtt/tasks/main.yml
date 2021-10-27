@@ -1,0 +1,44 @@
+---
+- name: Create directories
+  file:
+   path: "{{ item }}"
+   state: directory
+   mode: 0755
+  with_items:
+    - "{{ data_dir }}/data/zigbee2mqtt/log"
+    - "/srv/zigbee2mqtt"
+
+- name: Create symbolic links
+  file:
+    src: "{{ data_dir }}/data/zigbee2mqtt"
+    dest: "/srv/zigbee2mqtt/data"
+    state: link
+    force: yes
+
+- name: Create symbolic links
+  file:
+    src: "{{ data_dir }}/data/zigbee2mqtt/log"
+    dest: "/srv/zigbee2mqtt/log"
+    state: link
+    force: yes
+
+#- name: Copy config
+#  template:
+#    src: zigbee2mqtt.conf
+#    dest: "{{ data_dir }}/data/zigbee2mqtt/configuration.yaml"
+#  notify: restart zigbee2mqtt
+
+- name: Run container
+  docker_container:
+    name: zigbee2mqtt
+    image: '{{ zigbee2mqtt_version }}'
+    privileged: yes
+    volumes:
+    - "{{ data_dir }}/data/zigbee2mqtt/:/app/data:rw"
+    - "/run/udev:/run/udev:ro"
+    devices:
+      - "/dev/ttyACM0"
+    env:
+      TZ: "{{ my_timezone }}"
+    restart_policy: unless-stopped
+    network_mode: host

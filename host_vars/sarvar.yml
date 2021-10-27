@@ -1,0 +1,46 @@
+---
+psql_version: 12.2
+grafana_version: latest
+prometheus_version: latest
+psql_exporter_version: v0.10.0
+my_timezone: Europe/Moscow
+my_domain: kettler
+
+telegram_chat_id: -565530917
+telegram_bot_token: !vault |
+          $ANSIBLE_VAULT;1.1;AES256
+          34366664626663663530663162336362306139356266353434663530636261383830353761366564
+          6635626461353461616531636533326161653965653936300a663765633964366563383833373333
+          37356130343338626331306163313634326631353235323731306536376236313134373138646461
+          3365353831323338300a313039663237356638356234353130386462343462373863633331373462
+          31653531383732376561336133313331333763383730343036323334663737303138633238326130
+          3966353332306235626363653134353633393964666638303430
+
+users:
+- groups: admin
+  name: ivzyukov
+  ssh_pub: [ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC8bNUg+I1AZtw170xvszi1B5jxiJsI0oazSDBSIwUvdFOYUkshqCFReTuJ75Y17oHXIH2U4JMLZ8xYx4k5fxoQDofAfJCH5k/mU2SwN0K5OtoR4wSleX9XgB+0XhxxVB00M70EVdM6hDXtcfWx1zeacmeUDdHdr48AcWF/4XOVVI5z6TC2tkZgzR/LihR1CBpKJypvOs3BY1vGQLfOKE6H31DuLfCMu1ebSjP9B8iXw1MkkeVna/0IDHUZGbNS4DwDF1O5Oprck/ThvkXX3Lf62GPHCy7YPA6qCjwbGHyNwgZobYBqz6gAHrshMHP1uEnsrCeAg8xkeXSkhG2Fe6o1 harry.vzyukov@gmail.com]
+  uid: 45678
+- groups: admin
+  name: rrozanoff
+  ssh_pub: [ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDPeuE431ib8um4bRN8pZYUCinL7M69t8C6UsUD/cb9IeRn7BIY8b2iQ6xozLPoGl4UfMPRlQndaI7obuGVQErcE2ALeL+H1I8h47IyAuJDft/qXY4vMzeP6tttYty20dVf4SpBfVXAYst70zpX2g8YF9NYHxNbLqQzWyYCWTcm6vgHBV5lrsCsubHsW9C3hKwZRtAsVbbrFC1a+aQJBql32uNjN9Q1KqC7WzaRcgr8KKorc4Adle4qteQpHGBOsuzf1Xi7kba6argybMFtrw3z7vCe9rzPIZeGz/YuJvk+/mOFSTWd7aIx+PubNYXL+LXZ/JiEBlaPefZC5kPlDBrr roma@loft]
+  uid: 45679
+- groups: admin
+  name: leonemoe
+  ssh_pub: [ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAuihD/nJ7xcVhaJuaWFtaYvrLT5EI+/URkSpCoPvopU4ePytRL5Q1Ry/HZzD8kbTZo/5AAN5/X9bYPQBss28kDJj/Rn/X+r6kAU+RFGhXOfeYC2b4SgGm2Ye0GiNa4rCkKb12R/tDLUsLdxYaCvir2XEG2DZzLXK1IFBdhxFsK1TsPiW1tBanpmrWXhE+uas5Nl6M02WgyL4hYcd8cFaU/E83Q++tPAAs2Bz+hgEdsv6NOK81RBIwkGFNgK0gPs/IKZm4LST3cU4xmd8H+nA8i/FGsLJ1uQ4ilR4igwelP/mnrO143Tm0FusCBQ0niwZtTh0eK20HvggSzVANu+ZD2w== rsa-key-20211002]
+  uid: 45680
+
+scrape_config:
+  - job_name: 'node'
+    static_configs:
+      - targets:
+         - 'localhost:{{ node_exporter_port }}'
+  - job_name: 'Prometheus'
+    metrics_path: "/prometheus/metrics"
+    static_configs:
+      - targets:
+          - 'localhost:{{ prometheus_port }}'
+  - job_name: 'postgresql'
+    static_configs:
+      - targets:
+          - 'localhost:9187'

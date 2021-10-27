@@ -1,0 +1,5 @@
+common_packages: [git, vim, htop, tree, sysstat, tcpdump, rsync, telnet, python3-pip, mdadm, jq, samba, samba-common-bin, smbclient, cifs-utils, iotop, mlocate]
+dht22_delay_sec: 30
+dht22_pin: 4
+
+pip_packages: [docker-py, Adafruit_DHT, prometheus_client]
