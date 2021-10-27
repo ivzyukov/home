@@ -26,7 +26,7 @@
 
 //Replace with your network credentials
 const char* ssid = "vZyxel";
-const char* password = "7777777788888888";
+const char* password = "****";
 
 #define PART_BOUNDARY "123456789000000000000987654321"
 
