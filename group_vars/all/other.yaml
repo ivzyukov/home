@@ -25,15 +25,11 @@ common_packages:
 scrape_config:
   - job_name: 'node'
     static_configs:
-      - targets: ["{% for host in groups['all'] %} '{{ hostvars[host].ansible_host }}:{{ node_exporter_port }}' {% if not loop.last %},{% endif %}{% endfor %}"]
+      - targets: "[{% for host in groups['all'] %} '{{ hostvars[host].ansible_host }}:{{ node_exporter_port }}'{% if not loop.last %},{% endif %}{% endfor %}]"
   - job_name: 'Prometheus'
     metrics_path: "/prometheus/metrics"
     static_configs:
       - targets: [ '{{ ansible_host }}:{{ prometheus_port }}' ]
-  # Replaced with Aqara sensors
-  #- job_name: 'DTH22'
-  #  static_configs:
-  #    - targets: [ '{{ ansible_host }}:{{ dht22_port }}' ]
   - job_name: 'openvpn'
     static_configs:
       - targets: [ '{{ ansible_host }}:{{ openvpn_exporter_port }}' ]

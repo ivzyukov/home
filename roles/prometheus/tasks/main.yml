@@ -1,5 +1,5 @@
 ---
-- name: Create directories for prometheus
+- name: Create directories
   file:
    path: "{{ item }}"
    state: directory
@@ -7,12 +7,30 @@
   with_items:
     - "{{ data_dir }}/prometheus/data"
     - "{{ data_dir }}/prometheus/conf"
+    - "{{ data_dir }}/alertmanager/conf"
 
 - name: Copy Prometheus config
   template:
     src: prometheus.yml.j2
     dest: "{{ data_dir }}/prometheus/conf/prometheus.yml"
   notify: restart prometheus
+
+- name: Copy Prometheus alert rules
+  copy:
+    src: alerts.yml
+    dest: "{{ data_dir }}/prometheus/conf/alerts.yml"
+
+- name: Copy Alertmanager config
+  template:
+    src: alertmanager.yml.j2
+    dest: "{{ data_dir }}/alertmanager/conf/alertmanager.yml"
+  notify: restart alertmanager
+
+- name: Copy Telegram_bot config
+  template:
+    src: telegram_bot_config.yml.j2
+    dest: "{{ data_dir }}/alertmanager/conf/telegram_bot_config.yml"
+  notify: restart prometheus_bot
 
 - name: Run Prometheus
   docker_container:
@@ -34,3 +52,25 @@
           #              --storage.local.target-heap-size=268697600"
     restart_policy: unless-stopped
     network_mode: host
+
+- name: Run Telegram_bot
+  docker_container:
+    name: prometheus_bot
+    image: "pharlan/prometheus_bot"
+    state: started
+    restart_policy: unless-stopped
+    network_mode: host
+    volumes:
+      - "{{ data_dir }}/alertmanager/conf/telegram_bot_config.yml:/config.yaml:ro"
+
+- name: Run Alertmanager
+  docker_container:
+    name: alertmanager
+    image: "prom/alertmanager:{{ alertmanager_version }}"
+    state: started
+    restart_policy: unless-stopped
+    network_mode: host
+    command: "--config.file=/etc/alertmanager/alertmanager.yml"
+#              --web.external-url=http://0.0.0.0/alertmanager/"
+    volumes:
+      - "{{ data_dir }}/alertmanager/conf/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro"
