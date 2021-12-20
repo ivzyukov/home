@@ -1,3 +1,13 @@
 global:
   scrape_interval: 1m
-scrape_configs: {{ scrape_config }}
+scrape_configs:
+{{ scrape_config | to_yaml | indent( width=2, indentfirst=True) }}
+
+rule_files:
+  - alerts.yml
+
+alerting:
+  alertmanagers:
+    - static_configs:
+      - targets:
+        - localhost:9093

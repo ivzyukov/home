@@ -42,3 +42,11 @@
 - name: restart psql
   listen: restart psql
   shell: "docker restart psql"
+
+- name: restart alertmanager
+  listen: restart alertmanager
+  shell: "docker restart alertmanager"
+
+- name: restart prometheus_bot
+  listen: restart prometheus_bot
+  shell: "docker restart prometheus_bot"

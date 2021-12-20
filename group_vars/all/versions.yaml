@@ -1,9 +1,10 @@
-prometheus_version: v2.18.1
+alertmanager_version: v0.23.0
 grafana_version: 6.7.3
-plex_version: amd64-latest #for rpi - arm32v7-latest
 ha_version: 2021.9.6
 mosquitto_version: 1.6.9
 mtproxy_version: 1.4
 nginx_version: stable
-zigbee2mqtt_version: koenkk/zigbee2mqtt:1.21.1
 node_exporter_version: v1.0.1
+plex_version: amd64-latest #for rpi - arm32v7-latest
+prometheus_version: v2.18.1
+zigbee2mqtt_version: koenkk/zigbee2mqtt:1.21.2
