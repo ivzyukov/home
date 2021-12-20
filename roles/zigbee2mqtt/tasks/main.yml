@@ -1,43 +1,48 @@
 ---
-- name: Create directories
+- name: Create directories for usb coordinator
   file:
    path: "{{ item }}"
    state: directory
    mode: 0755
   with_items:
     - "{{ data_dir }}/data/zigbee2mqtt/log"
-    - "/srv/zigbee2mqtt"
 
-- name: Create symbolic links
-  file:
-    src: "{{ data_dir }}/data/zigbee2mqtt"
-    dest: "/srv/zigbee2mqtt/data"
-    state: link
-    force: yes
-
-- name: Create symbolic links
-  file:
-    src: "{{ data_dir }}/data/zigbee2mqtt/log"
-    dest: "/srv/zigbee2mqtt/log"
-    state: link
-    force: yes
-
-#- name: Copy config
-#  template:
-#    src: zigbee2mqtt.conf
-#    dest: "{{ data_dir }}/data/zigbee2mqtt/configuration.yaml"
-#  notify: restart zigbee2mqtt
-
-- name: Run container
+- name: Run container for usb coordinator
   docker_container:
     name: zigbee2mqtt
     image: '{{ zigbee2mqtt_version }}'
     privileged: yes
     volumes:
-    - "{{ data_dir }}/data/zigbee2mqtt/:/app/data:rw"
-    - "/run/udev:/run/udev:ro"
+      - "{{ data_dir }}/data/zigbee2mqtt/:/app/data:rw"
+      - "/run/udev:/run/udev:ro"
     devices:
       - "/dev/ttyACM0"
+    env:
+      TZ: "{{ my_timezone }}"
+    restart_policy: unless-stopped
+    network_mode: host
+
+- name: Create directories for lan coordinator
+  file:
+   path: "{{ item }}"
+   state: directory
+   mode: 0755
+  with_items:
+    - "{{ data_dir }}/data/zigbee2mqtt_lan/log"
+
+- name: Copy config for lan coordinator
+  template:
+    src: zigbee2mqtt_lan.conf
+    dest: "{{ data_dir }}/data/zigbee2mqtt_lan/configuration.yaml"
+  notify: restart zigbee2mqtt
+
+- name: Run container for lan coordinator
+  docker_container:
+    name: zigbee2mqtt_lan
+    image: '{{ zigbee2mqtt_version }}'
+    privileged: yes
+    volumes:
+      - "{{ data_dir }}/data/zigbee2mqtt_lan/:/app/data:rw"
     env:
       TZ: "{{ my_timezone }}"
     restart_policy: unless-stopped

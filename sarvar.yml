@@ -9,5 +9,5 @@ all:
       #ansible_user: ubuntu
       #ansible_password: 121609
       #ansible_sudo_pass: 121609
-      ansible_host: 192.168.15.85
+      ansible_host: 91.192.75.160
       data_dir: "/data"
