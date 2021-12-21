@@ -30,6 +30,25 @@
     restart_policy: unless-stopped
     network_mode: host
 
+- name: Add data sources
+  uri:
+    url: "http://localhost:3000/api/datasources"
+    method: POST
+    user: "{{ grafana_username }}"
+    password: "{{ grafana_password }}"
+    force_basic_auth: true
+    body: "{{ lookup('template', item) }}"
+    status_code: [200, 201, 409]
+    body_format: json
+    timeout: 60
+  with_fileglob:
+    - "templates/datasources/*.json.j2"
+  retries: 5
+  delay: 30
+  register: result
+  until: result.status == 200 or result.status == 409
+  when: not ansible_check_mode
+
 - name: Add ODH Monitoring dashboards
   uri:
     url: "http://localhost:3000/api/dashboards/db"
@@ -44,8 +63,8 @@
     }'
     status_code: [200, 201, 409, 500]
     body_format: json
-    #retries: 5
     timeout: 30
+  retries: 5
   when: not ansible_check_mode
   with_fileglob:
     - "*.json"
