@@ -1,0 +1,30 @@
+---
+- name: Create directories
+  file:
+   path: "{{ item }}"
+   state: directory
+   mode: 0755
+  with_items:
+    - "{{ data_dir }}/1c_exporter/conf"
+
+- name: Copy 1c_exporter config
+  template:
+    src: settings.yaml
+    dest: "{{ data_dir }}/1c_exporter/conf/settings.yaml"
+  notify: restart 1c_exporter
+
+- name: Run 1c_exporter
+  docker_container:
+    name: 1c_exporter
+    user: root
+    image: rrozanoff/1c_exporter:{{ 1c_exporter_version }}
+    volumes:
+      - "{{ data_dir }}/1c_exporter/conf/settings.yaml:/settings.yaml:ro"
+    command:
+        "/1c_exporter \
+          -port={{ 1c_exporter_port }} \
+          --settings=/settings.yaml"
+         
+    restart_policy: unless-stopped
+    network_mode: host
+
