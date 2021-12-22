@@ -1,5 +1,5 @@
 alertmanager_version: v0.23.0
-grafana_version: 6.7.3
+grafana_version: 8.3.3
 ha_version: 2021.9.6
 mosquitto_version: 1.6.9
 mtproxy_version: 1.4
