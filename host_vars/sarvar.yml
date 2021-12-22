@@ -1,4 +1,4 @@
-0;14;6M---
+---
 psql_version: 12.2
 grafana_version: latest
 prometheus_version: latest
