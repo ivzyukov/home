@@ -1,4 +1,4 @@
----
+0;14;6M---
 psql_version: 12.2
 grafana_version: latest
 prometheus_version: latest
@@ -49,4 +49,4 @@ scrape_config:
     metrics_path: "/1C_Metrics"
     static_configs:
       - targets:
-         - 'localhost:{{ 1c_exporter_port }}
+         - 'localhost:{{ 1c_exporter_port }}'
