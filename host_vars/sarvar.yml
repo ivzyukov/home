@@ -5,6 +5,7 @@ prometheus_version: latest
 psql_exporter_version: v0.10.0
 my_timezone: Europe/Moscow
 my_domain: kettler
+1c_host: sarvar
 
 telegram_chat_id: -565530917
 telegram_bot_token: !vault |

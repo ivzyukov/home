@@ -23,8 +23,6 @@
     command:
         "/1c_exporter \
           -port={{ 1c_exporter_port }} \
-          --settings=/settings.yaml"
-         
+          --settings=/settings.yaml"      
     restart_policy: unless-stopped
     network_mode: host
-
