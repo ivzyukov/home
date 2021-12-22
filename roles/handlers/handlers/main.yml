@@ -50,3 +50,7 @@
 - name: restart prometheus_bot
   listen: restart prometheus_bot
   shell: "docker restart prometheus_bot"
+
+- name: restart 1c_exporter
+  listen: restart 1c_exporter
+  shell: "docker restart 1c_exporter"
