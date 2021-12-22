@@ -5,7 +5,7 @@ prometheus_version: latest
 psql_exporter_version: v0.10.0
 my_timezone: Europe/Moscow
 my_domain: kettler
-1c_host: sarvar
+1c_host: {{ inventory_hostname }} 
 
 telegram_chat_id: -565530917
 telegram_bot_token: !vault |
@@ -46,6 +46,7 @@ scrape_config:
       - targets:
           - 'localhost:9187'
   - job_name: '1c_exporter'
+    metrics_path: "/1C_Metrics"
     static_configs:
       - targets:
          - 'localhost:{{ 1c_exporter_port }}

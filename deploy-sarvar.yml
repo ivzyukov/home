@@ -27,4 +27,4 @@
       tags: psql1c
 
     - name: 1c_exporter
-    - tags: 1c_exporter
+      tags: 1c_exporter
