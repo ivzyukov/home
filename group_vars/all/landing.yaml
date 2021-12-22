@@ -1,0 +1,53 @@
+landing_page:
+
+      - description: Box with internet
+        name: Router WEBUI
+        url: http://192.168.2.254/
+                     
+      - description: Monitoring and stuff
+        url: /grafana/
+        name: Grafana
+
+      - description: You know, for sharing
+        name: Transmission
+        url: /transmission/web/
+
+      - description:  WD MyCloud configuration
+        url: http://192.168.2.21/
+        name: NAS WEBUI
+
+      - description: Metrics scraper
+        url: /prometheus/
+        name: Prometheus
+
+      - description: Home automation web UI
+        url: http://192.168.2.6:8123
+        name: Home Assistant
+
+      - description: Plex media server
+        url: /web
+        name: Plex
+
+      - description: Notifications from prometheus
+        url: http://192.168.2.6:9093/
+        name: Alertmanager
+
+      - description: Smart devices
+        url: http://192.168.2.6:8083/
+        name: Zigbee2MQTT RPI
+
+      - description: Smart devices
+        url: http://192.168.2.6:8082/
+        name: Zigbee2MQTT LAN
+
+      - description: Anycubic Vyper
+        url: http://192.168.2.254/
+        name: Octorpint
+
+      - description: DHCP server UI
+        url: http://192.168.2.254:8080/
+        name: dnsmasq
+
+      - description: esp-32 controlled LED
+        url: http://192.168.2.188/
+        name: WLED01
