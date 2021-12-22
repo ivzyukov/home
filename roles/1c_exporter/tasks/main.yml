@@ -17,12 +17,13 @@
   docker_container:
     name: 1c_exporter
     user: root
-    image: rrozanoff/1c_exporter:{{ 1c_exporter_version }}
+    image: rrozanoff/1c_exporter:{{ odinc_exporter_version }}
     volumes:
+      - "{{ odinc_rac_path }}:{{ odinc_rac_path }}:ro"
       - "{{ data_dir }}/1c_exporter/conf/settings.yaml:/settings.yaml:ro"
     command:
         "/1c_exporter \
-          -port={{ 1c_exporter_port }} \
+          -port={{ odinc_exporter_port }} \
           --settings=/settings.yaml"      
     restart_policy: unless-stopped
     network_mode: host

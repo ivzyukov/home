@@ -5,7 +5,10 @@ prometheus_version: latest
 psql_exporter_version: v0.10.0
 my_timezone: Europe/Moscow
 my_domain: kettler
-1c_host: {{ inventory_hostname }} 
+
+odinc_host: '{{ inventory_hostname }}'
+odinc_version: "8.3.19.1351"
+odinc_rac_path: "/opt/1cv8/x86_64/{{ odinc_version }}/rac"
 
 telegram_chat_id: -565530917
 telegram_bot_token: !vault |
@@ -49,4 +52,4 @@ scrape_config:
     metrics_path: "/1C_Metrics"
     static_configs:
       - targets:
-         - 'localhost:{{ 1c_exporter_port }}'
+         - 'localhost:{{ odinc_exporter_port }}'

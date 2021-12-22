@@ -10,4 +10,4 @@ node_exporter_port: 9100
 mtproxy_port: 9876
 plex_port: 32400
 octoprint_port: 8081
-1c_exporter_port: 9099
+odinc_exporter_port: 9099
