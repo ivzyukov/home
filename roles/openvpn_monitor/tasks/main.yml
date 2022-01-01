@@ -1,23 +1,21 @@
 ---
 - name: Create directories for openvpn_monitor
   file:
-   path: "{{ item }}"
+   path: "{{ data_dir }}/openvpn-monitor/conf"
    state: directory
    mode: 0755
-  with_items:
-    - /srv/openvpn-monitor/conf
 
 - name: Copy openvpn-monitor config
   template:
     src: openvpn-monitor.conf
-    dest: /srv/openvpn-monitor
+    dest: "{{ data_dir }}/openvpn-monitor/"
   notify: restart openvpn-monitor
 
 - name: Run openvpn-monitor
   docker_container:
     name: openvpn-monitor
-    image: pharlan/docker-openvpn-monitor-arm
+    image: ruimarinho/openvpn-monitor  # pharlan/docker-openvpn-monitor-arm  # rpi version
     volumes:
-      - "/srv/openvpn-monitor/openvpn-monitor.conf:/openvpn-monitor/openvpn-monitor.conf:ro"
+      - "{{ data_dir }}/openvpn-monitor/openvpn-monitor.conf:/openvpn-monitor/openvpn-monitor.conf"
     restart_policy: unless-stopped
     network_mode: host

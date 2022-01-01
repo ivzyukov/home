@@ -1,9 +1,14 @@
+##  opnvepn server setp required
+# status /var/log/openvpn/status.log
+# status-version 3
+# management 127.0.0.1 5555
+
 - name: Run openvpn-exporter
   docker_container:
     name: openvpn-exporter
-    image: pharlan/openvpn-exporter
+    image: kumina/openvpn-exporter  #  pharlan/openvpn-exporter  #  rpi version
     volumes:
-      - "/etc/openvpn/server/openvpn-status.log:/etc/openvpn/server/openvpn-status.log:ro"
+      - "/var/log/openvpn/status.log:/etc/openvpn_exporter/server.status:ro"
     restart_policy: unless-stopped
     network_mode: host
-    command: "-openvpn.status_paths  /etc/openvpn/server/openvpn-status.log -web.listen-address :{{ openvpn_exporter_port }}"
+    command: "-openvpn.status_paths /etc/openvpn_exporter/server.status -web.listen-address :{{ openvpn_exporter_port }}"

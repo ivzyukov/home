@@ -25,6 +25,7 @@
   docker_container:
     name: dnsmasq
     image: jpillora/dnsmasq
+    entrypoint: ["webproc","--port","{{ dnsmasq_ui_port }}", "--config","/etc/dnsmasq.conf","--","dnsmasq","--no-daemon"]
     volumes:
       - "/srv/dnsmasq/conf/dnsmasq.conf:/etc/dnsmasq.conf:rw"
     env:

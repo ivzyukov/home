@@ -5,7 +5,8 @@ mosquitto_version: 1.6.9
 mtproxy_version: 1.4
 nginx_version: stable
 node_exporter_version: v1.0.1
-plex_version: amd64-latest #for rpi - arm32v7-latest
+plex_version: amd64-latest    #for rpi - arm32v7-latest
 prometheus_version: v2.18.1
-zigbee2mqtt_version: koenkk/zigbee2mqtt:1.21.2
+zigbee2mqtt_version: 1.21.2
 odinc_exporter_version: latest
+octorpint_version: 1.7.2

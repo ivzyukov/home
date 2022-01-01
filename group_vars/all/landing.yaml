@@ -2,7 +2,7 @@ landing_page:
 
       - description: Box with internet
         name: Router WEBUI
-        url: http://192.168.2.254/
+        url: http://192.168.2.1/
                      
       - description: Monitoring and stuff
         url: /grafana/
@@ -21,7 +21,7 @@ landing_page:
         name: Prometheus
 
       - description: Home automation web UI
-        url: http://192.168.2.6:8123
+        url: http://192.168.2.6:{{ homeassistant_port }}
         name: Home Assistant
 
       - description: Plex media server
@@ -29,7 +29,7 @@ landing_page:
         name: Plex
 
       - description: Notifications from prometheus
-        url: http://192.168.2.6:9093/
+        url: http://192.168.2.6:{{ alertmanager_port }}/
         name: Alertmanager
 
       - description: Smart devices
@@ -45,7 +45,7 @@ landing_page:
         name: Octorpint
 
       - description: DHCP server UI
-        url: http://192.168.2.254:8080/
+        url: http://192.168.2.254:{{ dnsmasq_ui_port }}/
         name: dnsmasq
 
       - description: esp-32 controlled LED
