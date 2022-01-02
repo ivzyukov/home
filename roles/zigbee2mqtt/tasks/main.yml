@@ -19,6 +19,10 @@
       - "/dev/ttyACM0"
     env:
       TZ: "{{ my_timezone }}"
+      ZIGBEE2MQTT_CONFIG_MQTT_BASE_TOPIC: "zigbee2mqtt"
+      ZIGBEE2MQTT_CONFIG_SERIAL_PORT: "/dev/ttyACM0"
+      ZIGBEE2MQTT_CONFIG_MQTT_SERVER: "mqtt://localhost"
+      ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: "{{ z2m_frontend_port }}"
     restart_policy: unless-stopped
     network_mode: host
 
@@ -27,12 +31,6 @@
    path: "{{ data_dir }}/data/zigbee2mqtt_lan"
    state: directory
    mode: 0755
-
-#- name: Copy config for lan coordinator
-#  template:
-#    src: zigbee2mqtt_lan.conf
-#    dest: "{{ data_dir }}/data/zigbee2mqtt_lan/configuration.yaml"
-#  notify: restart zigbee2mqtt
 
 - name: Run container for lan coordinator
   docker_container:
@@ -43,5 +41,9 @@
       - "{{ data_dir }}/data/zigbee2mqtt_lan/:/app/data:rw"
     env:
       TZ: "{{ my_timezone }}"
+      ZIGBEE2MQTT_CONFIG_MQTT_BASE_TOPIC: "zigbee2mqtt_lan"
+      ZIGBEE2MQTT_CONFIG_MQTT_SERVER: "mqtt://localhost"
+      ZIGBEE2MQTT_CONFIG_SERIAL_PORT: "tcp://{{ z2m_lan_adapter_ip }}:{{ z2m_lan_adapter_port }}"
+      ZIGBEE2MQTT_CONFIG_FRONTEND_PORT: "{{ z2m_frontend_port_lan }}"
     restart_policy: unless-stopped
     network_mode: host

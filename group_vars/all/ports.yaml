@@ -13,3 +13,6 @@ odinc_exporter_port: 9099
 openvpn_exporter_port: 9176
 plex_port: 32400
 prometheus_port: 9090
+z2m_frontend_port_lan: 8082
+z2m_frontend_port: 8083
+z2m_lan_adapter_port: 6638
