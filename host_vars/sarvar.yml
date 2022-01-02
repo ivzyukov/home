@@ -50,6 +50,10 @@ scrape_config:
           - 'localhost:9187'
   - job_name: '1c_exporter'
     metrics_path: "/1C_Metrics"
+    metric_relabel_configs:
+      - source_labels: [ __name__ ]
+        regex: 'disk.*|AvailablePerformance.*|CPU.*'
+        action: drop
     static_configs:
       - targets:
          - 'localhost:{{ odinc_exporter_port }}'

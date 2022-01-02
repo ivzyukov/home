@@ -1,0 +1,19 @@
+---
+
+- name: Create directories for unifi-controller
+  file:
+   path: "{{ data_dir }}/unifi/data/"
+   state: directory
+   mode: 0755
+
+- name: Run unifi-controller
+  docker_container:
+    name: unifi
+    image: lscr.io/linuxserver/unifi-controller
+    volumes:
+      - "{{ data_dir }}/unifi/data/:/config"
+    env:
+      PUID: "1000"
+      PGID: "1000"
+    restart_policy: unless-stopped
+    network_mode: host

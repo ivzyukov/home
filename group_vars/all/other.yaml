@@ -1,5 +1,5 @@
 ---
-kiosk_url: http://localhost:8123
+kiosk_url: "http://localhost:{{ homeassistant_port }}"
 media_mount:
   - point: Transmission/Movies
     name: mnt-plex-Transmission-Movies
@@ -32,7 +32,7 @@ scrape_config:
       - targets: [ '{{ ansible_host }}:{{ prometheus_port }}' ]
   - job_name: 'openvpn'
     static_configs:
-      - targets: [ '{{ ansible_host }}:{{ openvpn_exporter_port }}' ]
+      - targets: [ '{{ hostvars["netbox"].ansible_host }}:{{ openvpn_exporter_port }}' ]
   - job_name: 'mqtt'
     static_configs:
       - targets: [ '{{ ansible_host }}:{{ mqtt2prometheus_port }}' ]

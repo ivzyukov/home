@@ -1,0 +1,7 @@
+[all_servers]
+
+rpi01 ansible_host=192.168.2.6
+netbox ansible_host=192.168.2.254
+
+#rpi02 ansible_host=192.168.2.
+#proxmox ansible_host=192.168.2.

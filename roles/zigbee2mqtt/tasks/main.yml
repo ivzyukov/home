@@ -5,12 +5,12 @@
    state: directory
    mode: 0755
   with_items:
-    - "{{ data_dir }}/data/zigbee2mqtt/log"
+    - "{{ data_dir }}/data/zigbee2mqtt"
 
 - name: Run container for usb coordinator
   docker_container:
     name: zigbee2mqtt
-    image: '{{ zigbee2mqtt_version }}'
+    image: 'koenkk/zigbee2mqtt:{{ zigbee2mqtt_version }}'
     privileged: yes
     volumes:
       - "{{ data_dir }}/data/zigbee2mqtt/:/app/data:rw"
@@ -24,22 +24,20 @@
 
 - name: Create directories for lan coordinator
   file:
-   path: "{{ item }}"
+   path: "{{ data_dir }}/data/zigbee2mqtt_lan"
    state: directory
    mode: 0755
-  with_items:
-    - "{{ data_dir }}/data/zigbee2mqtt_lan/log"
 
-- name: Copy config for lan coordinator
-  template:
-    src: zigbee2mqtt_lan.conf
-    dest: "{{ data_dir }}/data/zigbee2mqtt_lan/configuration.yaml"
-  notify: restart zigbee2mqtt
+#- name: Copy config for lan coordinator
+#  template:
+#    src: zigbee2mqtt_lan.conf
+#    dest: "{{ data_dir }}/data/zigbee2mqtt_lan/configuration.yaml"
+#  notify: restart zigbee2mqtt
 
 - name: Run container for lan coordinator
   docker_container:
     name: zigbee2mqtt_lan
-    image: '{{ zigbee2mqtt_version }}'
+    image: 'koenkk/zigbee2mqtt:{{ zigbee2mqtt_version }}'
     privileged: yes
     volumes:
       - "{{ data_dir }}/data/zigbee2mqtt_lan/:/app/data:rw"

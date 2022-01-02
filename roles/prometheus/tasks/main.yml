@@ -19,6 +19,7 @@
   copy:
     src: alerts.yml
     dest: "{{ data_dir }}/prometheus/conf/alerts.yml"
+  notify: restart prometheus
 
 - name: Copy Alertmanager config
   template:

@@ -21,7 +21,6 @@
     volumes:
       - "{{ data_dir }}/alertmanager/conf/:/etc/alertmanager/:ro"
     command:
-        "--config.file=/etc/prometheus/prometheus.yml \
-        "
+        "--config.file=/etc/prometheus/prometheus.yml"
     restart_policy: unless-stopped
     network_mode: host
