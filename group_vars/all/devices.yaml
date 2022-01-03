@@ -9,3 +9,5 @@ shelly_plug_1: 192.168.2.151
 shelly_plug_2: 192.168.2.9
 
 media_server: 192.168.2.21
+
+z2m_lan_adapter_ip: 192.168.2.13

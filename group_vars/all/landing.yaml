@@ -12,7 +12,7 @@ landing_page:
         name: Transmission
         url: /transmission/web/
 
-      - description:  WD MyCloud configuration
+      - description: WD MyCloud configuration
         url: http://192.168.2.21/
         name: NAS WEBUI
 
@@ -33,11 +33,11 @@ landing_page:
         name: Alertmanager
 
       - description: Smart devices
-        url: http://192.168.2.6:8083/
+        url: http://192.168.2.6:{{ z2m_frontend_port }}/
         name: Zigbee2MQTT RPI
 
       - description: Smart devices
-        url: http://192.168.2.6:8082/
+        url: http://192.168.2.6:{{ z2m_frontend_port_lan }}/
         name: Zigbee2MQTT LAN
 
       - description: Anycubic Vyper

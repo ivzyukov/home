@@ -1,6 +1,5 @@
 dnsmasq_conf: |
   log-queries
-  #log-facility=/var/log/pihole.log
 
   local-ttl=2
 

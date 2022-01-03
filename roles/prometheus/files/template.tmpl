@@ -1,0 +1,20 @@
+<b>!!!АЛЯРМ!!!</b>
+
+{{ .CommonAnnotations.summary }}
+
+{{if eq .CommonLabels.severity "warning" -}}
+Severity: <b>{{ .CommonLabels.severity | str_UpperCase }} ⚠️</b>
+{{else if eq .CommonLabels.severity "critical" -}}
+Severity: <b>{{.CommonLabels.severity | str_UpperCase }} 🚨</b>
+{{else -}}
+Severity: <b>{{.CommonLabels.severity | str_UpperCase }}</b>
+{{ end -}}
+{{if eq .Status "firing"}}
+Status: <b>{{.Status | str_UpperCase}} 🔥</b>
+{{end -}}
+
+{{if eq .Status "resolved"}}
+Status: <b>{{.Status | str_UpperCase}} ✅</b>
+{{end }}
+------------------------------------
+{{ .CommonAnnotations.description }}

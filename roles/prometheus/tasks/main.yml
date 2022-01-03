@@ -33,6 +33,12 @@
     dest: "{{ data_dir }}/alertmanager/conf/telegram_bot_config.yml"
   notify: restart prometheus_bot
 
+- name: Copy Telegram_bot alerts template
+  copy:
+    src: template.tmpl
+    dest: "{{ data_dir }}/alertmanager/conf/template.tmpl"
+  notify: restart prometheus_bot
+
 - name: Run Prometheus
   docker_container:
     name: prometheus
@@ -63,6 +69,7 @@
     network_mode: host
     volumes:
       - "{{ data_dir }}/alertmanager/conf/telegram_bot_config.yml:/config.yaml:ro"
+      - "{{ data_dir }}/alertmanager/conf/template.tmpl:/template.tmpl:ro"
 
 - name: Run Alertmanager
   docker_container:
